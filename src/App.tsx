@@ -1,12 +1,9 @@
-/* eslint-disable no-debugger */
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
+import { routes } from "./routes";
 
 function App() {
-  const arr = ["Le Doan Hieu", "A", "B", "C"];
-  arr.forEach((element) => {
-    console.log(element);
-  });
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return <RouterProvider router={routes} />;
 }
 
 export default App;

@@ -1,9 +1,11 @@
 import { TbGiftFilled } from "react-icons/tb";
 import { IoIosArrowForward } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { Button, Drawer } from "antd";
+import { Drawer } from "antd";
 import { useState } from "react";
-import FormLogin from "../../components/FormLogin";
+import ButtonCellphoneS from "../../components/ButtonCellphoneS";
+import LinkCellphone from "../../components/LinkCellohone";
+import { useNavigate } from "react-router-dom";
+import FormLogin from "../../components/forms/FormLogin";
 interface Promotion {
   bold: string;
   normal: string;
@@ -35,6 +37,7 @@ const LoginPage = () => {
       normal: "Đặc quyền S-Student/S-Teacher",
     },
   ];
+  const navigate = useNavigate();
   const [open, setOpen] = useState<undefined | boolean>(false);
   const showDrawer = () => {
     setOpen(true);
@@ -65,14 +68,14 @@ const LoginPage = () => {
             Để không bỏ lỡ các ưu đãi hấp dẫn từ CellphoneS
           </p>
         </div>
-        <div className="flex flex-col gap-y-2 bg-[#e2e1e1] p-4 rounded-[2rem] mt-4">
+        <div className="flex flex-col gap-y-2 bg-[#e2e1e1] p-4 rounded-[2rem] mt-4 text-[0.8rem]">
           {promotionPolicy.map((item, index) => (
             <div key={index} className="flex items-center gap-x-2">
               <div className="flex items-center justify-center">
                 <TbGiftFilled className="text-[#d70019] text-[1.8rem]" />
               </div>
               {index <= 2 ? (
-                <p>
+                <p className="">
                   <span className="font-bold">{item.bold}</span>
                   {item.normal}
                 </p>
@@ -84,32 +87,36 @@ const LoginPage = () => {
               )}
             </div>
           ))}
-          <Link to={"#"}>
+          <LinkCellphone to={"#"}>
             <p className="flex items-center justify-center gap-x-2 text-[#d70019] my-4">
               Xem chi tiết chính sách ưu đãi Smember
               <IoIosArrowForward className="font-bold" />
             </p>
-          </Link>
+          </LinkCellphone>
         </div>
         <div className="mt-[-3.7rem]">
           <img src="/images/smember-promotion-ant.a7833c47.png" />
         </div>
         <div className="flex items-center gap-x-4">
-          <Button className="w-full border-[#d70019] text-[#d70019] h-[3rem]">
-            Đăng ký
-          </Button>
-          <Button
-            className="bg-[#d70019] text-white w-full h-[3rem]"
+          <ButtonCellphoneS
+            className="bg-white"
+            children="Đăng ký"
+            type="primary"
+            onClick={() => navigate("/register")}
+          />
+          <ButtonCellphoneS
             onClick={showDrawer}
-          >
-            Đăng nhập
-          </Button>
+            className="text-white"
+            children="Đăng nhập"
+          />
         </div>
         <Drawer
           placement={"bottom"}
           closable={false}
           onClose={onClose}
           open={open}
+          height={780}
+          className="rounded-[1.1rem]"
         >
           <FormLogin />
         </Drawer>

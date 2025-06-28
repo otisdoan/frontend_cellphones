@@ -4,15 +4,8 @@ import { IoInformationCircleSharp } from "react-icons/io5";
 import LinkCellphone from "../LinkCellohone";
 import ButtonCellphoneS from "../ButtonCellphoneS";
 import { useNavigate } from "react-router-dom";
+import type { RegisterFormType } from "../../types/forms/formType";
 
-interface RegisterFormType {
-  full_name: string;
-  date_of_birth: string;
-  phone: string;
-  email: string;
-  password_hash: string;
-  confirm_password?: string;
-}
 const FormRegister = () => {
   const [forms] = Form.useForm();
   const navigate = useNavigate();

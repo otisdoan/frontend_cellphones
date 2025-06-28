@@ -3,17 +3,19 @@ import FormItem from "antd/es/form/FormItem";
 import ButtonCellphoneS from "../ButtonCellphoneS";
 import LinkCellphone from "../LinkCellohone";
 import LoginByAnother from "../LoginByAnother";
-
-interface LoginFormType {
-  phone: string;
-  password_login: string;
-}
+import type { LoginFormType } from "../../types/forms/formType";
+import { authApi } from "../../utils/api/auth.api";
 
 const FormLogin = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: LoginFormType) => {
-    console.log("Form data:", values);
+  const onFinish = async (values: LoginFormType) => {
+    try {
+      const result = await authApi.login(values);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

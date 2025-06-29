@@ -5,14 +5,23 @@ import LinkCellphone from "../LinkCellohone";
 import LoginByAnother from "../LoginByAnother";
 import type { LoginFormType } from "../../types/forms/formType";
 import { authApi } from "../../utils/api/auth.api";
+import { useNavigate } from "react-router-dom";
+import { useMessage } from "../../hooks/useMessage";
 
 const FormLogin = () => {
   const [form] = Form.useForm();
-
+  const navigate = useNavigate();
+  const { contextHolder, showSuccess } = useMessage();
   const onFinish = async (values: LoginFormType) => {
     try {
       const result = await authApi.login(values);
-      console.log(result);
+      if (result.data && result.status === "success") {
+        localStorage.setItem("access_token", result.data.access_token);
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -20,6 +29,7 @@ const FormLogin = () => {
 
   return (
     <>
+      {contextHolder}
       <div className="">
         <div className="flex justify-center mb-5 mt-[-0.5rem]">
           <div className="w-[7rem] h-2 bg-[#f5f5f5] rounded-sm"></div>
@@ -41,7 +51,7 @@ const FormLogin = () => {
               rules={[
                 { required: true, message: "Số điện thoại là bắt buộc!" },
                 {
-                  pattern: /^[0-9]{10,11}$/,
+                  pattern: /^[0-9]{10}$/,
                   message: "Số điện thoại không hợp lệ!",
                 },
               ]}

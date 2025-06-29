@@ -5,15 +5,33 @@ import LinkCellphone from "../LinkCellohone";
 import ButtonCellphoneS from "../ButtonCellphoneS";
 import { useNavigate } from "react-router-dom";
 import type { RegisterFormType } from "../../types/forms/formType";
+import dayjs from "dayjs";
+import { authApi } from "../../utils/api/auth.api";
+import { useMessage } from "../../hooks/useMessage";
 
 const FormRegister = () => {
   const [forms] = Form.useForm();
   const navigate = useNavigate();
-  const onSubmit = (data: RegisterFormType) => {
-    console.log(data);
+  const { contextHolder, showSuccess } = useMessage();
+  const onSubmit = async (data: RegisterFormType) => {
+    try {
+      const result = await authApi.register({
+        ...data,
+        date_of_birth: dayjs(data.date_of_birth).format("YYYY-MM-DD"),
+      });
+      if (result.data && result.status === "success") {
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
+      {contextHolder}
       <div>
         <h4 className="font-bold mb-4">Thông tin cá nhân</h4>
         <Form<RegisterFormType>
@@ -55,7 +73,7 @@ const FormRegister = () => {
             rules={[
               { required: true, message: "Số điện thoại là bắt buộc!" },
               {
-                pattern: /^[0-9]{10,11}$/,
+                pattern: /^[0-9]{10}$/,
                 message: "Số điện thoại không hợp lệ!",
               },
             ]}
@@ -70,7 +88,6 @@ const FormRegister = () => {
             }
             name="email"
             rules={[
-              { required: true, message: "Email là bắt buộc!" },
               {
                 pattern: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
                 message: "Email không hợp lệ!",
@@ -91,7 +108,7 @@ const FormRegister = () => {
             Tạo mật khẩu
           </h4>
           <Form.Item<RegisterFormType>
-            label="Nhập lại mật khẩu"
+            label="Mật khẩu"
             name="password_hash"
             rules={[
               { required: true, message: "Mật khẩu là bắt buộc!" },
@@ -112,7 +129,7 @@ const FormRegister = () => {
             />
           </Form.Item>
           <Form.Item<RegisterFormType>
-            label="Mật khẩu"
+            label="Nhập lại mật khẩu"
             name="confirm_password"
             dependencies={["password_hash"]}
             rules={[

@@ -23,4 +23,10 @@ export const authApi = {
     );
     return response.data;
   },
+  loginByGoogle: async (token: string | undefined) => {
+    const response = await axiosInstance.post<LoginResponse>(API_URL.GOOGLE, {
+      token,
+    });
+    return response.data;
+  },
 };

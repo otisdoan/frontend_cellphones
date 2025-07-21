@@ -1,7 +1,13 @@
+import type { GoogleLoginProps } from "@react-oauth/google";
 import { Button, type ButtonProps } from "antd";
 import clsx from "clsx";
 
-const ButtonCellphoneS = ({ children, className, ...props }: ButtonProps) => {
+type ButtonCellphoneSProps = ButtonProps & Partial<GoogleLoginProps>;
+const ButtonCellphoneS = ({
+  children,
+  className,
+  ...props
+}: ButtonCellphoneSProps) => {
   return (
     <>
       <Button

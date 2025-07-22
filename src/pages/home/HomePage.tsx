@@ -1,7 +1,11 @@
+import HeaderHome from "../../components/home/HeaderHome";
+
 const HomePage = () => {
   return (
     <>
-      <div>Trang nay chi dang nhap moi vao</div>
+      <div>
+        <HeaderHome />
+      </div>
     </>
   );
 };

@@ -40,119 +40,131 @@ const FormRegister = () => {
           onFinish={onSubmit}
           form={forms}
         >
-          <Form.Item<RegisterFormType>
-            name={"full_name"}
-            rules={[
-              { required: true, message: "Họ và tên không được để trống!" },
-            ]}
-            label={"Họ và tên"}
-          >
-            <Input placeholder="Nhập họ và tên" className="h-[3rem]" />
-          </Form.Item>
-          <Form.Item<RegisterFormType>
-            name={"date_of_birth"}
-            rules={[
-              {
-                required: true,
-                message: "Ngày sinh không được để trống!",
-              },
-            ]}
-            label={"Ngày sinh"}
-          >
-            <DatePicker
-              className="h-[3rem] w-full"
-              format={{
-                format: "YYYY-MM-DD",
-              }}
-              placeholder="YYYY-MM-DD"
-            />
-          </Form.Item>
-          <Form.Item<RegisterFormType>
-            label="Số điện thoại"
-            name="phone"
-            rules={[
-              { required: true, message: "Số điện thoại là bắt buộc!" },
-              {
-                pattern: /^[0-9]{10}$/,
-                message: "Số điện thoại không hợp lệ!",
-              },
-            ]}
-          >
-            <Input placeholder="Nhập số điện thoại" className="h-[3rem]" />
-          </Form.Item>
-          <Form.Item<RegisterFormType>
-            label={
-              <p>
-                Email <span className="opacity-40">{`(Không bắt buộc)`}</span>
-              </p>
-            }
-            name="email"
-            rules={[
-              {
-                pattern: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
-                message: "Email không hợp lệ!",
-              },
-            ]}
-            help={
-              <p className="flex items-center gap-x-1">
-                <IoMdCheckmark className="text-[#217541]" />
-                <span className="text-[#217541] text-[0.8rem]">
-                  Hóa đơn VAT khi mua hàng sẽ được gửi qua email này
-                </span>
-              </p>
-            }
-          >
-            <Input placeholder="Nhập email" className="h-[3rem]" />
-          </Form.Item>
-          <h4 className="font-bold mt-[2.2rem] mb-4 text-[1.1rem]">
+          <div className="md:flex md:items-center md:gap-x-4">
+            <Form.Item<RegisterFormType>
+              name={"full_name"}
+              rules={[
+                { required: true, message: "Họ và tên không được để trống!" },
+              ]}
+              label={"Họ và tên"}
+              className="md:w-1/2"
+            >
+              <Input placeholder="Nhập họ và tên" className="h-[3rem]" />
+            </Form.Item>
+            <Form.Item<RegisterFormType>
+              name={"date_of_birth"}
+              rules={[
+                {
+                  required: true,
+                  message: "Ngày sinh không được để trống!",
+                },
+              ]}
+              label={"Ngày sinh"}
+              className="md:w-1/2"
+            >
+              <DatePicker
+                className="h-[3rem] w-full"
+                format={{
+                  format: "YYYY-MM-DD",
+                }}
+                placeholder="YYYY-MM-DD"
+              />
+            </Form.Item>
+          </div>
+          <div className="md:flex md:items-center md:gap-x-4">
+            <Form.Item<RegisterFormType>
+              label="Số điện thoại"
+              name="phone"
+              rules={[
+                { required: true, message: "Số điện thoại là bắt buộc!" },
+                {
+                  pattern: /^[0-9]{10}$/,
+                  message: "Số điện thoại không hợp lệ!",
+                },
+              ]}
+              className="md:w-1/2"
+            >
+              <Input placeholder="Nhập số điện thoại" className="h-[3rem]" />
+            </Form.Item>
+            <Form.Item<RegisterFormType>
+              label={
+                <p>
+                  Email <span className="opacity-40">{`(Không bắt buộc)`}</span>
+                </p>
+              }
+              name="email"
+              rules={[
+                {
+                  pattern: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+                  message: "Email không hợp lệ!",
+                },
+              ]}
+              help={
+                <p className="flex items-center gap-x-1">
+                  <IoMdCheckmark className="text-[#217541]" />
+                  <span className="text-[#217541] text-[0.8rem]">
+                    Hóa đơn VAT khi mua hàng sẽ được gửi qua email này
+                  </span>
+                </p>
+              }
+              className="md:w-1/2"
+            >
+              <Input placeholder="Nhập email" className="h-[3rem]" />
+            </Form.Item>
+          </div>
+          <h4 className="font-bold mt-[2.2rem] mb-4 text-[1.1rem] md:mt-[2rem]">
             Tạo mật khẩu
           </h4>
-          <Form.Item<RegisterFormType>
-            label="Mật khẩu"
-            name="password_hash"
-            rules={[
-              { required: true, message: "Mật khẩu là bắt buộc!" },
-              { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
-            ]}
-            help={
-              <p className="flex items-center gap-x-1">
-                <IoInformationCircleSharp />
-                <span>
-                  Mật khẩu tối thiểu 6 ký tự, có ít nhất 1 chữ số và 1 số
-                </span>
-              </p>
-            }
-          >
-            <Input.Password
-              placeholder="Nhập mật khẩu của bạn"
-              className="h-[3rem]"
-            />
-          </Form.Item>
-          <Form.Item<RegisterFormType>
-            label="Nhập lại mật khẩu"
-            name="confirm_password"
-            dependencies={["password_hash"]}
-            rules={[
-              { required: true, message: "Làm ơn xác nhận mật khẩu!" },
-              { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password_hash") === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error("Mật khẩu không trùng khớp!")
-                  );
-                },
-              }),
-            ]}
-          >
-            <Input.Password
-              placeholder="Nhập lại mật khẩu của bạn"
-              className="h-[3rem]"
-            />
-          </Form.Item>
-          <Form.Item>
+          <div className="md:flex md:items-center md:gap-x-4">
+            <Form.Item<RegisterFormType>
+              label="Mật khẩu"
+              name="password_hash"
+              rules={[
+                { required: true, message: "Mật khẩu là bắt buộc!" },
+                { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
+              ]}
+              help={
+                <p className="flex items-center gap-x-1">
+                  <IoInformationCircleSharp />
+                  <span className="text-black opacity-70">
+                    Mật khẩu tối thiểu 6 ký tự, có ít nhất 1 chữ số và 1 số
+                  </span>
+                </p>
+              }
+              className="md:w-1/2"
+            >
+              <Input.Password
+                placeholder="Nhập mật khẩu của bạn"
+                className="h-[3rem]"
+              />
+            </Form.Item>
+            <Form.Item<RegisterFormType>
+              label="Nhập lại mật khẩu"
+              name="confirm_password"
+              dependencies={["password_hash"]}
+              rules={[
+                { required: true, message: "Làm ơn xác nhận mật khẩu!" },
+                { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password_hash") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error("Mật khẩu không trùng khớp!")
+                    );
+                  },
+                }),
+              ]}
+              className="md:w-1/2"
+            >
+              <Input.Password
+                placeholder="Nhập lại mật khẩu của bạn"
+                className="h-[3rem]"
+              />
+            </Form.Item>
+          </div>
+          <Form.Item className="md:mt-[1.5rem]">
             <Checkbox>Đăng ký nhận khuyến mãi từ CellphoneS</Checkbox>
           </Form.Item>
           <div>

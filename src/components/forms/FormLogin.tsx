@@ -31,10 +31,10 @@ const FormLogin = () => {
     <>
       {contextHolder}
       <div className="">
-        <div className="flex justify-center mb-5 mt-[-0.5rem]">
+        <div className="flex justify-center mb-5 mt-[-0.5rem] md:hidden">
           <div className="w-[7rem] h-2 bg-[#f5f5f5] rounded-sm"></div>
         </div>
-        <h4 className="font-bold text-center text-[1.1rem] mb-[1.5rem]">
+        <h4 className="font-bold text-center text-[1.1rem] mb-[1.5rem] md:text-[#d70019] md:text-[2rem]">
           Đăng nhập SMEMBER
         </h4>
         <div>

@@ -43,7 +43,7 @@ const GoogleLoginButton = () => {
             Google
           </div>
         }
-        className="bg-white border-gray-400 text-black"
+        className="bg-white border-gray-400 text-black md:w-[12rem]"
       />
     </>
   );

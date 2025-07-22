@@ -12,11 +12,11 @@ const LoginByAnother = ({ title }: { title: string }) => {
         <Divider className="">
           <span className="opacity-55 text-[0.9rem]">{title}</span>
         </Divider>
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 md:justify-center">
           <GoogleOAuthProvider clientId="566050216696-2d8pe12hamn2igtosqqbsfimos98i8en.apps.googleusercontent.com">
             <GoogleLoginButton />
           </GoogleOAuthProvider>
-          <TbPointFilled className="text-[3rem] opacity-20" />
+          <TbPointFilled className="text-[3rem] opacity-20 md:text-[1.2rem]" />
           <ButtonCellphoneS
             children={
               <div className="flex items-center gap-x-1">
@@ -24,7 +24,7 @@ const LoginByAnother = ({ title }: { title: string }) => {
                 Zalo
               </div>
             }
-            className="bg-white border-gray-400 text-black"
+            className="bg-white border-gray-400 text-black md:w-[12rem]"
           />
         </div>
       </div>

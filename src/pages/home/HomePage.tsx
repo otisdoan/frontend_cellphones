@@ -2,13 +2,28 @@ import FooterHome from "../../components/home/FooterHome";
 import HeaderHome from "../../components/home/HeaderHome";
 import ButtonCellphoneS from "../../components/ButtonCellphoneS";
 import { SlEarphonesAlt } from "react-icons/sl";
-import { Popover } from "antd";
+import { BackTop, Popover } from "antd";
+import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 
 const HomePage = () => {
   return (
     <>
       <div>
-        <div className="fixed top-[40rem] right-[10rem]">
+        <BackTop
+          className="top-[37rem] right-[10rem] w-[6.4rem] hidden md:block"
+          children={
+            <ButtonCellphoneS
+              className="bg-black text-white h-[2.5rem] border-0"
+              children={
+                <div className="flex items-center gap-x-1">
+                  <span>Lên đầu</span>
+                  <MdOutlineKeyboardDoubleArrowUp className="text-[1.2rem]" />
+                </div>
+              }
+            />
+          }
+        />
+        <div className="fixed top-[40rem] right-[10rem] hidden md:block">
           <Popover
             content={
               <div className="">

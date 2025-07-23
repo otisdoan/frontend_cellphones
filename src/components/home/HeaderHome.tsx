@@ -47,7 +47,7 @@ const HeaderHome = () => {
 
   return (
     <>
-      <div className="bg-color md:w-full pb-4">
+      <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-10">
         <div className="w-full">
           <div className=" md:flex md:items-center md:px-[2rem]">
             <div className="md:w-[60%]">

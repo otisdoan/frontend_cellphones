@@ -1,3 +1,4 @@
+import FooterHome from "../../components/home/FooterHome";
 import HeaderHome from "../../components/home/HeaderHome";
 
 const HomePage = () => {
@@ -5,6 +6,7 @@ const HomePage = () => {
     <>
       <div>
         <HeaderHome />
+        <FooterHome />
       </div>
     </>
   );

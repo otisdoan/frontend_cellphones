@@ -1,10 +1,10 @@
-const SvgLogo = () => {
+const SvgLogo = ({ width, height }: { width: string; height: string }) => {
   return (
     <>
       <div>
         <svg
-          width="38"
-          height="43"
+          width={width}
+          height={height}
           viewBox="0 0 38 43"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

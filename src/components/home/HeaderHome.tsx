@@ -91,7 +91,7 @@ const HeaderHome = () => {
           </div>
           <div className="flex items-center gap-x-2 md:gap-x-4 mt-4 px-3 md:px-[10rem]">
             <div className="md:hidden">
-              <SvgLogo />
+              <SvgLogo width="38" height="40" />
             </div>
             <div className="hidden md:block">
               <SvgLogoDesktop />

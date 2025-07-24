@@ -28,10 +28,7 @@ const HomePage = () => {
             content={
               <div className="">
                 <div className="flex items-center gap-x-1 mb-4 cursor-pointer">
-                  <img
-                    src="/public/images/icon-cskh-2025.webp"
-                    className="w-[2rem]"
-                  />
+                  <img src="/images/icon-cskh-2025.webp" className="w-[2rem]" />
                   <span>Chat với nhân viên</span>
                 </div>
                 <div className="flex items-center gap-x-1 cursor-pointer">

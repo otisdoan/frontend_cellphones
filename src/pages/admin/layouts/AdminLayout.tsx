@@ -70,9 +70,10 @@ const AdminLayout = () => {
             </Layout>
           </Layout>
         </div>
+
         <div className="md:hidden">
           <Layout>
-            <Header className="bg-white px-2">
+            <Header className="bg-white px-4">
               <div className="flex items-center justify-between ">
                 <div className="bg-[#d70019] ">
                   <SvgLogo width="40" height="40" />

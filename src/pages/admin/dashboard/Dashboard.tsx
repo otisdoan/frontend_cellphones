@@ -6,10 +6,12 @@ import TabDashboard from "./components/TabDashboard";
 const Dashboard = () => {
   return (
     <>
-      <div className="p-4 flex gap-4">
-        <div className="w-2/3">
+      <div className="p-4 md:flex md:flex-row md:gap-4 flex flex-col gap-y-4">
+        <div className="md:w-2/3 w-full">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="font-medium text-[1.7rem]">Dashboard</h1>
+            <h1 className="md:font-medium md:text-[1.7rem] hidden md:block">
+              Dashboard
+            </h1>
             <TabDashboard />
           </div>
           <Statistic />
@@ -17,7 +19,7 @@ const Dashboard = () => {
             <TotalRevenue />
           </div>
         </div>
-        <div className="w-1/3 bg-white rounded-lg p-4">
+        <div className="md:w-1/3 bg-white rounded-lg p-4 w-full">
           <DeliveryTracking />
         </div>
       </div>

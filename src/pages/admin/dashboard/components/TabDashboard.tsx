@@ -99,7 +99,7 @@ const TabDashboard = () => {
         <Tabs
           defaultActiveKey="1"
           items={items}
-          className="px-1 rounded-lg bg-white"
+          className="md:px-1 md:rounded-lg md:bg-white hidden md:block"
         />
       </ConfigProvider>
     </>

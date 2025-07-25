@@ -97,7 +97,7 @@ const HeaderHome = () => {
               <SvgLogoDesktop />
             </div>
             <ButtonCellphoneS
-              className="bg-[#e45464] text-white rounded-[10px] w-[20%] hidden md:block"
+              className="bg-[#e45464] text-white rounded-[10px] w-[25%] hidden md:block"
               children={
                 <div className="flex items-center gap-x-2">
                   <BiCategory className="text-[1.5rem]" />
@@ -108,7 +108,7 @@ const HeaderHome = () => {
               onClick={() => setIsOpen(true)}
             />
             <ButtonCellphoneS
-              className="bg-[#e45464] text-white rounded-[10px] hidden md:block w-[20%]"
+              className="bg-[#e45464] text-white rounded-[10px] hidden md:block w-[25%]"
               children={
                 <div className="flex items-center gap-x-2">
                   <GrMapLocation className="text-[1.5rem]" />

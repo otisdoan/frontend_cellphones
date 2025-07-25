@@ -13,7 +13,7 @@ const LoginByAnother = ({ title }: { title: string }) => {
           <span className="opacity-55 text-[0.9rem]">{title}</span>
         </Divider>
         <div className="flex items-center gap-x-2 md:justify-center">
-          <GoogleOAuthProvider clientId="566050216696-2d8pe12hamn2igtosqqbsfimos98i8en.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
             <GoogleLoginButton />
           </GoogleOAuthProvider>
           <TbPointFilled className="text-[3rem] opacity-20 md:text-[1.2rem]" />

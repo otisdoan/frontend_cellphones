@@ -11,7 +11,7 @@ import { MdOutlineNotificationsActive } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { IoCaretBackCircle } from "react-icons/io5";
 import SvgLogo from "../../../components/svg/SvgLogo";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const AdminLayout = () => {
@@ -19,7 +19,7 @@ const AdminLayout = () => {
     {
       key: "1",
       icon: <RxDashboard />,
-      label: "Dashboard",
+      label: <Link to="/admin">Dashboard</Link>,
     },
     {
       key: "2",
@@ -109,7 +109,7 @@ const AdminLayout = () => {
                   <Avatar src={"/images/doanhieu.jpg"} size={"large"} />
                 </div>
               )}
-              <Menu items={items} mode="inline" />
+              <Menu items={items} mode="inline" defaultSelectedKeys={["1"]} />
               <div
                 className="flex justify-center cursor-pointer mt-5"
                 onClick={() => setCollapsed(!collapsed)}

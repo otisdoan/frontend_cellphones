@@ -14,8 +14,8 @@ const TabDashboard = () => {
         <div
           className={
             selected === 1
-              ? `flex items-center gap-x-1 bg-[#292929] p-3 rounded-lg text-white`
-              : `flex items-center gap-x-1 p-3 rounded-lg`
+              ? `flex items-center gap-x-1 bg-[#292929] p-2 rounded-lg text-white`
+              : `flex items-center gap-x-1 p-1 rounded-lg`
           }
           onClick={() => setSelected(1)}
         >
@@ -31,7 +31,7 @@ const TabDashboard = () => {
         <div
           className={
             selected === 2
-              ? `flex items-center gap-x-1 bg-[#292929] p-3 rounded-lg text-white`
+              ? `flex items-center gap-x-1 bg-[#292929] p-2 rounded-lg text-white`
               : `flex items-center gap-x-1 p-3 rounded-lg`
           }
           onClick={() => setSelected(2)}
@@ -48,7 +48,7 @@ const TabDashboard = () => {
         <div
           className={
             selected === 3
-              ? `flex items-center gap-x-1 bg-[#292929] p-3 rounded-lg text-white`
+              ? `flex items-center gap-x-1 bg-[#292929] p-2 rounded-lg text-white`
               : `flex items-center gap-x-1 p-3 rounded-lg`
           }
           onClick={() => setSelected(3)}
@@ -65,7 +65,7 @@ const TabDashboard = () => {
         <div
           className={
             selected === 4
-              ? `flex items-center gap-x-1 bg-[#292929] p-3 rounded-lg text-white`
+              ? `flex items-center gap-x-1 bg-[#292929] p-2 rounded-lg text-white`
               : `flex items-center gap-x-1 p-3 rounded-lg`
           }
           onClick={() => setSelected(4)}
@@ -99,7 +99,7 @@ const TabDashboard = () => {
         <Tabs
           defaultActiveKey="1"
           items={items}
-          className="border-[1px] px-3 rounded-lg bg-white"
+          className="px-1 rounded-lg bg-white"
         />
       </ConfigProvider>
     </>

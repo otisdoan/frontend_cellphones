@@ -1,4 +1,5 @@
 import TotalRevenue from "./components/charts/TotalRevenue";
+import DeliveryTracking from "./components/DeliveryTracking";
 import Statistic from "./components/Statistic";
 import TabDashboard from "./components/TabDashboard";
 
@@ -16,7 +17,9 @@ const Dashboard = () => {
             <TotalRevenue />
           </div>
         </div>
-        <div className="w-1/3 bg-white rounded-lg p-4"></div>
+        <div className="w-1/3 bg-white rounded-lg p-4">
+          <DeliveryTracking />
+        </div>
       </div>
     </>
   );

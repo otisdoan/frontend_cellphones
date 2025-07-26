@@ -6,7 +6,7 @@ import { useState } from "react";
 import { IoCaretBackCircle } from "react-icons/io5";
 import SvgLogo from "../../../components/svg/SvgLogo";
 import { Outlet } from "react-router-dom";
-import MenuLayout from "../dashboard/components/MenuLayout";
+import MenuLayout from "../../../components/admin/MenuLayout";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { BsList } from "react-icons/bs";
 const AdminLayout = () => {

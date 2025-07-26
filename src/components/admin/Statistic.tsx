@@ -1,8 +1,8 @@
 import { HiArrowTrendingUp } from "react-icons/hi2";
 import { HiArrowTrendingDown } from "react-icons/hi2";
-import TotalOrder from "./charts/TotalOrder";
 import { Statistic, type StatisticProps } from "antd";
 import CountUp from "react-countup";
+import TotalOrder from "./charts/TotalOrder";
 
 const Statistics = () => {
   const formatter: StatisticProps["formatter"] = (value) => (

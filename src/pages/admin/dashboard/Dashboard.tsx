@@ -1,7 +1,8 @@
-import TotalRevenue from "./components/charts/TotalRevenue";
-import DeliveryTracking from "./components/DeliveryTracking";
-import Statistic from "./components/Statistic";
-import TabDashboard from "./components/TabDashboard";
+import TotalRevenue from "../../../components/admin/charts/TotalRevenue";
+import DeliveryTracking from "../../../components/admin/DeliveryTracking";
+import Statistics from "../../../components/admin/Statistic";
+
+import TabDashboard from "../../../components/admin/TabDashboard";
 
 const Dashboard = () => {
   return (
@@ -14,7 +15,7 @@ const Dashboard = () => {
             </h1>
             <TabDashboard />
           </div>
-          <Statistic />
+          <Statistics />
           <div className="mt-4 bg-white p-4 rounded-lg overflow-auto">
             <TotalRevenue />
           </div>

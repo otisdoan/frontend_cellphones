@@ -3,4 +3,6 @@ export const API_URL = {
   REGISTER: "/auth/register",
   GOOGLE: "/auth/google",
   CATEGORY: "/category",
+  PRODUCT: "/products",
+  BRAND: "/brand",
 };

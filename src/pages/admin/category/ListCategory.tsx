@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
-import { Input, type TableProps } from "antd";
+import { Input, Tag, Tooltip, type TableProps } from "antd";
 import { IoIosSearch } from "react-icons/io";
 import DisplaStatistic, {
   type ListInforProps,
@@ -68,48 +68,70 @@ const ListCategory = () => {
     {
       title: "Slug",
       dataIndex: "slug",
+      render: (slug) => (
+        <Tooltip title={slug}>
+          <span className="line-clamp-1 max-w-[150px]">{slug}</span>
+        </Tooltip>
+      ),
     },
     {
       title: "Description",
       dataIndex: "description",
+      render: (desc) => (
+        <Tooltip title={desc}>
+          <span className="line-clamp-1 max-w-[200px]">{desc}</span>
+        </Tooltip>
+      ),
     },
     {
-      title: "Parent category",
+      title: "Parent Category",
       dataIndex: "parent_id",
+      render: (parent_id) =>
+        parent_id ? (
+          <Tag color="blue">{parent_id}</Tag>
+        ) : (
+          <Tag color="default">None</Tag>
+        ),
     },
     {
-      title: "Sort order",
+      title: "Sort Order",
       dataIndex: "sort_order",
+      render: (order) => <Tag color="purple">{order}</Tag>,
     },
     {
       title: "Active",
       dataIndex: "is_active",
-      render: (_, { is_active }) =>
-        is_active === false ? (
-          <span className="text-[#d70119]">{is_active.toString()}</span>
-        ) : (
-          <span className="text-green-500">{is_active.toString()}</span>
-        ),
+      render: (is_active: boolean) => (
+        <Tag color={is_active ? "green" : "red"}>
+          {is_active ? "Active" : "Inactive"}
+        </Tag>
+      ),
     },
     {
-      title: "Date create",
+      title: "Created At",
       dataIndex: "createdAt",
+      render: (date) => <span>{new Date(date).toLocaleString("vi-VN")}</span>,
     },
     {
-      title: "Date update",
+      title: "Updated At",
       dataIndex: "updatedAt",
+      render: (date) => <span>{new Date(date).toLocaleString("vi-VN")}</span>,
     },
     {
       title: "Action",
       key: "action",
       render: () => (
-        <div className="flex items-center gap-x-3">
-          <div className="rounded-full flex items-center justify-center border-[1px] border-[#0fb981] p-1 cursor-pointer">
-            <MdOutlineModeEdit className="text-[#0fb981] text-[0.9rem]" />
-          </div>
-          <div className="rounded-full flex items-center justify-center border-[1px] border-[#d70119] p-1 cursor-pointer">
-            <MdDeleteOutline className="text-[#d70119] text-[0.9rem]" />
-          </div>
+        <div className="flex items-center gap-x-2">
+          <Tooltip title="Edit">
+            <div className="rounded-full border border-[#0fb981] p-2 cursor-pointer hover:bg-[#e6f9f3] transition">
+              <MdOutlineModeEdit className="text-[#0fb981] text-base" />
+            </div>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <div className="rounded-full border border-[#d70119] p-2 cursor-pointer hover:bg-[#faeaea] transition">
+              <MdDeleteOutline className="text-[#d70119] text-base" />
+            </div>
+          </Tooltip>
         </div>
       ),
     },
@@ -168,7 +190,7 @@ const ListCategory = () => {
                 children={
                   <div className="flex items-center gap-x-1">
                     <IoAddCircleOutline className="text-white text-[1.5rem]" />
-                    New Category
+                    New category
                   </div>
                 }
                 defaultActiveBg="#292929"

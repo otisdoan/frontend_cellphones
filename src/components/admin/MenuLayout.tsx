@@ -33,15 +33,15 @@ const MenuLayout = () => {
       children: [
         {
           key: "31",
-          label: "Product List",
+          label: <Link to="/admin/products">Product List</Link>,
         },
         {
           key: "32",
-          label: "Category Management",
+          label: <Link to="/admin/category">Category Management</Link>,
         },
         {
           key: "33",
-          label: "Brand Management",
+          label: <Link to="/admin/brand">Brand Management</Link>,
         },
         {
           key: "34",
@@ -95,7 +95,7 @@ const MenuLayout = () => {
   ];
   return (
     <>
-      <Menu items={items} mode="inline" defaultSelectedKeys={["1"]} />
+      <Menu items={items} mode="inline" />
     </>
   );
 };

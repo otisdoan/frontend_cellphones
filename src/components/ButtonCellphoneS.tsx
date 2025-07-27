@@ -1,24 +1,57 @@
 import type { GoogleLoginProps } from "@react-oauth/google";
-import { Button, type ButtonProps } from "antd";
+import { Button, ConfigProvider, type ButtonProps } from "antd";
 import clsx from "clsx";
 
-type ButtonCellphoneSProps = ButtonProps & Partial<GoogleLoginProps>;
+interface ConfigProviderProps {
+  defaultHoverBg: string;
+  defaultHoverBorderColor: string;
+  defaultHoverColor: string;
+  defaultActiveBorderColor: string;
+  defaultActiveBg: string;
+  defaultActiveColor: string;
+}
+
+type ButtonCellphoneSProps = ButtonProps &
+  Partial<GoogleLoginProps> &
+  Partial<ConfigProviderProps>;
+
 const ButtonCellphoneS = ({
+  defaultHoverBg,
+  defaultHoverBorderColor,
+  defaultHoverColor,
+  defaultActiveBorderColor,
+  defaultActiveBg,
+  defaultActiveColor,
   children,
   className,
   ...props
 }: ButtonCellphoneSProps) => {
   return (
     <>
-      <Button
-        {...props}
-        className={clsx(
-          "w-full border-[#d70019] text-[#d70019] h-[3rem] bg-[#d70019]",
-          className
-        )}
+      <ConfigProvider
+        theme={{
+          components: {
+            Button: {
+              defaultHoverBg: defaultHoverBg ?? "#da152b",
+              defaultHoverBorderColor: defaultHoverBorderColor ?? "none",
+              defaultHoverColor: defaultHoverColor ?? "none",
+              defaultActiveBorderColor: defaultActiveBorderColor ?? "none",
+              defaultActiveBg: defaultActiveBg ?? "#da152b",
+              defaultActiveColor: defaultActiveColor ?? "none",
+            },
+          },
+        }}
       >
-        {children}
-      </Button>
+        <Button
+          {...props}
+          className={clsx(
+            "w-full border-[#d70019] text-[#d70019] h-[3rem] bg-[#d70019]",
+            className
+          )}
+        >
+          {children}
+        </Button>
+      </ConfigProvider>
     </>
   );
 };

@@ -31,23 +31,23 @@ const ListCategory = () => {
 
   const listInfor: ListInforProps[] = [
     {
-      title: "Active Brands",
-      numbers: 25,
+      title: "Active Categories",
+      numbers: 2534,
       icon: <AiOutlineDesktop />,
     },
     {
-      title: "Inactive Brands",
-      numbers: 16,
+      title: "Inactive Categories",
+      numbers: 1623,
       icon: <AiOutlineException />,
     },
     {
       title: "Most Products",
-      numbers: 6,
+      numbers: 62,
       icon: <AiOutlineHistory />,
     },
     {
       title: "Top Rated",
-      numbers: 8,
+      numbers: 82,
       icon: <AiOutlinePieChart />,
     },
   ];
@@ -64,6 +64,16 @@ const ListCategory = () => {
     {
       title: "Image",
       dataIndex: "image_url",
+      render: (url: string) =>
+        url ? (
+          <img
+            src={url}
+            alt="Logo"
+            className="w-10 h-10 object-contain rounded border"
+          />
+        ) : (
+          <Tag color="default">No logo</Tag>
+        ),
     },
     {
       title: "Slug",
@@ -206,7 +216,7 @@ const ListCategory = () => {
               dataSource={dataCategories}
               scroll={{ x: "max-content" }}
               loading={loading}
-              pagination={{ pageSize: 10, position: ["bottomCenter"] }}
+              pagination={{ pageSize: 10, position: ["bottomRight"] }}
             />
           </div>
         </div>

@@ -216,7 +216,7 @@ const ListProduct = () => {
             <div className="flex items-center gap-x-4">
               <div>
                 <Input
-                  placeholder="Search categories"
+                  placeholder="Search products"
                   prefix={<IoIosSearch className="text-[1.2rem]" />}
                   className="text-[0.8rem] w-[15rem] bg-[#f5f5f5] h-[2.5rem]"
                 />
@@ -240,7 +240,7 @@ const ListProduct = () => {
               columns={columns}
               dataSource={dataProducts}
               scroll={{ x: "max-content" }}
-              pagination={{ pageSize: 10, position: ["bottomCenter"] }}
+              pagination={{ pageSize: 10, position: ["bottomRight"] }}
             />
           </div>
         </div>

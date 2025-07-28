@@ -5,17 +5,22 @@ import ButtonCellphoneS from "../../ButtonCellphoneS";
 import type { BrandProps } from "../../../types/api/BrandResponse";
 import { brandApi } from "../../../utils/api/brand.api";
 import UploadImage from "../../admin/UploadImage";
+import { useNavigate } from "react-router-dom";
+import { useMessage } from "../../../hooks/useMessage";
 
 const FormCreateBrand = () => {
+  const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
-
+  const { showSuccess, showError, contextHolder } = useMessage();
   const handleFinish = async (value: BrandProps) => {
     try {
-      console.log(value);
       const result = await brandApi.create({ ...value, logo_url: imageApi });
-      console.log(result);
+      showSuccess(result.message);
+      setTimeout(() => {
+        navigate(-1);
+      }, 1500);
     } catch (error) {
-      console.log(error);
+      showError(error as string);
     }
   };
   const handleImageApi = (image_url: string | undefined) => {
@@ -23,6 +28,7 @@ const FormCreateBrand = () => {
   };
   return (
     <>
+      {contextHolder}
       <div className="bg-[#f5f5f5] rounded-lg p-4 mt-4 mb-[2rem]">
         <Form
           labelCol={{ span: 24 }}
@@ -83,6 +89,7 @@ const FormCreateBrand = () => {
                 children="Cancel"
                 className="w-[6rem] bg-white"
                 defaultHoverBg="none"
+                onClick={() => navigate(-1)}
               />
               <ButtonCellphoneS
                 htmlType="submit"

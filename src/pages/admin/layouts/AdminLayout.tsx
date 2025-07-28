@@ -1,5 +1,5 @@
 import { Avatar, ConfigProvider, Drawer, Layout } from "antd";
-import { Content, Header } from "antd/es/layout/layout";
+import { Content, Footer, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import SvgLogoDesktop from "../../../components/svg/SvgLogoDesktop";
 import { useState } from "react";
@@ -67,6 +67,9 @@ const AdminLayout = () => {
               <Content>
                 <Outlet />
               </Content>
+              <Footer style={{ textAlign: "center" }}>
+                Cellphones ©{new Date().getFullYear()} Created by OtisDoan
+              </Footer>
             </Layout>
           </Layout>
         </div>
@@ -120,6 +123,9 @@ const AdminLayout = () => {
             <Content>
               <Outlet />
             </Content>
+            <Footer style={{ textAlign: "center" }}>
+              Cellphones ©{new Date().getFullYear()} Created by OtisDoan
+            </Footer>
           </Layout>
         </div>
       </div>

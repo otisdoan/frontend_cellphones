@@ -31,12 +31,12 @@ const ListBrand = () => {
   ];
   const listInfor: ListInforProps[] = [
     {
-      title: "Active Brands",
-      numbers: 2534,
+      title: "Active",
+      numbers: 254,
       icon: <AiOutlineDesktop />,
     },
     {
-      title: "Inactive Brands",
+      title: "Inactive",
       numbers: 163,
       icon: <AiOutlineException />,
     },
@@ -142,7 +142,7 @@ const ListBrand = () => {
   return (
     <>
       <div className="p-4">
-        <div className="flex items-center justify-between">
+        <div className="md:flex items-center justify-between hidden">
           <div>
             <h1 className="md:font-medium md:text-[1.7rem] hidden md:block">
               Brands
@@ -153,27 +153,29 @@ const ListBrand = () => {
             <Input
               placeholder="Search anything"
               prefix={<IoIosSearch className="text-[1.2rem]" />}
-              className="text-[0.8rem] w-[15rem] h-[2.5rem]"
+              className="text-[0.8rem] md:w-[20rem] w-[15rem] bg-[#f5f5f5] h-[3rem]"
             />
           </div>
         </div>
         <DisplaStatistic type="category" listInfor={listInfor} />
         <div className="bg-white rounded-lg p-4 mt-4">
           <div className="flex items-center justify-between">
-            <span className="text-[1.2rem] font-medium">Brands</span>
-            <div className="flex items-center gap-x-4">
+            <span className="text-[1.2rem] font-medium hidden md:block">
+              Brands
+            </span>
+            <div className="flex items-center gap-x-4 md:w-auto w-full">
               <div>
                 <Input
-                  placeholder="Search brands"
+                  placeholder="Search categories"
                   prefix={<IoIosSearch className="text-[1.2rem]" />}
-                  className="text-[0.8rem] w-[15rem] bg-[#f5f5f5] h-[2.5rem]"
+                  className="text-[0.8rem] md:w-[20rem] w-[15rem] bg-[#f5f5f5] h-[3rem]"
                 />
               </div>
               <ButtonCellphoneS
                 children={
                   <div className="flex items-center gap-x-1">
                     <IoAddCircleOutline className="text-white text-[1.5rem]" />
-                    New brand
+                    <span className="hidden md:block">New brand</span>
                   </div>
                 }
                 defaultActiveBg="#292929"

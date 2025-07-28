@@ -33,21 +33,21 @@ const ListProduct = () => {
   const listInfor: ListInforProps[] = [
     {
       title: "Total Products",
-      numbers: 25345,
+      numbers: 245,
       icon: <AiOutlineDesktop />,
     },
     {
       title: " Active Products",
-      numbers: 3566,
+      numbers: 366,
       icon: <AiOutlineException />,
     },
     {
-      title: "Out-of-stock Products",
+      title: "Out-of-stock",
       numbers: 356,
       icon: <AiOutlineHistory />,
     },
     {
-      title: "Top Rated Products",
+      title: "Top Rated",
       numbers: 45,
       icon: <AiOutlinePieChart />,
     },
@@ -194,7 +194,7 @@ const ListProduct = () => {
   return (
     <>
       <div className="p-4">
-        <div className="flex items-center justify-between">
+        <div className="md:flex items-center justify-between hidden">
           <div>
             <h1 className="md:font-medium md:text-[1.7rem] hidden md:block">
               Products
@@ -212,20 +212,22 @@ const ListProduct = () => {
         <DisplaStatistic type="category" listInfor={listInfor} />
         <div className="bg-white rounded-lg p-4 mt-4">
           <div className="flex items-center justify-between">
-            <span className="text-[1.2rem] font-medium">Products</span>
-            <div className="flex items-center gap-x-4">
+            <span className="text-[1.2rem] font-medium hidden md:block">
+              Products
+            </span>
+            <div className="flex items-center gap-x-4 md:w-auto w-full">
               <div>
                 <Input
                   placeholder="Search products"
                   prefix={<IoIosSearch className="text-[1.2rem]" />}
-                  className="text-[0.8rem] w-[15rem] bg-[#f5f5f5] h-[2.5rem]"
+                  className="text-[0.8rem] md:w-[20rem] w-[15rem] bg-[#f5f5f5] h-[3rem]"
                 />
               </div>
               <ButtonCellphoneS
                 children={
                   <div className="flex items-center gap-x-1">
                     <IoAddCircleOutline className="text-white text-[1.5rem]" />
-                    New products
+                    <span className="hidden md:block">New products</span>
                   </div>
                 }
                 defaultActiveBg="#292929"

@@ -20,14 +20,14 @@ const CreateBrand = () => {
   return (
     <>
       <div className="p-4">
-        <div className="md:flex items-center justify-between hidden">
+        <div className="md:flex items-center justify-between">
           <div>
             <div className="flex items-center gap-x-1">
               <MdOutlineArrowBack
                 className="text-[1.5rem] cursor-pointer"
                 onClick={() => navigate(-1)}
               />
-              <h1 className="md:font-medium md:text-[1.7rem] hidden md:block">
+              <h1 className="md:font-medium text-[1.7rem] md:block">
                 Create new brand
               </h1>
             </div>

@@ -45,7 +45,7 @@ const ButtonCellphoneS = ({
         <Button
           {...props}
           className={clsx(
-            "w-full border-[#d70019] text-[#d70019] h-[3rem] bg-[#d70019]",
+            "border-[#d70019] text-[#d70019] h-[3rem] bg-[#d70019]",
             className
           )}
         >

@@ -2,7 +2,7 @@ export interface BrandProps {
   id: string;
   name: string;
   slug: string;
-  logo_url: string;
+  logo_url: string | undefined;
   description: string;
   is_active: boolean;
   createdAt: string;

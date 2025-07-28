@@ -2,7 +2,7 @@ import { Input, Tag, Tooltip, type TableProps } from "antd";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import { IoIosSearch } from "react-icons/io";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DisplaStatistic, {
   type ListInforProps,
 } from "../../../components/admin/DisplaStatistic";
@@ -72,7 +72,7 @@ const ListBrand = () => {
           <img
             src={url}
             alt="Logo"
-            className="w-10 h-10 object-contain rounded border"
+            className="w-10 h-10 object-contain rounded"
           />
         ) : (
           <Tag color="default">No logo</Tag>
@@ -125,7 +125,7 @@ const ListBrand = () => {
     },
   ];
   const [dataBrands, setDataBrands] = useState<BrandProps[]>([]);
-
+  const navigate = useNavigate();
   const fetchBrands = async () => {
     try {
       const result = await brandApi.getAll();
@@ -182,6 +182,7 @@ const ListBrand = () => {
                 defaultHoverBg="#292929"
                 defaultHoverBorderColor="#292929"
                 className="text-white h-[2rem] bg-black border-none text-[0.8rem]"
+                onClick={() => navigate("/admin/brand/create")}
               />
             </div>
           </div>

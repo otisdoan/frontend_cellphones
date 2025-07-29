@@ -96,10 +96,10 @@ const ListCategory = () => {
     },
     {
       title: "Parent Category",
-      dataIndex: "parent_id",
-      render: (parent_id) =>
-        parent_id ? (
-          <Tag color="blue">{parent_id}</Tag>
+      dataIndex: "parent_name",
+      render: (parent_name) =>
+        parent_name ? (
+          <Tag color="blue">{parent_name}</Tag>
         ) : (
           <Tag color="default">None</Tag>
         ),

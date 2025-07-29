@@ -4,6 +4,7 @@ export interface CategoryProps {
   slug: string;
   description: string;
   parent_id: number;
+  parent_name: string;
   image_url: string | undefined;
   sort_order: number;
   is_active: boolean;
@@ -15,4 +16,10 @@ export interface CategoryResponse {
   status: string;
   message: string;
   data: CategoryProps[];
+}
+
+export interface AllCategoryType {
+  status: string;
+  message: string;
+  data: { label: string; value: string }[];
 }

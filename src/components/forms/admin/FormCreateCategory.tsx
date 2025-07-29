@@ -1,18 +1,35 @@
 import { Form, Input, InputNumber, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonCellphoneS from "../../ButtonCellphoneS";
 import UploadImage from "../../admin/UploadImage";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../../hooks/useMessage";
 import { categoryApi } from "../../../utils/api/category.api";
-import type { CategoryProps } from "../../../types/api/CategoryResponse";
+import type {
+  AllCategoryType,
+  CategoryProps,
+} from "../../../types/api/CategoryResponse";
 
 const FormCreateCategory = () => {
   const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
+  const [allCategories, setAllCategories] = useState<AllCategoryType["data"]>(
+    []
+  );
   const { showSuccess, showError, contextHolder } = useMessage();
+
+  const getAllCategories = async () => {
+    try {
+      const result = await categoryApi.getAllCategories();
+      setAllCategories(result.data);
+    } catch (error) {
+      showError(error as string);
+    }
+  };
+
   const handleFinish = async (value: CategoryProps) => {
+    console.log(value);
     try {
       const result = await categoryApi.create({
         ...value,
@@ -29,6 +46,11 @@ const FormCreateCategory = () => {
   const handleImageApi = (image_url: string | undefined) => {
     setImageApi(image_url);
   };
+
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+
   return (
     <>
       {contextHolder}
@@ -79,15 +101,19 @@ const FormCreateCategory = () => {
                 className="h-[2.5rem]"
               />
             </Form.Item>
-            <Form.Item label="Parent category">
-              <Select className="h-[2.5rem]" defaultValue={""} />
-            </Form.Item>
-            <Form.Item label="Sort order">
-              <InputNumber
-                min={0}
-                defaultValue={0}
-                className="h-[2.5rem] w-[5rem]"
+            <Form.Item
+              label="Parent category"
+              name="parent_name"
+              className="md:max-w-[10rem] w-full"
+            >
+              <Select
+                className="h-[2.5rem]"
+                placeholder="Select parent category"
+                options={allCategories}
               />
+            </Form.Item>
+            <Form.Item label="Sort order" name="sort_order">
+              <InputNumber min={0} defaultValue={0} className="py-1 w-[5rem]" />
             </Form.Item>
           </div>
           <Form.Item label="Description" name="description">

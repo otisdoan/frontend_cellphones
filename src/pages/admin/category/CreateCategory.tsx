@@ -28,7 +28,7 @@ const CreateCategory = () => {
                 onClick={() => navigate(-1)}
               />
               <h1 className="md:font-medium md:text-[1.7rem] text-[1.2rem] md:block">
-                Create new categoriy
+                Create new category
               </h1>
             </div>
             <BreadcrumbAmin items={item} />

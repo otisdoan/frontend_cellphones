@@ -40,7 +40,7 @@ const AdminLayout = () => {
                     <SvgLogo width="40" height="40" />
                   </div>
                 )}
-                {!collapsed ? (
+                {/* {!collapsed ? (
                   <div className="md:flex md:items-center md:gap-x-2 cursor-pointer px-4 py-2 bg-[#f0f0f0] rounded-sm mb-4">
                     <Avatar src={"/images/doanhieu.jpg"} size={"large"} />
                     <div className="flex flex-col mr-4">
@@ -53,7 +53,7 @@ const AdminLayout = () => {
                   <div className="md:flex md:items-center md:gap-x-2 cursor-pointer px-4 py-2 bg-[#f0f0f0] rounded-sm mb-4">
                     <Avatar src={"/images/doanhieu.jpg"} size={"large"} />
                   </div>
-                )}
+                )} */}
                 <MenuLayout />
                 <div
                   className="flex justify-center cursor-pointer mt-5"

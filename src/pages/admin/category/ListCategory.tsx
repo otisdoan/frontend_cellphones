@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
 import { Input, Tag, Tooltip, type TableProps } from "antd";
@@ -20,6 +20,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 
 const ListCategory = () => {
+  const navigate = useNavigate();
   const item: BreadcrumbItemType[] = [
     {
       title: <Link to="/admin">Dashboard</Link>,
@@ -209,6 +210,7 @@ const ListCategory = () => {
                 defaultHoverBg="#292929"
                 defaultHoverBorderColor="#292929"
                 className="text-white h-[2rem] bg-black border-none text-[0.8rem]"
+                onClick={() => navigate("/admin/category/create")}
               />
             </div>
           </div>

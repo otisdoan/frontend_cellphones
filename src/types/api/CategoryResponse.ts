@@ -4,7 +4,7 @@ export interface CategoryProps {
   slug: string;
   description: string;
   parent_id: number;
-  image_url: string;
+  image_url: string | undefined;
   sort_order: number;
   is_active: boolean;
   created_at: string;

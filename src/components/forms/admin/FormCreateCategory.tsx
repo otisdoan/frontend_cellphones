@@ -49,6 +49,7 @@ const FormCreateCategory = () => {
 
   useEffect(() => {
     getAllCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

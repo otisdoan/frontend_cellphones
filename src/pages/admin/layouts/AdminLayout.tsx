@@ -5,13 +5,15 @@ import SvgLogoDesktop from "../../../components/svg/SvgLogoDesktop";
 import { useState } from "react";
 import { IoCaretBackCircle } from "react-icons/io5";
 import SvgLogo from "../../../components/svg/SvgLogo";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import MenuLayout from "../../../components/admin/MenuLayout";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { BsList } from "react-icons/bs";
 const AdminLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   return (
     <>
       <div>
@@ -32,11 +34,17 @@ const AdminLayout = () => {
             >
               <Sider collapsed={collapsed} className="bg-white">
                 {!collapsed ? (
-                  <div className="bg-[#d70019] md:h-[4rem] md:flex md:items-center md:justify-center md:mb-2">
+                  <div
+                    className="bg-[#d70019] md:h-[4rem] md:flex md:items-center md:justify-center md:mb-2 cursor-pointer"
+                    onClick={() => navigate("/admin")}
+                  >
                     <SvgLogoDesktop />
                   </div>
                 ) : (
-                  <div className="bg-[#d70019] md:h-[4rem] md:flex md:items-center md:justify-center md:mb-2 w-[5rem]">
+                  <div
+                    className="bg-[#d70019] md:h-[4rem] md:flex md:items-center md:justify-center md:mb-2 w-[5rem] cursor-pointer"
+                    onClick={() => navigate("/admin")}
+                  >
                     <SvgLogo width="40" height="40" />
                   </div>
                 )}

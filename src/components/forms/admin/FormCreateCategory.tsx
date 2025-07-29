@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Select } from "antd";
+import { Form, Input, InputNumber, Select, TreeSelect } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 import ButtonCellphoneS from "../../ButtonCellphoneS";
@@ -105,12 +105,15 @@ const FormCreateCategory = () => {
             <Form.Item
               label="Parent category"
               name="parent_name"
-              className="md:max-w-[10rem] w-full"
+              className=" md:w-[15rem] w-full"
             >
-              <Select
-                className="h-[2.5rem]"
+              <TreeSelect
+                treeData={allCategories}
+                showSearch
+                allowClear
                 placeholder="Select parent category"
-                options={allCategories}
+                treeDefaultExpandAll
+                className="h-[2.5rem]"
               />
             </Form.Item>
             <Form.Item label="Sort order" name="sort_order">

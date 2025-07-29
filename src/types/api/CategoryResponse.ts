@@ -18,8 +18,13 @@ export interface CategoryResponse {
   data: CategoryProps[];
 }
 
+interface CategoryTree {
+  value: string;
+  title: string;
+  children: CategoryTree[];
+}
 export interface AllCategoryType {
   status: string;
   message: string;
-  data: { label: string; value: string }[];
+  data: CategoryTree[];
 }

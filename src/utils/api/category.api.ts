@@ -20,7 +20,7 @@ export const categoryApi = {
     );
     return response.data;
   },
-  getAllCategories: async () => {
+  getAllNameCategories: async () => {
     const response = await axiosInstance.get<AllCategoryType>(
       API_URL.OTHER_CATEGORY.GET_ALL_NAME
     );

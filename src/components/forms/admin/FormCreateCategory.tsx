@@ -21,7 +21,7 @@ const FormCreateCategory = () => {
 
   const getAllCategories = async () => {
     try {
-      const result = await categoryApi.getAllCategories();
+      const result = await categoryApi.getAllNameCategories();
       setAllCategories(result.data);
     } catch (error) {
       showError(error as string);

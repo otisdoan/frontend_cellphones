@@ -1,5 +1,5 @@
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import { Input, Tag, type TableProps } from "antd";
 import { IoIosSearch } from "react-icons/io";
@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import type { ProductProps } from "../../../types/api/ProductResponse";
 
 const ListProduct = () => {
+  const navigate = useNavigate();
   const item: BreadcrumbItemType[] = [
     {
       title: <Link to="/admin">Dashboard</Link>,
@@ -234,6 +235,7 @@ const ListProduct = () => {
                 defaultHoverBg="#292929"
                 defaultHoverBorderColor="#292929"
                 className="text-white h-[2rem] bg-black border-none text-[0.8rem]"
+                onClick={() => navigate("/admin/products/create")}
               />
             </div>
           </div>

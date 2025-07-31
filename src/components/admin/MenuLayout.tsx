@@ -45,6 +45,10 @@ const MenuLayout = () => {
         },
         {
           key: "34",
+          label: <Link to="/admin/product-images">Product Images</Link>,
+        },
+        {
+          key: "35",
           label: "Variants & Attributes",
         },
       ],

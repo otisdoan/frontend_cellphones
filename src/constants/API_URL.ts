@@ -10,6 +10,9 @@ export const API_URL = {
     GET_ALL_NAME: "/category/name",
   },
   PRODUCT: "/products",
-  OTHER_PRODUCT: {},
+  OTHER_PRODUCT: {
+    GET_ALL_NAME: "/products/name",
+  },
   BRAND: "/brand",
+  PRODUCT_IMAGES: "/product-images",
 };

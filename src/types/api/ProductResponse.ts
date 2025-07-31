@@ -23,8 +23,13 @@ export interface ProductProps {
   updatedAt: string;
 }
 
-export interface ProductResponse {
+export interface ProductSelect {
+  value: number;
+  label: string;
+}
+
+export interface ProductResponse<T> {
   status: "success" | "error";
   message: string;
-  data: ProductProps[];
+  data: T[];
 }

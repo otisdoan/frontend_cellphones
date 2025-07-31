@@ -15,6 +15,9 @@ import EditCategory from "./pages/admin/category/EditCategory";
 import EditBrand from "./pages/admin/brand/EditBrand";
 import CreateProduct from "./pages/admin/products/CreateProduct";
 import EditProduct from "./pages/admin/products/EditProduct";
+import ListProductImage from "./pages/admin/product-images/ListProductImage";
+import CreateProductImage from "./pages/admin/product-images/CreateProductImage";
+import EditProductImage from "./pages/admin/product-images/EditProductImage";
 
 export const routes = createBrowserRouter([
   {
@@ -80,6 +83,18 @@ export const routes = createBrowserRouter([
       {
         path: "/admin/products/:id/edit",
         element: <EditProduct />,
+      },
+      {
+        path: "/admin/product-images",
+        element: <ListProductImage />,
+      },
+      {
+        path: "/admin/product-images/create",
+        element: <CreateProductImage />,
+      },
+      {
+        path: "/admin/product-images/:id/edit",
+        element: <EditProductImage />,
       },
     ],
   },

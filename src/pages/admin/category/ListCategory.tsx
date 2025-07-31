@@ -88,11 +88,14 @@ const ListCategory = () => {
     {
       title: "Description",
       dataIndex: "description",
-      render: (desc) => (
-        <Tooltip title={desc}>
-          <span className="line-clamp-1 max-w-[200px]">{desc}</span>
-        </Tooltip>
-      ),
+      render: (desc) =>
+        desc ? (
+          <Tooltip title={desc}>
+            <span className="line-clamp-1 max-w-[200px]">{desc}</span>
+          </Tooltip>
+        ) : (
+          <Tag>None</Tag>
+        ),
     },
     {
       title: "Parent Category",

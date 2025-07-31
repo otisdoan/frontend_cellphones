@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, InputNumber, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
@@ -67,6 +66,7 @@ const FormCreateProductImage = () => {
               className="md:w-[20rem] w-full"
             >
               <Select
+                showSearch
                 options={allNameProduct}
                 placeholder="Select product"
                 className="h-[2.5rem]"

@@ -64,8 +64,8 @@ const ListProductImage = () => {
       dataIndex: "id",
     },
     {
-      title: "Product ID",
-      dataIndex: "product_id",
+      title: "Product",
+      dataIndex: "name",
     },
     {
       title: "Image",

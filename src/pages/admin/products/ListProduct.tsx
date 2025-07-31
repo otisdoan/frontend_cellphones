@@ -63,6 +63,26 @@ const ListProduct = () => {
       dataIndex: "name",
     },
     {
+      title: "Image",
+      dataIndex: "product_image",
+      render: (product_image: string[]) => {
+        return product_image?.length > 0 ? (
+          <div className="flex gap-x-4 justify-between">
+            {product_image.map(
+              (item: string, index: number) =>
+                item && (
+                  <div key={index} className="flex w-[3rem] h-[3rem]">
+                    <img src={item} className="object-contain" />
+                  </div>
+                )
+            )}
+          </div>
+        ) : (
+          <Tag>No image</Tag>
+        );
+      },
+    },
+    {
       title: "Sku",
       dataIndex: "sku",
     },
@@ -96,12 +116,24 @@ const ListProduct = () => {
       ),
     },
     {
-      title: "Category ID",
-      dataIndex: "category_id",
+      title: "Category",
+      dataIndex: "category_name",
+      render: (category_name: string) => {
+        if (!category_name) {
+          return <Tag color="default">Null</Tag>;
+        }
+        return <Tag color="geekblue">{category_name}</Tag>;
+      },
     },
     {
-      title: "Brand ID",
-      dataIndex: "brand_id",
+      title: "Brand",
+      dataIndex: "brand_name",
+      render: (brand_name: string) => {
+        if (brand_name === null) {
+          return <Tag color="default">Null</Tag>;
+        }
+        return <Tag color="geekblue">{brand_name}</Tag>;
+      },
     },
     {
       title: "Weight (kg)",

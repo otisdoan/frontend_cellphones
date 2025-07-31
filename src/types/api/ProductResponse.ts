@@ -21,6 +21,8 @@ export interface ProductProps {
   meta_description: string;
   createdAt: string;
   updatedAt: string;
+  category_name: string;
+  brand_name: string;
 }
 
 export interface ProductSelect {

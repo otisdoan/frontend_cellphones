@@ -3,6 +3,9 @@ export const API_URL = {
   REGISTER: "/auth/register",
   GOOGLE: "/auth/google",
   CATEGORY: "/category",
+  OTHER_BRAND: {
+    GET_ALL_NAME: "/brand/name",
+  },
   OTHER_CATEGORY: {
     GET_ALL_NAME: "/category/name",
   },

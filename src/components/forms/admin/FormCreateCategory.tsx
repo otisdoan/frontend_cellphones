@@ -7,16 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../../hooks/useMessage";
 import { categoryApi } from "../../../utils/api/category.api";
 import type {
-  AllCategoryType,
   CategoryProps,
+  CategoryResponse,
+  CategoryTree,
 } from "../../../types/api/CategoryResponse";
 
 const FormCreateCategory = () => {
   const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
-  const [allCategories, setAllCategories] = useState<AllCategoryType["data"]>(
-    []
-  );
+  const [allCategories, setAllCategories] = useState<
+    CategoryResponse<CategoryTree>["data"]
+  >([]);
   const { showSuccess, showError, contextHolder } = useMessage();
 
   const getAllCategories = async () => {
@@ -29,7 +30,6 @@ const FormCreateCategory = () => {
   };
 
   const handleFinish = async (value: CategoryProps) => {
-    console.log(value);
     try {
       const result = await categoryApi.create({
         ...value,
@@ -104,7 +104,7 @@ const FormCreateCategory = () => {
             </Form.Item>
             <Form.Item
               label="Parent category"
-              name="parent_name"
+              name="parent_id"
               className=" md:w-[15rem] w-full"
             >
               <TreeSelect

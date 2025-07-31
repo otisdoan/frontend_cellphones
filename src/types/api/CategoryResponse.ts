@@ -12,19 +12,14 @@ export interface CategoryProps {
   update_at: string;
 }
 
-export interface CategoryResponse {
+export interface CategoryResponse<T> {
   status: string;
   message: string;
-  data: CategoryProps[];
+  data: T[];
 }
 
-interface CategoryTree {
+export interface CategoryTree {
   value: string;
   title: string;
   children: CategoryTree[];
-}
-export interface AllCategoryType {
-  status: string;
-  message: string;
-  data: CategoryTree[];
 }

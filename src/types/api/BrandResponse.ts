@@ -9,8 +9,13 @@ export interface BrandProps {
   updatedAt: string;
 }
 
-export interface BrandResponse {
+export interface BrandResponse<T> {
   status: "success" | "error";
   message: string;
-  data: BrandProps[];
+  data: T[];
+}
+
+export interface BrandSelect {
+  value: number;
+  label: string;
 }

@@ -1,14 +1,33 @@
-import { Divider, Form, Input, InputNumber, Select } from "antd";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Divider, Form, Input, InputNumber, Select, TreeSelect } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import ButtonCellphoneS from "../../ButtonCellphoneS";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../../hooks/useMessage";
 import type { ProductProps } from "../../../types/api/ProductResponse";
 import { productApi } from "../../../utils/api/product.api";
+import { useEffect, useState } from "react";
+import { categoryApi } from "../../../utils/api/category.api";
+import type {
+  CategoryResponse,
+  CategoryTree,
+} from "../../../types/api/CategoryResponse";
+import { brandApi } from "../../../utils/api/brand.api";
+import type {
+  BrandResponse,
+  BrandSelect,
+} from "../../../types/api/BrandResponse";
 
 const FormCreateProduct = () => {
   const navigate = useNavigate();
+  const [allCategories, setAllCategories] = useState<
+    CategoryResponse<CategoryTree>["data"]
+  >([]);
+  const [allBrand, setAllBrand] = useState<BrandResponse<BrandSelect>["data"]>(
+    []
+  );
   const { showSuccess, showError, contextHolder } = useMessage();
+
   const handleFinish = async (value: ProductProps) => {
     try {
       const result = await productApi.create(value);
@@ -21,6 +40,33 @@ const FormCreateProduct = () => {
       showError(error as string);
     }
   };
+
+  const getAllCategories = async () => {
+    try {
+      const result = await categoryApi.getAllNameCategories();
+      setAllCategories(result.data);
+    } catch (error) {
+      showError(error as string);
+    }
+  };
+
+  const getAllNameBrand = async () => {
+    try {
+      const result = await brandApi.getAllNameBrand();
+      setAllBrand(result.data);
+    } catch (error) {
+      showError(error as string);
+    }
+  };
+
+  useEffect(() => {
+    getAllNameBrand();
+  }, []);
+
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+
   return (
     <>
       {contextHolder}
@@ -134,7 +180,14 @@ const FormCreateProduct = () => {
                   name="category_id"
                   className="md:flex-[1_1_calc(33.333%-1rem)] w-full"
                 >
-                  <Input placeholder="Select category" className="h-[2.5rem]" />
+                  <TreeSelect
+                    treeData={allCategories}
+                    showSearch
+                    allowClear
+                    placeholder="Select category"
+                    treeDefaultExpandAll
+                    className="h-[2.5rem]"
+                  />
                 </Form.Item>
 
                 <Form.Item
@@ -142,7 +195,12 @@ const FormCreateProduct = () => {
                   name="brand_id"
                   className="md:flex-[1_1_calc(33.333%-1rem)] w-full"
                 >
-                  <Input placeholder="Select brand" className="h-[2.5rem]" />
+                  <Select
+                    showSearch
+                    placeholder="Select brand"
+                    options={allBrand}
+                    className="h-[2.5rem]"
+                  />
                 </Form.Item>
 
                 <Form.Item
@@ -177,11 +235,15 @@ const FormCreateProduct = () => {
                     options={[
                       {
                         label: "Inactive",
-                        value: false,
+                        value: "inactive",
                       },
                       {
                         label: "Active",
-                        value: true,
+                        value: "active",
+                      },
+                      {
+                        label: "Out of stock",
+                        value: "out_of_stock",
                       },
                     ]}
                     placeholder="Select status"

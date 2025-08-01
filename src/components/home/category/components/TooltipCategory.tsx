@@ -12,8 +12,9 @@ import { BsPhoneVibrate } from "react-icons/bs";
 import { MdCrisisAlert } from "react-icons/md";
 import { IoNewspaperOutline } from "react-icons/io5";
 import type { TooltipPropsWithTitle } from "antd/es/tooltip";
-import Tooltip from "antd/es/tooltip";
 import { MdArrowForwardIos } from "react-icons/md";
+import ContentTooltipSamrtphone from "./contents/ContentTooltipSamrtphone";
+import { Popover } from "antd";
 
 const TooltipCategory = () => {
   const listcCategory: {
@@ -24,7 +25,7 @@ const TooltipCategory = () => {
     {
       icon: <IoPhonePortraitOutline />,
       name: "Điện thoại, Tablet",
-      content: "hello",
+      content: <ContentTooltipSamrtphone />,
     },
     {
       icon: <IoIosLaptop />,
@@ -84,9 +85,14 @@ const TooltipCategory = () => {
   ];
   return (
     <>
-      <div className="bg-white p-4 md:flex flex-col gap-y-2 shadow-lg rounded-lg cursor-pointer h-full hidden">
+      <div className="p-4 md:flex flex-col gap-y-2 shadow-lg rounded-lg cursor-pointer h-full hidden">
         {listcCategory.map((item, index) => (
-          <Tooltip key={index} title={item.content} placement="right">
+          <Popover
+            key={index}
+            content={item.content}
+            placement="bottomRight"
+            arrow={false}
+          >
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-x-2">
                 <div className="text-[1.5rem]">{item.icon}</div>
@@ -96,7 +102,7 @@ const TooltipCategory = () => {
               </div>
               <MdArrowForwardIos />
             </div>
-          </Tooltip>
+          </Popover>
         ))}
       </div>
     </>

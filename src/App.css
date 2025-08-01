@@ -1,3 +1,10 @@
 .bg-color {
   background: linear-gradient(180deg, #e45464 -13%, #d70018);
 }
+.ant-popover-inner {
+  background: none !important;
+  background-clip: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}

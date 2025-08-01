@@ -15,4 +15,5 @@ export const API_URL = {
   },
   BRAND: "/brand",
   PRODUCT_IMAGES: "/product-images",
+  MENU_SMARTPHONE: "/menu",
 };

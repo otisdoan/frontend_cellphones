@@ -15,6 +15,7 @@ const HomePage = () => {
           children={
             <ButtonCellphoneS
               className="bg-black text-white h-[2rem] border-0"
+              defaultHoverBg="black"
               children={
                 <div className="flex items-center gap-x-1">
                   <span>Lên đầu</span>

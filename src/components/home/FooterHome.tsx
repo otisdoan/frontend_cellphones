@@ -240,7 +240,7 @@ const FooterHome = () => {
       <div className="bg-[#f2f2f3] md:flex md:flex-col md:px-[10rem] md:py-4 hidden">
         <div className="md:flex md:gap-x-4">
           <div className="md:w-1/4">
-            <p className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2">
               <span className="text-[0.8rem] cursor-pointer">
                 Điện thoại iPhone 15
               </span>
@@ -248,13 +248,13 @@ const FooterHome = () => {
               <span className="text-[0.8rem] cursor-pointer">
                 Điện thoại iP 16
               </span>
-            </p>
+            </div>
             <span className="text-[0.8rem] cursor-pointer">
               iPhone 16 Pro Max
             </span>
           </div>
           <div className="md:w-1/4">
-            <p className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2">
               <span className="text-[0.8rem] cursor-pointer">Điện thoại</span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">
@@ -262,8 +262,8 @@ const FooterHome = () => {
               </span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">Xiaomi</span>
-            </p>
-            <p className="flex items-center gap-x-2 whitespace-nowrap">
+            </div>
+            <div className="flex items-center gap-x-2 whitespace-nowrap">
               <span className="text-[0.8rem] cursor-pointer">
                 Điện thoại Samsung Galaxy
               </span>
@@ -271,17 +271,17 @@ const FooterHome = () => {
               <span className="text-[0.8rem] cursor-pointer">
                 Điện thoại OPPO
               </span>
-            </p>
+            </div>
           </div>
           <div className="md:w-1/4">
-            <p className="flex items-center gap-x-2 text-[0.7rem] whitespace-nowrap">
+            <div className="flex items-center gap-x-2 text-[0.7rem] whitespace-nowrap">
               <span className="text-[0.8rem] cursor-pointer">Laptop Acer</span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">Laptop Dell</span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">Laptop HP</span>
-            </p>
-            <p className="flex items-center gap-x-2 whitespace-nowrap">
+            </div>
+            <div className="flex items-center gap-x-2 whitespace-nowrap">
               <span className="text-[0.8rem] cursor-pointer">Tivi</span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">Tivi Samsung</span>
@@ -289,10 +289,10 @@ const FooterHome = () => {
               <span className="text-[0.8rem] cursor-pointer">Tivi Sony</span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">Tivi LG</span>
-            </p>
+            </div>
           </div>
           <div className="md:w-1/4">
-            <p className="flex items-center gap-x-2 whitespace-nowrap">
+            <div className="flex items-center gap-x-2 whitespace-nowrap">
               <span className="text-[0.8rem] cursor-pointer">Đồ gia dụng</span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">
@@ -300,8 +300,8 @@ const FooterHome = () => {
               </span>
               <div className="h-[1rem] w-[0.05rem] bg-black"></div>
               <span className="text-[0.8rem] cursor-pointer">Build PC</span>
-            </p>
-            <p className="flex items-center gap-x-2 whitespace-nowrap">
+            </div>
+            <div className="flex items-center gap-x-2 whitespace-nowrap">
               <span className="text-[0.8rem] cursor-pointer">
                 Lắp đặt camera
               </span>
@@ -309,7 +309,7 @@ const FooterHome = () => {
               <span className="text-[0.8rem] cursor-pointer">
                 Back to school là gì
               </span>
-            </p>
+            </div>
           </div>
         </div>
         <p className="opacity-45 text-[0.8rem] text-center mt-3">

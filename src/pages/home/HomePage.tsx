@@ -4,16 +4,17 @@ import ButtonCellphoneS from "../../components/ButtonCellphoneS";
 import { SlEarphonesAlt } from "react-icons/sl";
 import { BackTop, Popover } from "antd";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
+import CategoryHome from "../../components/home/category/CategoryHome";
 
 const HomePage = () => {
   return (
     <>
-      <div>
+      <div className="z-30">
         <BackTop
-          className="top-[37rem] right-[10rem] w-[6.4rem] hidden md:block"
+          className="top-[36rem] right-[10rem] w-[6.4rem] hidden md:block"
           children={
             <ButtonCellphoneS
-              className="bg-black text-white h-[2.5rem] border-0"
+              className="bg-black text-white h-[2rem] border-0"
               children={
                 <div className="flex items-center gap-x-1">
                   <span>Lên đầu</span>
@@ -23,7 +24,7 @@ const HomePage = () => {
             />
           }
         />
-        <div className="fixed top-[40rem] right-[10rem] hidden md:block">
+        <div className="fixed top-[40rem] right-[10rem] hidden md:block z-30">
           <Popover
             content={
               <div className="">
@@ -52,6 +53,13 @@ const HomePage = () => {
           </Popover>
         </div>
         <HeaderHome />
+        <div className="px-[10rem] bg-[#ffffff] flex flex-col gap-y-4">
+          <CategoryHome />
+          <img
+            src="/images/special-b2s-dday2-desk.gif"
+            className="rounded-lg"
+          />
+        </div>
         <FooterHome />
       </div>
     </>

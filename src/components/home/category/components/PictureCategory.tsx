@@ -12,7 +12,7 @@ const PictureCategory = () => {
   ];
   return (
     <>
-      <div className="flex flex-col gap-y-4 rounded-lg overflow-hidden h-full ">
+      <div className="md:flex flex-col gap-y-4 rounded-lg overflow-hidden h-full hidden">
         {image.map((item, index) => (
           <img
             key={index}

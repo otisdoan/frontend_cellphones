@@ -84,10 +84,10 @@ const TooltipCategory = () => {
   ];
   return (
     <>
-      <div className="bg-white p-4 flex flex-col gap-y-2 shadow-lg rounded-lg cursor-pointer h-full">
+      <div className="bg-white p-4 md:flex flex-col gap-y-2 shadow-lg rounded-lg cursor-pointer h-full hidden">
         {listcCategory.map((item, index) => (
           <Tooltip key={index} title={item.content} placement="right">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <div className="flex items-center gap-x-2">
                 <div className="text-[1.5rem]">{item.icon}</div>
                 <span className="hover:text-[#d70019] text-[0.8rem] font-medium">

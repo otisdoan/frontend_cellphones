@@ -1,4 +1,4 @@
-import { Carousel } from "antd";
+import { Carousel, Tabs } from "antd";
 import type { CarouselRef } from "antd/es/carousel";
 import { useRef } from "react";
 
@@ -40,17 +40,22 @@ const CarouselCategory = () => {
   //   }, []);
   return (
     <>
-      <div className="rounded-lg shadow-md h-full">
-        <div className="">
+      <div className="rounded-lg shadow-md md:h-full">
+        <div className="w-full">
           <Carousel dots={false} arrows={false} autoplay ref={carouselRef}>
             {imageCarousel.map((item, index) => (
-              <div className="" key={index}>
-                <img src={item.image} className="w-full object-cover" />
+              <div className="w-full" key={index}>
+                <img
+                  src={item.image}
+                  className="w-full object-cover cursor-pointer"
+                />
               </div>
             ))}
           </Carousel>
         </div>
-        <div className=""></div>
+        <div className="hidden md:block">
+          <Tabs />
+        </div>
       </div>
     </>
   );

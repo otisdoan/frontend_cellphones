@@ -53,11 +53,15 @@ const HomePage = () => {
           </Popover>
         </div>
         <HeaderHome />
-        <div className="px-[10rem] bg-[#ffffff] flex flex-col gap-y-4">
+        <div className="md:px-[10rem] px-4 bg-[#ffffff] flex flex-col gap-y-4">
           <CategoryHome />
           <img
             src="/images/special-b2s-dday2-desk.gif"
-            className="rounded-lg"
+            className="rounded-lg w-full h-full object-cover hidden md:block"
+          />
+          <img
+            src="/images/special-b2s-dday2-mb.gif"
+            className="rounded-lg w-full h-full object-cover md:hidden"
           />
         </div>
         <FooterHome />

@@ -8,3 +8,11 @@
   box-shadow: none !important;
   padding: 0 !important;
 }
+
+.bg-linear {
+  background: linear-gradient(
+    177deg,
+    hsla(0, 0%, 100%, 0) 2.65%,
+    hsla(0, 0%, 100%, 0.14) 97.6%
+  );
+}

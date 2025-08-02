@@ -85,7 +85,7 @@ const TooltipCategory = () => {
   ];
   return (
     <>
-      <div className="p-4 md:flex flex-col gap-y-2 shadow-lg rounded-lg cursor-pointer h-full hidden">
+      <div className="p-4 md:flex flex-col gap-y-2 shadow-lg rounded-lg cursor-pointer h-full hidden ">
         {listcCategory.map((item, index) => (
           <Popover
             key={index}

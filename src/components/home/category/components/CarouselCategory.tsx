@@ -94,7 +94,7 @@ const CarouselCategory = () => {
     <>
       <div className="rounded-lg shadow-md md:h-full flex flex-col">
         <div
-          className="w-full h-[80%] overflow-hidden relative"
+          className="w-full h-[75%] overflow-hidden relative"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -148,7 +148,7 @@ const CarouselCategory = () => {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 key={index + 1}
-                className={`bg-white p-2 w-[10rem] h-full pb-[1.6rem] !flex !flex-col text-center cursor-pointer transition-colors duration-200 ${
+                className={`bg-white p-2 w-[10rem] h-full pt-[1.5rem] pb-[2rem] !flex !flex-col items-center text-center cursor-pointer transition-colors duration-200 ${
                   hoveredIndex === index &&
                   `border-b-[#d70019] hover:bg-[#f3f5f6] border-b-[0.2rem] rounded-sm`
                 }`}

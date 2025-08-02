@@ -5,6 +5,7 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { BackTop, Popover } from "antd";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import CategoryHome from "../../components/home/category/CategoryHome";
+import FlashSale from "../../components/home/flash-sale/FlashSale";
 
 const HomePage = () => {
   return (
@@ -28,7 +29,7 @@ const HomePage = () => {
         <div className="fixed top-[40rem] right-[10rem] hidden md:block z-30">
           <Popover
             content={
-              <div className="">
+              <div className=" bg-white p-4 rounded-lg">
                 <div className="flex items-center gap-x-1 mb-4 cursor-pointer">
                   <img src="/images/icon-cskh-2025.webp" className="w-[2rem]" />
                   <span>Chat với nhân viên</span>
@@ -64,6 +65,7 @@ const HomePage = () => {
             src="/images/special-b2s-dday2-mb.gif"
             className="rounded-lg w-full h-full object-cover md:hidden"
           />
+          <FlashSale />
         </div>
         <FooterHome />
       </div>

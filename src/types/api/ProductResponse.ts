@@ -23,6 +23,7 @@ export interface ProductProps {
   updatedAt: string;
   category_name: string;
   brand_name: string;
+  product_image: string[] | null;
 }
 
 export interface ProductSelect {

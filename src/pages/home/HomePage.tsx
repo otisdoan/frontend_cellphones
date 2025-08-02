@@ -2,16 +2,17 @@ import FooterHome from "../../components/home/FooterHome";
 import HeaderHome from "../../components/home/HeaderHome";
 import ButtonCellphoneS from "../../components/ButtonCellphoneS";
 import { SlEarphonesAlt } from "react-icons/sl";
-import { BackTop, Popover } from "antd";
-import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
+import { Popover } from "antd";
+// import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import CategoryHome from "../../components/home/category/CategoryHome";
 import FlashSale from "../../components/home/flash-sale/FlashSale";
+import SmartphoneList from "../../components/home/SmartphoneList";
 
 const HomePage = () => {
   return (
     <>
       <div className="z-30">
-        <BackTop
+        {/* <BackTop
           className="top-[36rem] right-[10rem] w-[6.4rem] hidden md:block"
           children={
             <ButtonCellphoneS
@@ -25,7 +26,7 @@ const HomePage = () => {
               }
             />
           }
-        />
+        /> */}
         <div className="fixed top-[40rem] right-[10rem] hidden md:block z-30">
           <Popover
             content={
@@ -66,6 +67,7 @@ const HomePage = () => {
             className="rounded-lg w-full h-full object-cover md:hidden"
           />
           <FlashSale />
+          <SmartphoneList />
         </div>
         <FooterHome />
       </div>

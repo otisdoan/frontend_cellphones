@@ -20,7 +20,7 @@ const ContentTooltipSamrtphone = () => {
   }, []);
   return (
     <>
-      <div className="bg-white rounded-lg p-4 flex gap-x-4 w-[57rem] h-[32rem] ml-[13rem] border-[1px] mt-[-2.8rem]">
+      <div className="bg-white rounded-lg p-4 flex gap-x-4 w-[57rem] h-[32rem] ml-[13rem] border-[1px] mt-[-2.8rem] relative z-0 top-0 left-0">
         {list.map((item, index) => (
           <div className="w-1/5 flex flex-col gap-y-2" key={index}>
             <span className="font-bold">{item.title}</span>

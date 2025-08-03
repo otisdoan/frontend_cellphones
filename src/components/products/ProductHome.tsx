@@ -24,6 +24,60 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
   const handleNext = () => {
     carouselRef.current?.next();
   };
+
+  const setting = {
+    arrows: false,
+    dots: false,
+    autoplay: true,
+    ref: carouselRef,
+    draggable: true,
+    slidesToShow: 5, // Desktop lớn
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1400, // Desktop trung bình
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1200, // Laptop lớn
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   return (
     <>
       <div className="flex flex-col gap-y-4">
@@ -44,14 +98,7 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
           </div>
         </div>
         <div className="relative">
-          <Carousel
-            arrows={false}
-            dots={false}
-            slidesToShow={5}
-            autoplay
-            ref={carouselRef}
-            draggable
-          >
+          <Carousel {...setting}>
             {list.map((items, index) => (
               <div key={index} className="flex flex-col gap-4 pb-4">
                 {items.map((item, index) => (

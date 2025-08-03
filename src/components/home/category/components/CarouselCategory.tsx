@@ -90,6 +90,9 @@ const CarouselCategory = () => {
     carouselRef.current?.goTo(index);
   };
 
+  const handleChangeSlide = (currnet: number) => {
+    setHoveredIndex(currnet + 1);
+  };
   return (
     <>
       <div className="rounded-lg shadow-md md:h-full flex flex-col">
@@ -142,6 +145,7 @@ const CarouselCategory = () => {
             draggable={true}
             ref={carouselBottomRef}
             autoplay={false}
+            beforeChange={handleChangeSlide}
           >
             {carouselBottom.map((item, index) => (
               <div

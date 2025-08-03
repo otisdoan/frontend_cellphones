@@ -7,6 +7,13 @@ import { Popover } from "antd";
 import CategoryHome from "../../components/home/category/CategoryHome";
 import FlashSale from "../../components/home/flash-sale/FlashSale";
 import SmartphoneList from "../../components/home/SmartphoneList";
+import LaptopList from "../../components/home/LaptopList";
+import ScreenList from "../../components/home/ScreenList";
+import TabletList from "../../components/home/TabletList";
+import SoundList from "../../components/home/SoundList";
+import ClockSmartList from "../../components/home/ClockSmartList";
+import HouseHoldList from "../../components/home/HouseHoldList";
+import TiviList from "../../components/home/TiviList";
 
 const HomePage = () => {
   return (
@@ -68,6 +75,13 @@ const HomePage = () => {
           />
           <FlashSale />
           <SmartphoneList />
+          <LaptopList />
+          <ScreenList />
+          <TabletList />
+          <SoundList />
+          <ClockSmartList />
+          <HouseHoldList />
+          <TiviList />
         </div>
         <FooterHome />
       </div>

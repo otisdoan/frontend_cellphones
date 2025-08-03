@@ -17,7 +17,7 @@ const PictureCategory = () => {
           <img
             key={index}
             src={item.image}
-            className="h-[8rem] w-full cursor-pointe object-containr "
+            className="h-[8rem] w-full cursor-pointe object-containr cursor-pointer"
           />
         ))}
       </div>

@@ -14,6 +14,9 @@ import SoundList from "../../components/home/SoundList";
 import ClockSmartList from "../../components/home/ClockSmartList";
 import HouseHoldList from "../../components/home/HouseHoldList";
 import TiviList from "../../components/home/TiviList";
+import SpecialStudent from "../../components/home/SpecialStudent";
+import SpecialPayment from "../../components/home/SpecialPayment";
+import SpecialBrand from "../../components/home/SpecialBrand";
 
 const HomePage = () => {
   return (
@@ -82,6 +85,10 @@ const HomePage = () => {
           <ClockSmartList />
           <HouseHoldList />
           <TiviList />
+
+          <SpecialStudent />
+          <SpecialPayment />
+          <SpecialBrand />
         </div>
         <FooterHome />
       </div>

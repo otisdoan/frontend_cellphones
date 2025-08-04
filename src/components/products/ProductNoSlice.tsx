@@ -55,51 +55,50 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
             draggable
           >
             {list.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white flex flex-col gap-y-4 w-[12rem] rounded-lg mx-4 p-3 shadow-lg cursor-pointer overflow-hidden my-4"
-              >
-                <img
-                  src={`https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png`}
-                  className="object-contain hover:scale-105 duration-500"
-                />
-                <div className="h-[3rem] font-bold">
-                  <span>{item.name}</span>
-                </div>
-                <p className="flex items-center gap-x-2 mt-[-0.5rem]">
-                  <span className="text-[#d70019] font-bold text-[1rem]">
-                    {item.price}đ
-                  </span>
-                  <span className="line-through font-bold opacity-65 text-[0.7rem]">
-                    {item.cost_price}
-                  </span>
-                </p>
-                <div className="flex flex-col gap-y-1">
-                  <div className="bg-[#dae8fe] flex items-center p-1 rounded-md">
-                    <span className="text-[#20488b] text-[0.7rem]">
-                      Smember giảm đến 450.000đ
+              <div key={index} className="px-1 my-4">
+                <div className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer">
+                  <img
+                    src={`https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png`}
+                    className="object-contain hover:scale-105 duration-500"
+                  />
+                  <div className="h-[2rem] font-bold">
+                    <span>{item.name}</span>
+                  </div>
+                  <p className="flex items-center gap-x-2 mt-[-0.5rem]">
+                    <span className="text-[#d70019] font-bold text-[1rem]">
+                      {item.price}đ
                     </span>
-                  </div>
-                  <div className="bg-[#EFE9FE] flex items-center p-1 rounded-md">
-                    <span className="text-[#421d95] text-[0.7rem]">
-                      S-Student giảm thêm 300.000đ
+                    <span className="line-through font-bold opacity-65 text-[0.7rem]">
+                      {item.cost_price}
                     </span>
+                  </p>
+                  <div className="flex flex-col gap-y-1">
+                    <div className="bg-[#dae8fe] flex items-center p-1 rounded-md">
+                      <span className="text-[#20488b] text-[0.7rem]">
+                        Smember giảm đến 450.000đ
+                      </span>
+                    </div>
+                    <div className="bg-[#EFE9FE] flex items-center p-1 rounded-md">
+                      <span className="text-[#421d95] text-[0.7rem]">
+                        S-Student giảm thêm 300.000đ
+                      </span>
+                    </div>
+                    <div className="bg-[#F2F2F3] rounded-md p-1">
+                      <span className="text-[0.7rem]">
+                        Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng kỳ
+                        hạn 3-6 tháng
+                      </span>
+                    </div>
                   </div>
-                  <div className="bg-[#F2F2F3] rounded-md p-1">
-                    <span className="text-[0.7rem]">
-                      Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng kỳ
-                      hạn 3-6 tháng
-                    </span>
-                  </div>
-                </div>
-                <div className="flex justify-between">
-                  <div className="flex items-center gap-x-1">
-                    <FaStar className="text-[#ffd531]" />
-                    <span>{item.rating_average}</span>
-                  </div>
-                  <div className="flex items-center gap-x-1">
-                    <FaRegHeart className="text-[#3c82f6]" />
-                    <span className="text-[#3c82f6]">Yêu thích</span>
+                  <div className="flex justify-between">
+                    <div className="flex items-center gap-x-1">
+                      <FaStar className="text-[#ffd531]" />
+                      <span>{item.rating_average}</span>
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                      <FaRegHeart className="text-[#3c82f6]" />
+                      <span className="text-[#3c82f6]">Yêu thích</span>
+                    </div>
                   </div>
                 </div>
               </div>

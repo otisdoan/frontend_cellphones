@@ -17,6 +17,8 @@ import TiviList from "../../components/home/TiviList";
 import SpecialStudent from "../../components/home/SpecialStudent";
 import SpecialPayment from "../../components/home/SpecialPayment";
 import SpecialBrand from "../../components/home/SpecialBrand";
+import SuggestForYou from "../../components/home/SuggestForYou";
+import ProductWatched from "../../components/home/ProductWatched";
 
 const HomePage = () => {
   return (
@@ -77,6 +79,7 @@ const HomePage = () => {
             className="rounded-lg w-full h-full object-cover md:hidden"
           />
           <FlashSale />
+          <SuggestForYou />
           <SmartphoneList />
           <LaptopList />
           <ScreenList />
@@ -85,7 +88,7 @@ const HomePage = () => {
           <ClockSmartList />
           <HouseHoldList />
           <TiviList />
-
+          <ProductWatched />
           <SpecialStudent />
           <SpecialPayment />
           <SpecialBrand />

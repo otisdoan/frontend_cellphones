@@ -10,8 +10,8 @@ import { useRef } from "react";
 import type { CarouselRef } from "antd/es/carousel";
 
 interface ProductHomeProps {
-  title: string;
-  brand: { name: string }[];
+  title?: string;
+  brand?: { name: string }[];
   list: ProductProps[];
 }
 const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
@@ -38,8 +38,10 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
                 <span>{item.name}</span>
               </div>
             ))}
-            <div className="p-2 flex justify-center items-center border-[1px] bg-[#f3f4f6] border-[#e5e7eb] rounded-lg text-[0.8rem] cursor-pointer">
-              <span>Xem tất cả</span>
+            <div className={brand ? `block` : `hidden`}>
+              <div className="p-2 flex justify-center items-center border-[1px] bg-[#f3f4f6] border-[#e5e7eb] rounded-lg text-[0.8rem] cursor-pointer">
+                <span>Xem tất cả</span>
+              </div>
             </div>
           </div>
         </div>
@@ -55,7 +57,7 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
             {list.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col gap-y-4 w-[12rem] rounded-lg mx-4 p-3 shadow-lg cursor-pointer overflow-hidden my-4"
+                className="bg-white flex flex-col gap-y-4 w-[12rem] rounded-lg mx-4 p-3 shadow-lg cursor-pointer overflow-hidden my-4"
               >
                 <img
                   src={`https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png`}

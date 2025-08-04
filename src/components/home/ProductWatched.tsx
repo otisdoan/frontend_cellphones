@@ -33,7 +33,7 @@ const ProductWatched = () => {
             SẢN PHẨM BẠN ĐÃ XEM
           </h2>
         </div>
-        <ProductNoSlice list={dataProducts} />
+        <ProductNoSlice list={dataProducts} suggest={true} />
       </div>
     </>
   );

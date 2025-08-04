@@ -33,7 +33,7 @@ const SuggestForYou = () => {
             GỢI Ý CHO BẠN
           </h2>
         </div>
-        <ProductNoSlice list={dataProducts} />
+        <ProductNoSlice list={dataProducts} suggest={true} />
       </div>
     </>
   );

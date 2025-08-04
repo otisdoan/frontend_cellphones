@@ -21,6 +21,7 @@ import { BiCategory } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface MarqueeProps {
   icon: JSX.Element;
@@ -42,9 +43,9 @@ const HeaderHome = () => {
       content: "Sản phẩm Chính hãng - Xuất VAT đầy đủ",
     },
   ];
-
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [openLogin, setOpenLogin] = useState<boolean>(false);
   return (
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
@@ -139,6 +140,7 @@ const HeaderHome = () => {
                       <FaRegUserCircle className="text-[1.5rem] text-white" />
                     </div>
                   }
+                  onClick={() => setOpenLogin(true)}
                 />
               </div>
             </div>
@@ -166,6 +168,36 @@ const HeaderHome = () => {
             </Badge>
           </div>
         </div>
+        <ModalCellphoneS
+          children={
+            <div className="bg-white rounded-lg p-4 flex flex-col items-center w-[20rem]">
+              <span className="text-[#d70019] font-medium text-[2rem] text-center">
+                Smember
+              </span>
+              <img src="/images/chibi2.webp" className="object-contain" />
+              <p className="font-bold opacity-80">
+                Vui lòng đăng nhập tài khoản Smember để xem ưu đãi và thanh toán
+                dễ dàng hơn.
+              </p>
+              <div className="flex gap-x-4 mt-4">
+                <ButtonCellphoneS
+                  children="Đăng ký"
+                  className="bg-white w-[10rem]"
+                  defaultHoverBg="white"
+                  onClick={() => navigate("/register")}
+                />
+                <ButtonCellphoneS
+                  children="Đăng nhập"
+                  className="text-white w-[10rem]"
+                  onClick={() => navigate("/login")}
+                />
+              </div>
+            </div>
+          }
+          open={openLogin}
+          onCancel={() => setOpenLogin(false)}
+          className="flex justify-center top-1/4"
+        />
       </div>
     </>
   );

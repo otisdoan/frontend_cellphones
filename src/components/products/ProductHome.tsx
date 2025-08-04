@@ -100,7 +100,7 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
           <Carousel {...setting}>
             {list.map((items, index) => (
               <div key={index} className="">
-                <div className="flex flex-col w-full my-4 px-1">
+                <div className="flex flex-col w-full my-4 px-1 relative">
                   {items.map((item, index) => (
                     <div
                       key={index}
@@ -113,7 +113,7 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
                       <div className="font-bold h-[2rem]">
                         <span>{item.name}</span>
                       </div>
-                      <p className="flex items-center gap-x-2">
+                      <p className="flex items-center gap-x-1">
                         <span className="text-[#d70019] font-bold text-[1rem]">
                           {item.price}đ
                         </span>
@@ -148,6 +148,30 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
                           <FaRegHeart className="text-[#3c82f6]" />
                           <span className="text-[#3c82f6]">Yêu thích</span>
                         </div>
+                      </div>
+                      <div
+                        className="object-contain absolute top-[-0.5rem] px-2"
+                        style={{
+                          backgroundImage:
+                            "url('/images/discount-badge-ui-2025.webp')",
+                        }}
+                      >
+                        <p className="text-white flex items-center gap-x-1">
+                          <span className="text-[0.7rem]">Giảm</span>
+                          <span className="text-[0.8rem]">14%</span>
+                        </p>
+                      </div>
+                      <div
+                        className="object-cover absolute right-0 top-0 px-1"
+                        style={{
+                          backgroundImage:
+                            "url('/images/zero-ins-badge-ui-2025.webp')",
+                        }}
+                      >
+                        <p className="text-[#3c82f6] flex items-center gap-x-1">
+                          <span className="text-[0.7rem]">Trả góp</span>
+                          <span className="text-[0.8rem]">0%</span>
+                        </p>
                       </div>
                     </div>
                   ))}

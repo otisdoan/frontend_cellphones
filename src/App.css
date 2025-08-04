@@ -16,3 +16,6 @@
     hsla(0, 0%, 100%, 0.14) 97.6%
   );
 }
+.bg-image {
+  background-image: (90deg, #ff512f, #dd2440 51%, #ff512f);
+}

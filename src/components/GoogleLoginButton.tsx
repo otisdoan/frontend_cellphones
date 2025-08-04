@@ -38,12 +38,13 @@ const GoogleLoginButton = () => {
       <ButtonCellphoneS
         onClick={() => login()}
         children={
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center justify-center w-[8rem] gap-x-1">
             <FcGoogle className="text-[1.3rem]" />
             Google
           </div>
         }
         className="bg-white border-gray-400 text-black md:w-[12rem]"
+        defaultHoverBg="white"
       />
     </>
   );

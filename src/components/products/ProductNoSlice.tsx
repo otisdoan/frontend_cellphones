@@ -13,8 +13,14 @@ interface ProductHomeProps {
   title?: string;
   brand?: { name: string }[];
   list: ProductProps[];
+  suggest?: boolean;
 }
-const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
+const ProductNoSlice = ({
+  title,
+  brand,
+  list,
+  suggest = false,
+}: ProductHomeProps) => {
   const carouselRef = useRef<CarouselRef>(null);
 
   const handlePrev = () => {
@@ -54,7 +60,7 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
             draggable
           >
             {list.map((item, index) => (
-              <div key={index} className="px-1 my-4">
+              <div key={index} className="px-1 my-4 relative">
                 <div className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer">
                   <img
                     src={`https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png`}
@@ -63,7 +69,7 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
                   <div className="h-[2rem] font-bold">
                     <span>{item.name}</span>
                   </div>
-                  <p className="flex items-center gap-x-2 mt-[-0.5rem]">
+                  <p className="flex items-center gap-x-1">
                     <span className="text-[#d70019] font-bold text-[1rem]">
                       {item.price}đ
                     </span>
@@ -77,12 +83,20 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
                         Smember giảm đến 450.000đ
                       </span>
                     </div>
-                    <div className="bg-[#EFE9FE] flex items-center p-1 rounded-md">
+                    <div
+                      className={`bg-[#EFE9FE] flex items-center p-1 rounded-md ${
+                        suggest && `hidden`
+                      }`}
+                    >
                       <span className="text-[#421d95] text-[0.7rem]">
                         S-Student giảm thêm 300.000đ
                       </span>
                     </div>
-                    <div className="bg-[#F2F2F3] rounded-md p-1">
+                    <div
+                      className={`bg-[#F2F2F3] rounded-md p-1 ${
+                        suggest && `hidden`
+                      }`}
+                    >
                       <span className="text-[0.7rem]">
                         Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng kỳ
                         hạn 3-6 tháng
@@ -98,6 +112,30 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
                       <FaRegHeart className="text-[#3c82f6]" />
                       <span className="text-[#3c82f6]">Yêu thích</span>
                     </div>
+                  </div>
+                  <div
+                    className="object-contain absolute top-[-0.5rem] px-2"
+                    style={{
+                      backgroundImage:
+                        "url('/images/discount-badge-ui-2025.webp')",
+                    }}
+                  >
+                    <p className="text-white flex items-center gap-x-1">
+                      <span className="text-[0.7rem]">Giảm</span>
+                      <span className="text-[0.8rem]">14%</span>
+                    </p>
+                  </div>
+                  <div
+                    className="object-cover absolute right-0 top-0 px-1"
+                    style={{
+                      backgroundImage:
+                        "url('/images/zero-ins-badge-ui-2025.webp')",
+                    }}
+                  >
+                    <p className="text-[#3c82f6] flex items-center gap-x-1">
+                      <span className="text-[0.7rem]">Trả góp</span>
+                      <span className="text-[0.8rem]">0%</span>
+                    </p>
                   </div>
                 </div>
               </div>

@@ -176,8 +176,8 @@ const FormRegister = () => {
                 to="#"
                 children="Điều khoản sử dụng"
                 className="text-blue-500"
-              />{" "}
-              và{" "}
+              />
+              và
               <LinkCellphone
                 to="#"
                 children="Chính sách bảo mật của CellphoneS"
@@ -187,15 +187,16 @@ const FormRegister = () => {
           </div>
           <Divider variant="dashed" dashed className="border-[0.1rem]" />
           <Form.Item className="sticky bottom-0 bg-white shadow-lg py-5 rounded-sm mb-0">
-            <div className="flex items-center gap-x-4 ">
+            <div className="flex items-center justify-between gap-x-4 ">
               <ButtonCellphoneS
                 children="Quay lại đăng nhập"
-                className="bg-white text-black border-black"
+                className="bg-white text-black border-black w-1/2"
                 onClick={() => navigate("/login")}
+                defaultHoverBg="white"
               />
               <ButtonCellphoneS
                 children="Hoàn tất đăng ký"
-                className="text-white"
+                className="text-white w-1/2"
                 htmlType="submit"
               />
             </div>

@@ -30,7 +30,7 @@ const ProductWatched = () => {
         <div className="flex items-center gap-x-2">
           <StarIcon />
           <h2 className="text-[1.5rem] text-[#04297a] font-bold">
-            GỢI Ý CHO BẠN
+            SẢN PHẨM BẠN ĐÃ XEM
           </h2>
         </div>
         <ProductNoSlice list={dataProducts} />

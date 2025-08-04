@@ -5,7 +5,6 @@ import { SlEarphonesAlt } from "react-icons/sl";
 import { Popover } from "antd";
 // import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import CategoryHome from "../../components/home/category/CategoryHome";
-import FlashSale from "../../components/home/flash-sale/FlashSale";
 import SmartphoneList from "../../components/home/SmartphoneList";
 import LaptopList from "../../components/home/LaptopList";
 import ScreenList from "../../components/home/ScreenList";
@@ -68,7 +67,7 @@ const HomePage = () => {
           </Popover>
         </div>
         <HeaderHome />
-        <div className="md:px-[10rem] px-4 bg-[#ffffff] flex flex-col gap-y-4">
+        <div className="md:px-[8.5rem] px-4 bg-[#ffffff] flex flex-col gap-y-4">
           <CategoryHome />
           <img
             src="/images/special-b2s-dday2-desk.gif"
@@ -78,7 +77,7 @@ const HomePage = () => {
             src="/images/special-b2s-dday2-mb.gif"
             className="rounded-lg w-full h-full object-cover md:hidden"
           />
-          <FlashSale />
+          {/* <FlashSale /> */}
           <SuggestForYou />
           <SmartphoneList />
           <LaptopList />

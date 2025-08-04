@@ -26,9 +26,8 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
   };
 
   const setting = {
-    arrows: false,
     dots: false,
-    autoplay: true,
+    arrows: false,
     ref: carouselRef,
     draggable: true,
     slidesToShow: 5,
@@ -101,11 +100,11 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
           <Carousel {...setting}>
             {list.map((items, index) => (
               <div key={index} className="">
-                <div className="flex flex-col w-full my-4">
+                <div className="flex flex-col w-full my-4 px-1">
                   {items.map((item, index) => (
                     <div
                       key={index}
-                      className="flex flex-col gap-y-3 w-[14rem] rounded-lg p-3 shadow-lg cursor-pointer"
+                      className="flex flex-col gap-y-3 w-full rounded-lg p-3 shadow-lg cursor-pointer"
                     >
                       <img
                         src={`https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png`}

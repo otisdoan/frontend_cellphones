@@ -50,7 +50,6 @@ const ProductNoSlice = ({ title, brand, list }: ProductHomeProps) => {
             arrows={false}
             dots={false}
             slidesToShow={5}
-            autoplay
             ref={carouselRef}
             draggable
           >

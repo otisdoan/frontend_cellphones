@@ -12,4 +12,10 @@ export const menuSmartphoneApi = {
     >(API_URL.MENU_SMARTPHONE);
     return response.data;
   },
+  getLatop: async () => {
+    const response = await axiosInstance.get<
+      MenuSmartphoneResponse<MenuSmartphoneType>
+    >(API_URL.MENU_LAPTOP);
+    return response.data;
+  },
 };

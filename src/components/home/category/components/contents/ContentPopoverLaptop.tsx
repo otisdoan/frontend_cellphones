@@ -3,11 +3,11 @@ import { menuSmartphoneApi } from "../../../../../utils/api/menu_smartphone.api"
 import type { MenuSmartphoneType } from "../../../../../types/api/MenuSmartphoneResponse";
 import LinkCellphone from "../../../../LinkCellohone";
 
-const ContentTooltipSamrtphone = () => {
+const ContentPopoverLaptop = () => {
   const [list, setList] = useState<MenuSmartphoneType[]>([]);
   const getMenuSmartphone = async () => {
     try {
-      const result = await menuSmartphoneApi.get();
+      const result = await menuSmartphoneApi.getLatop();
       console.log(result);
       setList(result.data);
     } catch (error) {
@@ -20,7 +20,7 @@ const ContentTooltipSamrtphone = () => {
   }, []);
   return (
     <>
-      <div className="bg-white rounded-lg p-4 flex gap-x-4 w-[57rem] h-[32rem] ml-[1.5rem] border-[1px] mt-[-2.8rem] absolute top-[2rem]">
+      <div className="bg-white rounded-lg p-4 flex gap-x-4 w-[57rem] h-[32rem] ml-[1.5rem] border-[1px] mt-[-2.8rem]">
         {list.map((item, index) => (
           <div className="w-1/5 flex flex-col gap-y-2" key={index}>
             <span className="font-bold">{item.title}</span>
@@ -40,4 +40,4 @@ const ContentTooltipSamrtphone = () => {
   );
 };
 
-export default ContentTooltipSamrtphone;
+export default ContentPopoverLaptop;

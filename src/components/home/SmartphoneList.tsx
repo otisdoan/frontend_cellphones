@@ -19,6 +19,18 @@ const SmartphoneList = () => {
     {
       name: "OPPO",
     },
+    {
+      name: "NOKIA",
+    },
+    {
+      name: "VIVO",
+    },
+    {
+      name: "realme",
+    },
+    {
+      name: "TECHO",
+    },
   ];
   const fetchProducts = async () => {
     try {

@@ -18,6 +18,7 @@ import SpecialPayment from "../../components/home/SpecialPayment";
 import SpecialBrand from "../../components/home/SpecialBrand";
 import SuggestForYou from "../../components/home/SuggestForYou";
 import ProductWatched from "../../components/home/ProductWatched";
+import NavbarMobile from "../../components/home/NavbarMobile";
 
 const HomePage = () => {
   return (
@@ -92,6 +93,7 @@ const HomePage = () => {
           <SpecialPayment />
           <SpecialBrand />
         </div>
+        <NavbarMobile />
         <FooterHome />
       </div>
     </>

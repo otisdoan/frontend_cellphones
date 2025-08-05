@@ -92,9 +92,22 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
                 <span>{item.name}</span>
               </div>
             ))}
-            <div className="p-2 flex justify-center items-center border-[1px] bg-[#f3f4f6] border-[#e5e7eb] rounded-lg text-[0.8rem] cursor-pointer">
+            <div className="p-2 md:flex justify-center items-center border-[1px] bg-[#f3f4f6] border-[#e5e7eb] rounded-lg text-[0.8rem] cursor-pointer hidden">
               <span>Xem tất cả</span>
             </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-x-2 md:hidden overflow-x-auto scrollbar-hide">
+          {brand?.map((item, index) => (
+            <div
+              key={index}
+              className="p-2 flex justify-center items-center border-[1px] bg-[#f3f4f6] border-[#e5e7eb] rounded-lg text-[0.8rem] cursor-pointer"
+            >
+              <span>{item.name}</span>
+            </div>
+          ))}
+          <div className="p-2 md:flex justify-center items-center border-[1px] bg-[#f3f4f6] border-[#e5e7eb] rounded-lg text-[0.8rem] cursor-pointer hidden">
+            <span>Xem tất cả</span>
           </div>
         </div>
         <div className="relative">

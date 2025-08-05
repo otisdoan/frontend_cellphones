@@ -81,8 +81,9 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
     <>
       <div className="flex flex-col gap-y-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-[1.5rem] font-medium">{title}</h2>
-          <div className="flex items-center gap-x-2">
+          <h2 className="md:text-[1.5rem] text-[1rem] font-medium">{title}</h2>
+          <span className="cursor-pointer md:hidden">Xem tất cả</span>
+          <div className="md:flex items-center gap-x-2 hidden">
             {brand?.map((item, index) => (
               <div
                 key={index}
@@ -113,7 +114,7 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
                       <div className="font-bold h-[2rem]">
                         <span>{item.name}</span>
                       </div>
-                      <p className="flex items-center gap-x-1">
+                      <p className="flex items-center gap-x-1 whitespace-normal">
                         <span className="text-[#d70019] font-bold text-[1rem]">
                           {item.price}đ
                         </span>

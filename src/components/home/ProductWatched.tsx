@@ -22,7 +22,7 @@ const ProductWatched = () => {
   return (
     <>
       <div
-        className="bg-cover bg-no-repeat rounded-[1rem] p-4"
+        className="bg-cover bg-no-repeat rounded-[1rem] p-1"
         style={{
           backgroundImage: "url('/images/GoRec.webp')",
         }}

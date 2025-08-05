@@ -30,12 +30,69 @@ const ProductNoSlice = ({
   const handleNext = () => {
     carouselRef.current?.next();
   };
+
+  const setting = {
+    dots: false,
+    arrows: false,
+    ref: carouselRef,
+    draggable: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <div className="flex flex-col gap-y-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-[1.5rem] font-medium">{title}</h2>
-          <div className="flex items-center gap-x-2">
+          <h2 className="md:text-[1.5rem] font-medium text-[1rem]">{title}</h2>
+          <span className={suggest === true ? `hidden` : `md:hidden`}>
+            Xem tất cả
+          </span>
+          <div className="md:flex items-center gap-x-2 hidden">
             {brand?.map((item, index) => (
               <div
                 key={index}
@@ -52,13 +109,7 @@ const ProductNoSlice = ({
           </div>
         </div>
         <div className="relative">
-          <Carousel
-            arrows={false}
-            dots={false}
-            slidesToShow={5}
-            ref={carouselRef}
-            draggable
-          >
+          <Carousel {...setting}>
             {list.map((item, index) => (
               <div key={index} className="px-1 my-4 relative">
                 <div className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer">

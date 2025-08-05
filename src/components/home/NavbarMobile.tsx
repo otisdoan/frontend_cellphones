@@ -6,7 +6,7 @@ import { TbSmartHome } from "react-icons/tb";
 import { VscHome } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 
-const NavbarMobile = () => {
+const NavbarMobile = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
   const navbar: { icon: ReactNode; title: string; path: string }[] = [
     {
       icon: <TbSmartHome />,
@@ -36,9 +36,14 @@ const NavbarMobile = () => {
   ];
   const navigate = useNavigate();
   const [current, setCurrent] = useState<number>(0);
+
   const handleShow = (path: string, index: number) => {
     setCurrent(index);
     navigate(path);
+    setOpen(false);
+    if (index === 1) {
+      setOpen(true);
+    }
   };
   return (
     <>

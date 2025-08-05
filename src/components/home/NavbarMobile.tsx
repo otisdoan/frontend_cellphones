@@ -42,7 +42,7 @@ const NavbarMobile = () => {
   };
   return (
     <>
-      <div className="md:hidden flex gap-x-4 bg-white sticky bottom-0 border-[1px] p-2">
+      <div className="md:hidden flex gap-x-4 bg-white sticky bottom-0 border-t-[1px] p-2">
         {navbar.map((item, index) => (
           <div
             key={index}

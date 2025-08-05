@@ -115,10 +115,10 @@ const ProductHome = ({ title, brand, list }: ProductHomeProps) => {
                         <span>{item.name}</span>
                       </div>
                       <p className="flex items-center gap-x-1 whitespace-normal">
-                        <span className="text-[#d70019] font-bold text-[1rem]">
+                        <span className="text-[#d70019] font-bold text-[0.8rem]">
                           {item.price}đ
                         </span>
-                        <span className="line-through font-bold opacity-65 text-[0.7rem]">
+                        <span className="line-through font-bold opacity-65 md:text-[0.3rem]">
                           {item.cost_price}
                         </span>
                       </p>

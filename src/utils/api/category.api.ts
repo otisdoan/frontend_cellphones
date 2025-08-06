@@ -1,5 +1,6 @@
 import { API_URL } from "../../constants/API_URL";
 import type {
+  CategoryMobile,
   CategoryProps,
   CategoryResponse,
   CategoryTree,
@@ -23,6 +24,12 @@ export const categoryApi = {
   getAllNameCategories: async () => {
     const response = await axiosInstance.get<CategoryResponse<CategoryTree>>(
       API_URL.OTHER_CATEGORY.GET_ALL_NAME
+    );
+    return response.data;
+  },
+  getCategoryMobile: async () => {
+    const response = await axiosInstance.get<CategoryResponse<CategoryMobile>>(
+      API_URL.OTHER_CATEGORY.CATEGORY_MOBILE
     );
     return response.data;
   },

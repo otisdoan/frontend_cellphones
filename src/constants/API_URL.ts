@@ -8,6 +8,7 @@ export const API_URL = {
   },
   OTHER_CATEGORY: {
     GET_ALL_NAME: "/category/name",
+    CATEGORY_MOBILE: "category/category-mobile",
   },
   PRODUCT: "/products",
   OTHER_PRODUCT: {

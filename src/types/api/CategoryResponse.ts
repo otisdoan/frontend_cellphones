@@ -12,6 +12,16 @@ export interface CategoryProps {
   update_at: string;
 }
 
+export type CategoryMobile = {
+  title: string;
+  brand: { name: string; logo_url: string }[];
+} & {
+  title: string;
+  price: { content: string }[];
+} & {
+  title: string;
+  products: { name: string }[];
+};
 export interface CategoryResponse<T> {
   status: string;
   message: string;

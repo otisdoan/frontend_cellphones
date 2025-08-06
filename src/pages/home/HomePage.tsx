@@ -24,7 +24,7 @@ import SmartphoneContent from "../../components/home/category-mobile/SmartphoneC
 
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
-  const [current, setCurrent] = useState<number>();
+  const [current, setCurrent] = useState<number>(0);
 
   const handleShow = (open: boolean) => {
     setShow(open);
@@ -178,7 +178,7 @@ const HomePage = () => {
         )}
         {show && (
           <div className="bg-white w-full flex">
-            <div className="w-[20%] flex flex-col  overflow-y-auto scrollbar-hide border-r-[1px]">
+            <div className="w-[20%] flex flex-col h-[100vh]  overflow-y-auto scrollbar-hide border-r-[1px]">
               {category.map((item, index) => (
                 <div
                   key={index}

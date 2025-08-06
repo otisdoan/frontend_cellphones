@@ -41,7 +41,7 @@ const TabletContent = () => {
                       {item.brand.map((brand, index) => (
                         <div
                           key={index}
-                          className="flex-[1_1_calc(20%-1rem)] p-2 border-[1px] rounded-lg  max-h-[2rem] flex items-center justify-center overflow-hidden"
+                          className="flex-[1_1_calc(20%-1rem)] p-4 border-[1px] rounded-lg  max-h-[2rem] flex items-center justify-center overflow-hidden"
                         >
                           {brand.logo_url === "" ? (
                             <span className="text-[0.8rem]">{brand.name}</span>

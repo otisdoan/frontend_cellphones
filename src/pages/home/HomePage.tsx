@@ -22,6 +22,7 @@ import NavbarMobile from "../../components/home/NavbarMobile";
 import { useState } from "react";
 import SmartphoneContent from "../../components/home/category-mobile/SmartphoneContent";
 import TabletContent from "../../components/home/category-mobile/TabletContent";
+import ProductSale from "../../components/home/ProductSale";
 
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -161,6 +162,7 @@ const HomePage = () => {
               src="/images/special-b2s-dday2-mb.gif"
               className="rounded-lg w-full h-full object-cover md:hidden"
             />
+            <ProductSale />
             {/* <FlashSale /> */}
             <SuggestForYou />
             <SmartphoneList />

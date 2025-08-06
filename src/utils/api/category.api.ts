@@ -3,6 +3,7 @@ import type {
   CategoryMobile,
   CategoryProps,
   CategoryResponse,
+  CategoryTabletMobile,
   CategoryTree,
 } from "../../types/api/CategoryResponse";
 import axiosInstance from "../axios";
@@ -31,6 +32,12 @@ export const categoryApi = {
     const response = await axiosInstance.get<CategoryResponse<CategoryMobile>>(
       API_URL.OTHER_CATEGORY.CATEGORY_MOBILE
     );
+    return response.data;
+  },
+  getCategoryTabletMobile: async () => {
+    const response = await axiosInstance.get<
+      CategoryResponse<CategoryTabletMobile>
+    >(API_URL.OTHER_CATEGORY.CATEGORY_TABLET_MOBILE);
     return response.data;
   },
 };

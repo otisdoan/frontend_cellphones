@@ -22,6 +22,14 @@ export type CategoryMobile = {
   title: string;
   products: { name: string }[];
 };
+
+export type CategoryTabletMobile = {
+  title: string;
+  brand: { name: string; logo_url: string }[];
+} & {
+  title: string;
+  products: { name: string }[];
+};
 export interface CategoryResponse<T> {
   status: string;
   message: string;

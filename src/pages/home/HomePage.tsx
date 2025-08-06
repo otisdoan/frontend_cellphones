@@ -21,6 +21,7 @@ import ProductWatched from "../../components/home/ProductWatched";
 import NavbarMobile from "../../components/home/NavbarMobile";
 import { useState } from "react";
 import SmartphoneContent from "../../components/home/category-mobile/SmartphoneContent";
+import TabletContent from "../../components/home/category-mobile/TabletContent";
 
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -195,6 +196,11 @@ const HomePage = () => {
             {current === 0 && (
               <div className="w-[80%]">
                 <SmartphoneContent />
+              </div>
+            )}
+            {current === 1 && (
+              <div className="w-[80%]">
+                <TabletContent />
               </div>
             )}
           </div>

@@ -126,7 +126,7 @@ const FooterHome = () => {
   ];
   return (
     <>
-      <div className="md:flex md:gap-x-4 bg-[#f7f7f8] md:px-[8rem] md:py-4 hidden mt-4">
+      <div className="md:flex md:gap-x-4 bg-[#f7f7f8] md:px-[8.5rem] md:py-4 hidden mt-4">
         <div className="md:w-1/4 md:flex md:flex-col md:gap-y-5">
           <div>
             <h3 className="font-medium md:mb-2">Tổng đài hỗ trợ miễn phí</h3>

@@ -4,7 +4,7 @@ const ProductSale = () => {
   return (
     <>
       <div className="relative h-[40rem]">
-        <div className="absolute top-0 left-1/2 translate-x-[-50%] z-20 md:h-[4rem]">
+        <div className="absolute top-[-0.5rem] left-1/2 translate-x-[-50%] z-20 md:h-[4rem]">
           <img
             src="/images/sale-head.webp"
             className="object-contain h-full md:w-full max-w-[17rem] md:max-w-[30rem]"

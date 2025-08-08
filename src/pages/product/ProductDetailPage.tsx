@@ -9,6 +9,7 @@ import { HiOutlineChip } from "react-icons/hi";
 import { Divider } from "antd";
 import CarouselProduct from "../../components/home/product/CarouselProduct";
 import ProductCommitments from "../../components/home/product/ProductCommitments";
+import OptionProduct from "../../components/home/product/OptionProduct";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const ProductDetailPage = () => {
 
   return (
     <>
-      <div className="flex gap-x-4 ">
+      <div className="flex gap-x-8 ">
         <div className="w-1/2 flex flex-col gap-y-3 mt-4">
           <h2 className="text-[1.3rem] font-semibold">{product?.name}</h2>
           <div className="flex items-center gap-x-1">
@@ -65,7 +66,22 @@ const ProductDetailPage = () => {
           </div>
           <ProductCommitments />
         </div>
-        <div className="w-1/2"></div>
+        <div className="w-1/2 mt-4">
+          <div className="rounded-lg p-4 border-[1px] border-[#71a4fb] bg-[#f1f6ff] w-[21rem] mb-4">
+            <div className="p-1 bg-[#fae6e8] text-[#d70019] rounded-md w-[13rem] mb-3">
+              <span>Giá giành riêng cho SMEM</span>
+            </div>
+            <div className="flex gap-x-4 items-center">
+              <span className="text-[1.5rem] font-medium ">
+                {product?.price}đ
+              </span>
+              <span className="text-[1rem] opacity-60 line-through">
+                {product?.sale_price}đ
+              </span>
+            </div>
+          </div>
+          {product?.id && <OptionProduct idProduct={product?.id} />}
+        </div>
       </div>
     </>
   );

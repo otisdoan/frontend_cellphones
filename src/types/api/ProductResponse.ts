@@ -1,5 +1,5 @@
 export interface ProductProps {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   sku: string;

@@ -21,4 +21,6 @@ export const API_URL = {
   MENU_SMARTPHONE: "/menu",
   MENU_LAPTOP: "/menu/laptop",
   PRODUCT_VARIANT_BY_ID: "/product-variant",
+  PRODUCT_CAPACITY: "/product-variant/capacity",
+  PRODUCT_VARIANT_BY_CAPACITY: "/product-variant/by-capacity",
 };

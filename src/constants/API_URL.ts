@@ -14,6 +14,7 @@ export const API_URL = {
   PRODUCT: "/products",
   OTHER_PRODUCT: {
     GET_ALL_NAME: "/products/name",
+    GET_BY_SLUG: "/products",
   },
   BRAND: "/brand",
   PRODUCT_IMAGES: "/product-images",

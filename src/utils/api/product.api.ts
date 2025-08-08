@@ -13,6 +13,12 @@ export const productApi = {
     );
     return response.data;
   },
+  getProductBySlug: async (slug: string) => {
+    const response = await axiosInstance.get<ProductResponse<ProductProps>>(
+      `${API_URL.OTHER_PRODUCT.GET_BY_SLUG}${slug}`
+    );
+    return response.data;
+  },
   create: async (payload: ProductProps) => {
     const response = await axiosInstance.post<ProductResponse<ProductProps>>(
       API_URL.PRODUCT,

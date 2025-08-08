@@ -1,9 +1,3 @@
-import FooterHome from "../../components/home/FooterHome";
-import HeaderHome from "../../components/home/HeaderHome";
-import ButtonCellphoneS from "../../components/ButtonCellphoneS";
-import { SlEarphonesAlt } from "react-icons/sl";
-import { Popover } from "antd";
-// import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import CategoryHome from "../../components/home/category/CategoryHome";
 import SmartphoneList from "../../components/home/SmartphoneList";
 import LaptopList from "../../components/home/LaptopList";
@@ -19,10 +13,11 @@ import SpecialBrand from "../../components/home/SpecialBrand";
 import SuggestForYou from "../../components/home/SuggestForYou";
 import ProductWatched from "../../components/home/ProductWatched";
 import NavbarMobile from "../../components/home/NavbarMobile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SmartphoneContent from "../../components/home/category-mobile/SmartphoneContent";
 import TabletContent from "../../components/home/category-mobile/TabletContent";
 import ProductSale from "../../components/home/ProductSale";
+import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -104,55 +99,19 @@ const HomePage = () => {
       color: "bg-[#cbfbf1]",
     },
   ];
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   return (
     <>
       <div className="z-30">
-        {/* <BackTop
-          className="top-[36rem] right-[10rem] w-[6.4rem] hidden md:block"
-          children={
-            <ButtonCellphoneS
-              className="bg-black text-white h-[2rem] border-0"
-              defaultHoverBg="black"
-              children={
-                <div className="flex items-center gap-x-1">
-                  <span>Lên đầu</span>
-                  <MdOutlineKeyboardDoubleArrowUp className="text-[1.2rem]" />
-                </div>
-              }
-            />
-          }
-        /> */}
-        <div className="fixed top-[40rem] right-[10rem] hidden md:block z-30">
-          <Popover
-            content={
-              <div className=" bg-white p-4 rounded-lg">
-                <div className="flex items-center gap-x-1 mb-4 cursor-pointer">
-                  <img src="/images/icon-cskh-2025.webp" className="w-[2rem]" />
-                  <span>Chat với nhân viên</span>
-                </div>
-                <div className="flex items-center gap-x-1 cursor-pointer">
-                  <img src="/images/icon-zalo-2025.webp" className="w-[2rem]" />
-                  <span>Liên hệ Zalo</span>
-                </div>
-              </div>
-            }
-            trigger="click"
-            placement="topRight"
-          >
-            <ButtonCellphoneS
-              className="text-white md:h-[2.5rem]"
-              children={
-                <div className="md:flex md:items-center md:gap-x-2">
-                  <span>Liên hệ</span>
-                  <SlEarphonesAlt />
-                </div>
-              }
-            />
-          </Popover>
-        </div>
-        <HeaderHome />
         {!show && (
-          <div className="md:px-[8.5rem] px-4 bg-[#ffffff] flex flex-col gap-y-4">
+          <div className="px-4 bg-[#ffffff] flex flex-col gap-y-4">
             <CategoryHome />
             <img
               src="/images/special-b2s-dday2-desk.gif"
@@ -163,7 +122,6 @@ const HomePage = () => {
               className="rounded-lg w-full h-full object-cover md:hidden"
             />
             <ProductSale />
-            {/* <FlashSale /> */}
             <SuggestForYou />
             <SmartphoneList />
             <LaptopList />
@@ -208,7 +166,6 @@ const HomePage = () => {
           </div>
         )}
         <NavbarMobile setOpen={handleShow} />
-        <FooterHome />
       </div>
     </>
   );

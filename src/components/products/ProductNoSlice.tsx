@@ -8,6 +8,7 @@ import {
 } from "react-icons/md";
 import { useRef } from "react";
 import type { CarouselRef } from "antd/es/carousel";
+import { useNavigate } from "react-router-dom";
 
 interface ProductHomeProps {
   title?: string;
@@ -22,6 +23,7 @@ const ProductNoSlice = ({
   suggest = false,
 }: ProductHomeProps) => {
   const carouselRef = useRef<CarouselRef>(null);
+  const navigate = useNavigate();
 
   const handlePrev = () => {
     carouselRef.current?.prev();
@@ -112,9 +114,12 @@ const ProductNoSlice = ({
           <Carousel {...setting}>
             {list.map((item, index) => (
               <div key={index} className="px-1 my-4 relative">
-                <div className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer">
+                <div
+                  className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer"
+                  onClick={() => navigate(`/${item.slug}`)}
+                >
                   <img
-                    src={`https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro-max.png`}
+                    src={`https://cdn2.cellphones.com.vn/358x/media/catalog/product/i/p/iphone-16-plus-hong.png`}
                     className="object-contain hover:scale-105 duration-500"
                   />
                   <div className="h-[2rem] font-bold">

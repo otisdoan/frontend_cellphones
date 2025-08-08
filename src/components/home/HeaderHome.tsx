@@ -91,10 +91,16 @@ const HeaderHome = () => {
             </div>
           </div>
           <div className="flex items-center gap-x-2 md:gap-x-4 mt-4 px-3 md:px-[8.5rem]">
-            <div className="md:hidden">
+            <div
+              className="md:hidden cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               <SvgLogo width="38" height="40" />
             </div>
-            <div className="hidden md:block">
+            <div
+              className="hidden md:block cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               <SvgLogoDesktop />
             </div>
             <ButtonCellphoneS

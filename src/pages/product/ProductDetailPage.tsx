@@ -1,0 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useLocation } from "react-router-dom";
+import { productApi } from "../../utils/api/product.api";
+import { useEffect, useState } from "react";
+import type { ProductProps } from "../../types/api/ProductResponse";
+import { FaRegHeart, FaStar } from "react-icons/fa6";
+import { LuCirclePlus, LuMessageSquareText } from "react-icons/lu";
+import { HiOutlineChip } from "react-icons/hi";
+import { Divider } from "antd";
+import CarouselProduct from "../../components/home/product/CarouselProduct";
+import ProductCommitments from "../../components/home/product/ProductCommitments";
+
+const ProductDetailPage = () => {
+  const location = useLocation();
+  const [product, setProduct] = useState<ProductProps | null>(null);
+
+  const getProductDetail = async () => {
+    try {
+      const result = await productApi.getProductBySlug(location.pathname);
+      if (!Array.isArray(result.data)) {
+        setProduct(result.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+
+  return (
+    <>
+      <div className="flex gap-x-4 ">
+        <div className="w-1/2 flex flex-col gap-y-3 mt-4">
+          <h2 className="text-[1.3rem] font-semibold">{product?.name}</h2>
+          <div className="flex items-center gap-x-1">
+            <FaStar className="text-[#ffd531]" />
+            <span className="font-medium">{product?.rating_average}</span>
+            <span className="opacity-65">{`(${product?.rating_count} đánh giá)`}</span>
+          </div>
+          <div className="flex items-center gap-x-3">
+            <div className="flex items-center gap-x-1 text-[#3c82f6] ">
+              <FaRegHeart className="text-[1.5rem]" />
+              <span className="text-[0.9rem]">Yêu thích</span>
+            </div>
+            <Divider type="vertical" className="h-3" />
+            <div className="flex items-center gap-x-1 text-[#3c82f6] ">
+              <LuMessageSquareText className="text-[1.5rem]" />
+              <span className="text-[0.9rem]">Hỏi đáp</span>
+            </div>
+            <Divider type="vertical" className="h-3" />
+            <div className="flex items-center gap-x-1 text-[#3c82f6] ">
+              <HiOutlineChip className="text-[1.5rem]" />
+              <span className="text-[0.9rem]">Thông số</span>
+            </div>
+            <Divider type="vertical" className="h-3" />
+            <div className="flex items-center gap-x-1 text-[#3c82f6] ">
+              <LuCirclePlus className="text-[1.5rem]" />
+              <span className="text-[0.9rem]">So sánh</span>
+            </div>
+          </div>
+          <div>
+            <CarouselProduct array_image={product?.product_image} />
+          </div>
+          <ProductCommitments />
+        </div>
+        <div className="w-1/2"></div>
+      </div>
+    </>
+  );
+};
+
+export default ProductDetailPage;

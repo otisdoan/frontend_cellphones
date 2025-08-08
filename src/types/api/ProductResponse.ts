@@ -23,7 +23,7 @@ export interface ProductProps {
   updatedAt: string;
   category_name: string;
   brand_name: string;
-  product_image: string[] | null;
+  product_image: string[] | null | undefined;
 }
 
 export interface ProductSelect {
@@ -34,5 +34,5 @@ export interface ProductSelect {
 export interface ProductResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[];
+  data: T[] | T;
 }

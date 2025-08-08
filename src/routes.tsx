@@ -3,7 +3,6 @@ import NotFoundPage from "./pages/auth/NotFoundPage";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import HomePage from "./pages/home/HomePage";
-import AuthGuard from "./guards/AuthGuard";
 import AdminLayout from "./pages/admin/layouts/AdminLayout";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
 import ListCategory from "./pages/admin/category/ListCategory";
@@ -18,15 +17,23 @@ import EditProduct from "./pages/admin/products/EditProduct";
 import ListProductImage from "./pages/admin/product-images/ListProductImage";
 import CreateProductImage from "./pages/admin/product-images/CreateProductImage";
 import EditProductImage from "./pages/admin/product-images/EditProductImage";
+import HomeLayout from "./pages/admin/layouts/HomeLayout";
+import ProductDetailPage from "./pages/product/ProductDetailPage";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <AuthGuard>
-        <HomePage />
-      </AuthGuard>
-    ),
+    element: <HomeLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/:slug",
+        element: <ProductDetailPage />,
+      },
+    ],
   },
   {
     path: "/login",

@@ -11,6 +11,7 @@ import CarouselProduct from "../../components/home/product/CarouselProduct";
 import ProductCommitments from "../../components/home/product/ProductCommitments";
 import OptionProduct from "../../components/home/product/OptionProduct";
 import GiftProduct from "../../components/home/product/GiftProduct";
+import AtrributeProduct from "../../components/home/product/AtrributeProduct";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -66,6 +67,7 @@ const ProductDetailPage = () => {
             <CarouselProduct array_image={product?.product_image} />
           </div>
           <ProductCommitments />
+          {product?.id && <AtrributeProduct id_product={product?.id} />}
         </div>
         <div className="w-1/2 mt-4">
           <div className="rounded-lg p-4 border-[1px] border-[#71a4fb] bg-[#f1f6ff] w-[21rem] mb-4">

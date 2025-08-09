@@ -23,4 +23,5 @@ export const API_URL = {
   PRODUCT_VARIANT_BY_ID: "/product-variant",
   PRODUCT_CAPACITY: "/product-variant/capacity",
   PRODUCT_VARIANT_BY_CAPACITY: "/product-variant/by-capacity",
+  PRODUCT_ATTRIBUTE: "/product-attribute",
 };

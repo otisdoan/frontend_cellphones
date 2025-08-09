@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { HiGift } from "react-icons/hi";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { LiaCartPlusSolid } from "react-icons/lia";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const GiftProduct = () => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -112,17 +113,21 @@ const GiftProduct = () => {
           </div>
         </div>
         <div
-          className="relative overflow-hidden rounded-lg mt-4"
+          className="relative overflow-hidden  mt-4"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <Carousel dots={false} arrows={false} ref={carouselRef}>
+            <div className="rounded-lg overflow-hidden">
+              <img
+                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:120/q:90/plain/https://dashboard.cellphones.com.vn/storage/b2s-pdp-dday2.gif"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <div>
               <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:120/q:90/plain/https://dashboard.cellphones.com.vn/storage/ProductBanner_Voucher-300K_Apple_3.png" />
             </div>
-            <div>
-              <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:120/q:90/plain/https://dashboard.cellphones.com.vn/storage/b2s-pdp-dday2.gif" />
-            </div>
+
             <div>
               <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:120/q:90/plain/https://dashboard.cellphones.com.vn/storage/iPhone-product-banner-v1.png" />
             </div>
@@ -187,10 +192,25 @@ const GiftProduct = () => {
                 <img src={item.icon} className="mix-w-5 w-7 h-7" />
                 <div className="flex items-center cursor-pointer">
                   <img src={item.image} />
-                  <span className="text-[0.9rem] ml-2">{item.content}</span>
+                  <span className="text-[0.9rem] ml-2 hover:">
+                    {item.content}
+                  </span>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+        <div className="flex justify-between bg-sale p-2 rounded-lg mt-4">
+          <div className="flex items-center gap-x-3">
+            <img
+              src="https://cdn2.cellphones.com.vn/x/media/wysiwyg/fire-icon-2025.gif"
+              className="w-7 h-9 mb-3"
+            />
+            <span className="font-bold text-[1.1rem]">Mua kèm giá sốc</span>
+          </div>
+          <div className="flex items-center cursor-pointer">
+            <span className="text-[0.8rem] text-[#4488f6]">Xem tất cả</span>
+            <MdKeyboardArrowRight className="text-[#4488f6]" />
           </div>
         </div>
       </div>

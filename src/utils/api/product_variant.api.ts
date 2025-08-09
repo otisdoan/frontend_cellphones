@@ -25,4 +25,10 @@ export const productVariantApi = {
     >(`${API_URL.PRODUCT_VARIANT_BY_CAPACITY}/${capacity}`);
     return response.data;
   },
+  getVariantById: async (id: number) => {
+    const response = await axiosInstance.get<
+      ProductVariantResponse<ProductVatiantProp>
+    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);
+    return response.data;
+  },
 };

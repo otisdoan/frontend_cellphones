@@ -1,21 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Carousel } from "antd";
 import type { CarouselRef } from "antd/es/carousel";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import {
   MdKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+import { productVariantApi } from "../../../utils/api/product_variant.api";
+import type { ProductVatiantProp } from "../../../types/api/ProductVariantReponse";
 
 const CarouselProduct = ({
   array_image,
 }: {
   array_image: string[] | null | undefined;
 }) => {
+  const location = useLocation();
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const carouselRef = useRef<CarouselRef>(null);
   const carouselBottomRef = useRef<CarouselRef>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [variant, setVariant] = useState<ProductVatiantProp>();
 
   const handlePrev = () => {
     carouselRef.current?.prev();
@@ -28,6 +34,22 @@ const CarouselProduct = ({
   const handleChange = (index: number) => {
     setCurrentIndex(index);
   };
+
+  const getVariant = async () => {
+    try {
+      const queryParams = new URLSearchParams(location.search);
+      const id_variant = queryParams.get("id_variant");
+      const result = await productVariantApi.getVariantById(Number(id_variant));
+      if (!Array.isArray(result.data)) {
+        setVariant(result.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getVariant();
+  }, [location.search]);
 
   return (
     <>
@@ -42,6 +64,14 @@ const CarouselProduct = ({
           ref={carouselRef}
           afterChange={handleChange}
         >
+          {variant && (
+            <div className="border-[1px] w-full h-[20rem] rounded-xl cursor-pointer">
+              <img
+                src={variant?.image_url}
+                className="object-contain w-full h-full"
+              />
+            </div>
+          )}
           {array_image?.map((item, index) => (
             <div
               key={index}

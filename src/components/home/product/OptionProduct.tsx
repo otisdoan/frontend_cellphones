@@ -6,8 +6,11 @@ import type {
   ProductVatiantProp,
 } from "../../../types/api/ProductVariantReponse";
 import { MdDone } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [capacity, setCapacity] = useState<ProductVariantCapacity[]>([]);
   const [variant, setVariant] = useState<ProductVatiantProp[]>([]);
   const [current, setCurrent] = useState<number>(0);
@@ -16,7 +19,9 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
   const getVariant = async () => {
     try {
       const result = await productVariantApi.getCapacity(idProduct);
-      setCapacity(result.data);
+      if (Array.isArray(result.data)) {
+        setCapacity(result.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -26,10 +31,22 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
     try {
       setCurrent(index);
       const result = await productVariantApi.getVariantByCapacity(capacity);
-      setVariant(result.data);
+      if (Array.isArray(result.data)) {
+        setVariant(result.data);
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleVariant = (index: number, id_variant: number) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("id_variant", id_variant.toString());
+    setCurrentVariant(index);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
   };
 
   useEffect(() => {
@@ -66,7 +83,7 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
                 currentVariant === index && `border-[2px] border-[#d70019]`
               }`}
               key={index}
-              onClick={() => setCurrentVariant(index)}
+              onClick={() => handleVariant(index, item.id)}
             >
               <div className="w-[2.5rem] h-[2.5rem]">
                 <img

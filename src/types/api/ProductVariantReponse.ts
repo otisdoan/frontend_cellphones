@@ -16,7 +16,7 @@ export interface ProductVatiantProp {
 export interface ProductVariantResponse<T> {
   status: string;
   message: string;
-  data: T[];
+  data: T[] | T;
 }
 
 export type ProductVariantCapacity = Pick<ProductVatiantProp, "capacity">;

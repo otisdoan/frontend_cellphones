@@ -10,6 +10,7 @@ import { Divider } from "antd";
 import CarouselProduct from "../../components/home/product/CarouselProduct";
 import ProductCommitments from "../../components/home/product/ProductCommitments";
 import OptionProduct from "../../components/home/product/OptionProduct";
+import GiftProduct from "../../components/home/product/GiftProduct";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -81,6 +82,7 @@ const ProductDetailPage = () => {
             </div>
           </div>
           {product?.id && <OptionProduct idProduct={product?.id} />}
+          <GiftProduct />
         </div>
       </div>
     </>

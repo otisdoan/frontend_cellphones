@@ -47,6 +47,7 @@ const CarouselProduct = ({
       console.log(error);
     }
   };
+
   useEffect(() => {
     getVariant();
   }, [location.search]);
@@ -64,7 +65,7 @@ const CarouselProduct = ({
           ref={carouselRef}
           afterChange={handleChange}
         >
-          {mainImage?.map((item, index) => (
+          {(location.search ? mainImage : array_image)?.map((item, index) => (
             <div
               key={index}
               className="border-[1px] w-full h-[20rem] rounded-xl cursor-pointer"
@@ -102,7 +103,7 @@ const CarouselProduct = ({
             <div
               key={index}
               className="w-full cursor-pointer h-full px-1 border-none"
-              onClick={() => carouselRef.current?.goTo(index)}
+              onClick={() => carouselRef.current?.goTo(index + 1)}
             >
               <img
                 src={item}

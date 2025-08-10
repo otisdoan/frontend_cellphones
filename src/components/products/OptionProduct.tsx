@@ -20,6 +20,7 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
     try {
       const result = await productVariantApi.getCapacity(idProduct);
       if (Array.isArray(result.data)) {
+        handleCapacity(result.data[0].capacity, 0);
         setCapacity(result.data);
       }
     } catch (error) {

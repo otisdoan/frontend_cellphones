@@ -9,7 +9,6 @@ import {
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import { productVariantApi } from "../../../utils/api/product_variant.api";
-import type { ProductVatiantProp } from "../../../types/api/ProductVariantReponse";
 
 const CarouselProduct = ({
   array_image,
@@ -21,7 +20,7 @@ const CarouselProduct = ({
   const carouselRef = useRef<CarouselRef>(null);
   const carouselBottomRef = useRef<CarouselRef>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [variant, setVariant] = useState<ProductVatiantProp>();
+  const [mainImage, setMainImage] = useState<string[]>(array_image ?? []);
 
   const handlePrev = () => {
     carouselRef.current?.prev();
@@ -41,7 +40,8 @@ const CarouselProduct = ({
       const id_variant = queryParams.get("id_variant");
       const result = await productVariantApi.getVariantById(Number(id_variant));
       if (!Array.isArray(result.data)) {
-        setVariant(result.data);
+        setMainImage([result.data.image_url, ...(array_image ?? [])]);
+        carouselRef.current?.goTo(0);
       }
     } catch (error) {
       console.log(error);
@@ -64,15 +64,7 @@ const CarouselProduct = ({
           ref={carouselRef}
           afterChange={handleChange}
         >
-          {variant && (
-            <div className="border-[1px] w-full h-[20rem] rounded-xl cursor-pointer">
-              <img
-                src={variant?.image_url}
-                className="object-contain w-full h-full"
-              />
-            </div>
-          )}
-          {array_image?.map((item, index) => (
+          {mainImage?.map((item, index) => (
             <div
               key={index}
               className="border-[1px] w-full h-[20rem] rounded-xl cursor-pointer"

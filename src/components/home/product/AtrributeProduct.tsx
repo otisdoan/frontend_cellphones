@@ -35,21 +35,19 @@ const AtrributeProduct = ({
             <MdKeyboardArrowRight className="text-[#4488f6]" />
           </div>
         </div>
-        <div className="flex flex-col border-[1px] p-4 rounded-2xl">
-          {attribute.map((item, index) => (
-            <div key={index} className="flex items-center">
-              <div className="flex items-center justify-startr py-3 min-w-[10rem] border-[1px]">
-                <span className="text-[0.9rem] font-light">
+        <div className="rounded-xl overflow-hidden">
+          <table className="border-[1px]">
+            {attribute.map((item, index) => (
+              <tr key={index} className="border-[1px]">
+                <td className="border-[1px] text-[0.9rem] font-light bg-[#f2f2f2] px-4 py-2 min-w-[13rem]">
                   {item.attribute_name}
-                </span>
-              </div>
-              <div className="flex items-center justify-start p-3 border-[1px] w-full">
-                <span className="text-[0.9rem] font-light">
+                </td>
+                <td className="text-[0.9rem] font-light px-4">
                   {item.attribute_value}
-                </span>
-              </div>
-            </div>
-          ))}
+                </td>
+              </tr>
+            ))}
+          </table>
         </div>
       </div>
     </>

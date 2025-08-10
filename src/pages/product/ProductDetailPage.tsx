@@ -12,6 +12,7 @@ import ProductCommitments from "../../components/home/product/ProductCommitments
 import OptionProduct from "../../components/home/product/OptionProduct";
 import GiftProduct from "../../components/home/product/GiftProduct";
 import AtrributeProduct from "../../components/home/product/AtrributeProduct";
+import FavoriteProduct from "../../components/home/product/FavoriteProduct";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -86,6 +87,9 @@ const ProductDetailPage = () => {
           {product?.id && <OptionProduct idProduct={product?.id} />}
           <GiftProduct />
         </div>
+      </div>
+      <div className="mt-4">
+        <FavoriteProduct />
       </div>
     </>
   );

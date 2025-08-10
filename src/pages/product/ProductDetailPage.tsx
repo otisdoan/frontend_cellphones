@@ -7,12 +7,12 @@ import { FaRegHeart, FaStar } from "react-icons/fa6";
 import { LuCirclePlus, LuMessageSquareText } from "react-icons/lu";
 import { HiOutlineChip } from "react-icons/hi";
 import { Divider } from "antd";
-import CarouselProduct from "../../components/home/product/CarouselProduct";
-import ProductCommitments from "../../components/home/product/ProductCommitments";
-import OptionProduct from "../../components/home/product/OptionProduct";
-import GiftProduct from "../../components/home/product/GiftProduct";
-import AtrributeProduct from "../../components/home/product/AtrributeProduct";
-import FavoriteProduct from "../../components/home/product/FavoriteProduct";
+import CarouselProduct from "../../components/products/CarouselProduct";
+import ProductCommitments from "../../components/products/ProductCommitments";
+import OptionProduct from "../../components/products/OptionProduct";
+import GiftProduct from "../../components/products/GiftProduct";
+import AtrributeProduct from "../../components/products/AtrributeProduct";
+import FavoriteProduct from "../../components/products/FavoriteProduct";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -36,7 +36,7 @@ const ProductDetailPage = () => {
   return (
     <>
       <div className="flex gap-x-8 ">
-        <div className="w-1/2 flex flex-col gap-y-3 mt-4">
+        <div className="w-1/2 flex flex-col gap-y-3 mt-4 sticky top-[2rem]">
           <h2 className="text-[1.3rem] font-semibold">{product?.name}</h2>
           <div className="flex items-center gap-x-1">
             <FaStar className="text-[#ffd531]" />

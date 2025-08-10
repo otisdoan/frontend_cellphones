@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { productVariantApi } from "../../../utils/api/product_variant.api";
+import { productVariantApi } from "../../utils/api/product_variant.api";
 import type {
   ProductVariantCapacity,
   ProductVatiantProp,
-} from "../../../types/api/ProductVariantReponse";
+} from "../../types/api/ProductVariantReponse";
 import { MdDone } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 

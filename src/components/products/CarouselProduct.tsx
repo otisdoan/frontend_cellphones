@@ -8,7 +8,7 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
-import { productVariantApi } from "../../../utils/api/product_variant.api";
+import { productVariantApi } from "../../utils/api/product_variant.api";
 
 const CarouselProduct = ({
   array_image,

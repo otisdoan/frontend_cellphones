@@ -98,7 +98,7 @@ const HeaderHome = () => {
               <SvgLogo width="38" height="40" />
             </div>
             <div
-              className="hidden md:block cursor-pointer"
+              className="hidden md:block cursor-pointer hover:scale-95 duration-500 transform"
               onClick={() => navigate("/")}
             >
               <SvgLogoDesktop />

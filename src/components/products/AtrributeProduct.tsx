@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { productAttributeApi } from "../../../utils/api/product_attribute.api";
-import type { ProductAttributeProps } from "../../../types/api/ProductAttributeResponse";
+import { productAttributeApi } from "../../utils/api/product_attribute.api";
+import type { ProductAttributeProps } from "../../types/api/ProductAttributeResponse";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const AtrributeProduct = ({

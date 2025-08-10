@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { ProductProps } from "../../../types/api/ProductResponse";
-import { productApi } from "../../../utils/api/product.api";
-import ProductNoSlice from "../../products/ProductNoSlice";
+import type { ProductProps } from "../../types/api/ProductResponse";
+import { productApi } from "../../utils/api/product.api";
+import ProductNoSlice from "./ProductNoSlice";
 
 const FavoriteProduct = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);

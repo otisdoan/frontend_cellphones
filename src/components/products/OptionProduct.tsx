@@ -7,14 +7,14 @@ import type {
 } from "../../types/api/ProductVariantReponse";
 import { MdDone } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { addToCart } from "../../features/product/cartSlice";
+// import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
+// import { addToCart } from "../../redux/features/product/cartSlice";
 
 const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const cart = useAppSelector((state) => state.cart);
-  const dispatch = useAppDispatch();
+  // const cart = useAppSelector((state) => state.cart);
+  // const dispatch = useAppDispatch();
   const [capacity, setCapacity] = useState<ProductVariantCapacity[]>([]);
   const [variant, setVariant] = useState<ProductVatiantProp[]>([]);
   const [current, setCurrent] = useState<number>(0);
@@ -45,7 +45,7 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
   };
 
   const handleVariant = (index: number, id_variant: number) => {
-    dispatch(addToCart(cart.));
+    // dispatch(addToCart(cart.));
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("id_variant", id_variant.toString());
     setCurrentVariant(index);

@@ -26,4 +26,5 @@ export const API_URL = {
   PRODUCT_ATTRIBUTE: "/product-attribute",
   USER: "/users",
   ORDER: "/orders",
+  ORDER_ITEMS: "/order-items",
 };

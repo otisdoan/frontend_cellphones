@@ -9,6 +9,11 @@ export interface ProductVatiantProp {
   image_url: string;
   is_active: boolean;
   capacity: string;
+  order_id: string;
+  variant_id: string;
+  product_name: string;
+  quantity: number;
+  total: string;
   createdAt: string;
   updatedAt: string;
 }

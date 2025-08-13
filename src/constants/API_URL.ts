@@ -27,4 +27,5 @@ export const API_URL = {
   USER: "/users",
   ORDER: "/orders",
   ORDER_ITEMS: "/order-items",
+  CART_ITEM: "/cart-items",
 };

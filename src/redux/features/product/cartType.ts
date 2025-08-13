@@ -1,10 +1,5 @@
-import type { ProductVatiantProp } from "../../../types/api/ProductVariantReponse";
-
-export type CartItem = Omit<
-  ProductVatiantProp,
-  "id" | "createdAt" | "updatedAt"
->;
+import type { CartItemProps } from "../../../types/api/CartItemResponse";
 
 export interface CartState {
-  items: CartItem[];
+  items: CartItemProps[];
 }

@@ -7,14 +7,10 @@ import type {
 } from "../../types/api/ProductVariantReponse";
 import { MdDone } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
-// import { addToCart } from "../../redux/features/product/cartSlice";
 
 const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  // const cart = useAppSelector((state) => state.cart);
-  // const dispatch = useAppDispatch();
   const [capacity, setCapacity] = useState<ProductVariantCapacity[]>([]);
   const [variant, setVariant] = useState<ProductVatiantProp[]>([]);
   const [current, setCurrent] = useState<number>(0);

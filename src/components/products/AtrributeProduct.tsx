@@ -37,16 +37,18 @@ const AtrributeProduct = ({
         </div>
         <div className="rounded-xl overflow-hidden">
           <table className="border-[1px]">
-            {attribute.map((item, index) => (
-              <tr key={index} className="border-[1px]">
-                <td className="border-[1px] text-[0.9rem] font-light bg-[#f2f2f2] px-4 py-2 min-w-[13rem]">
-                  {item.attribute_name}
-                </td>
-                <td className="text-[0.9rem] font-light px-4">
-                  {item.attribute_value}
-                </td>
-              </tr>
-            ))}
+            <tbody>
+              {attribute.map((item, index) => (
+                <tr className="border-[1px]" key={index}>
+                  <td className="border-[1px] text-[0.9rem] font-light bg-[#f2f2f2] px-4 py-2 min-w-[13rem]">
+                    {item.attribute_name}
+                  </td>
+                  <td className="text-[0.9rem] font-light px-4">
+                    {item.attribute_value}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>

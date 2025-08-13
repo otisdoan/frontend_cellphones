@@ -22,6 +22,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../redux/app/hook";
+import { fetchCart } from "../../redux/features/product/cartSlice";
 
 interface MarqueeProps {
   icon: JSX.Element;
@@ -46,6 +48,8 @@ const HeaderHome = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
@@ -132,7 +136,10 @@ const HeaderHome = () => {
             />
             <div className="hidden md:block">
               <div className="md:flex md:items-center md:gap-x-4">
-                <div className="md:flex md:items-center md:gap-x-2 md:text-white  ">
+                <div
+                  className="md:flex md:items-center md:gap-x-2 md:text-white cursor-pointer"
+                  onClick={() => dispatch(fetchCart())}
+                >
                   <p className="whitespace-nowrap md:text-[0.9rem]">Giỏ hàng</p>
                   <Badge size="small" count={5}>
                     <FiShoppingCart className="text-white text-[1.5rem]" />

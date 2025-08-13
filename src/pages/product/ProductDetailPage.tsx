@@ -17,7 +17,6 @@ import FavoriteProduct from "../../components/products/FavoriteProduct";
 const ProductDetailPage = () => {
   const location = useLocation();
   const [product, setProduct] = useState<ProductProps | null>(null);
-
   const getProductDetail = async () => {
     try {
       const result = await productApi.getProductBySlug(location.pathname);
@@ -85,7 +84,7 @@ const ProductDetailPage = () => {
             </div>
           </div>
           {product?.id && <OptionProduct idProduct={product?.id} />}
-          <GiftProduct />
+          {product?.id && <GiftProduct product_id={product?.id} />}
         </div>
       </div>
       <div className="mt-4">

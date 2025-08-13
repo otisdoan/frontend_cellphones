@@ -5,10 +5,16 @@ import { HiGift } from "react-icons/hi";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { useAppDispatch } from "../../redux/app/hook";
+import { useLocation } from "react-router-dom";
+import { addCartItem } from "../../redux/features/product/cartSlice";
 
-const GiftProduct = () => {
+const GiftProduct = ({ product_id }: { product_id: number }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const carouselRef = useRef<CarouselRef>(null);
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const search = new URLSearchParams(location.search);
 
   const handlePrev = () => {
     carouselRef.current?.prev();
@@ -175,7 +181,19 @@ const GiftProduct = () => {
             </span>
           </div>
           <div className="rounded-lg border-[1px] cursor-pointer border-[#db172c] px-2 py-4 hover:bg-[#fae6e8]">
-            <div className="flex items-center gap-x-1 text-[#db172c]">
+            <div
+              className="flex items-center gap-x-1 text-[#db172c]"
+              onClick={() =>
+                dispatch(
+                  addCartItem({
+                    user_id: 24,
+                    quantity: 1,
+                    variant_id: Number(search.get("id_variant")),
+                    product_id: Number(product_id),
+                  })
+                )
+              }
+            >
               <LiaCartPlusSolid className="text-[1.5rem]" />
               <span className="text-[0.8rem]">Thêm vào giỏ hàng</span>
             </div>

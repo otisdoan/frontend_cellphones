@@ -34,4 +34,13 @@ export const productVariantApi = {
     >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);
     return response.data;
   },
+
+  getVariantByIds: async (ids: number[]) => {
+    const response = await axiosInstance.get<
+      ProductVariantResponse<ProductVatiantProp>
+    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/many-id`, {
+      params: { ids: ids.join(",") },
+    });
+    return response.data;
+  },
 };

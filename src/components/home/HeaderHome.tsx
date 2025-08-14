@@ -50,6 +50,11 @@ const HeaderHome = () => {
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
+  const handleCart = () => {
+    dispatch(fetchCart());
+    navigate("/cart");
+  };
+
   return (
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
@@ -137,8 +142,8 @@ const HeaderHome = () => {
             <div className="hidden md:block">
               <div className="md:flex md:items-center md:gap-x-4">
                 <div
-                  className="md:flex md:items-center md:gap-x-2 md:text-white cursor-pointer"
-                  onClick={() => dispatch(fetchCart())}
+                  className="md:flex md:items-center md:gap-x-2 md:text-white cursor-pointer hover:bg-[#d02637] p-3 rounded-lg"
+                  onClick={handleCart}
                 >
                   <p className="whitespace-nowrap md:text-[0.9rem]">Giỏ hàng</p>
                   <Badge size="small" count={5}>

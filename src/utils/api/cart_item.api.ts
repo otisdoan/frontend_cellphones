@@ -12,7 +12,7 @@ export const cartItemApi = {
     );
     return response.data;
   },
-  getById: async (id: string) => {
+  getById: async (id: number) => {
     const response = await axiosInstance.get<CartItemResponse<CartItemProps>>(
       `${API_URL.CART_ITEM}/${id}`
     );

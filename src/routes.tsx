@@ -19,6 +19,7 @@ import CreateProductImage from "./pages/admin/product-images/CreateProductImage"
 import EditProductImage from "./pages/admin/product-images/EditProductImage";
 import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
+import CartPage from "./pages/cart/CartPage";
 
 export const routes = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const routes = createBrowserRouter([
         element: <ProductDetailPage />,
       },
     ],
+  },
+  {
+    path: "/cart",
+    element: <CartPage />,
   },
   {
     path: "/login",

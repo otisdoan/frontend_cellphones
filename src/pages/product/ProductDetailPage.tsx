@@ -32,6 +32,12 @@ const ProductDetailPage = () => {
     getProductDetail();
   }, [location.pathname]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [location.pathname]);
   return (
     <>
       <div className="flex gap-x-8 ">

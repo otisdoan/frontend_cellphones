@@ -24,3 +24,7 @@
   background-image: linear-gradient(90deg, #fff5c7, #fffced),
     linear-gradient(90deg, #ffe880, #fffcb0);
 }
+
+.bg-check {
+  background-image: linear-gradient(233.74deg, #eff5ff -33.75%, #3b82f6 71.83%);
+}

@@ -166,12 +166,15 @@ const ListCategory = () => {
 
   const [dataCategories, setDataCategories] = useState<CategoryProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [reload, setReload] = useState<boolean>(false);
 
   const fetchCategories = async () => {
     try {
       setLoading(true);
       const result = await categoryApi.getAll();
-      setDataCategories(result.data);
+      if (Array.isArray(result.data)) {
+        setDataCategories(result.data);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -183,6 +186,7 @@ const ListCategory = () => {
     try {
       const result = await categoryApi.deleteCategory(id);
       showSuccess(result.message);
+      setReload(!reload);
     } catch (error) {
       console.log(error);
     }
@@ -190,7 +194,7 @@ const ListCategory = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [reload]);
 
   return (
     <>

@@ -5,7 +5,7 @@ import {
   type UploadFile,
   type UploadProps,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -17,19 +17,29 @@ interface UploadResponse {
 
 const UploadImage = ({
   setImageApi,
+  url,
 }: {
   setImageApi: (image_url: string | undefined) => void;
+  url?: string;
 }) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
   const [previewOpen, setPreviewOpen] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<string>("");
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  useEffect(() => {
+    setFileList(
+      url
+        ? [
+            {
+              uid: "-1",
+              name: "image.png",
+              status: "done",
+              url: `${url}`,
+            },
+          ]
+        : []
+    );
+  }, [url]);
 
   const getBase64 = (file: FileType): Promise<string> =>
     new Promise((resolve, reject) => {

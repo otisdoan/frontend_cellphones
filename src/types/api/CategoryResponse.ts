@@ -33,7 +33,7 @@ export type CategoryTabletMobile = {
 export interface CategoryResponse<T> {
   status: string;
   message: string;
-  data: T[];
+  data: T[] | T;
 }
 
 export interface CategoryTree {

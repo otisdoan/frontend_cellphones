@@ -22,11 +22,11 @@ const FormCreateCategory = ({ id }: { id?: number }) => {
   >([]);
   const { showSuccess, showError, contextHolder } = useMessage();
   const [form] = useForm();
+  const [imageUpdate, setImageUpdate] = useState<string>();
 
   const getAllCategories = async () => {
     try {
       const result = await categoryApi.getAllNameCategories();
-      console.log(result);
       setAllCategories(result.data);
     } catch (error) {
       showError(error as string);
@@ -36,6 +36,10 @@ const FormCreateCategory = ({ id }: { id?: number }) => {
   const fetchCategoryById = async () => {
     try {
       const result = await categoryApi.getById(id!);
+      if (!Array.isArray(result.data)) {
+        console.log(result.data.image_url);
+        setImageUpdate(result.data.image_url);
+      }
       form.setFieldsValue(result.data);
     } catch (error) {
       console.log(error);
@@ -45,7 +49,10 @@ const FormCreateCategory = ({ id }: { id?: number }) => {
   const handleFinish = async (value: CategoryProps) => {
     try {
       if (id) {
-        const result = await categoryApi.updateCategory(id, value);
+        const result = await categoryApi.updateCategory(id, {
+          ...value,
+          image_url: imageApi,
+        });
         showSuccess(result.message);
         setTimeout(() => {
           navigate(-1);
@@ -133,7 +140,7 @@ const FormCreateCategory = ({ id }: { id?: number }) => {
               className=" md:w-[15rem] w-full"
             >
               <TreeSelect
-                treeData={allCategories}
+                treeData={(Array.isArray(allCategories) && allCategories) || []}
                 showSearch
                 allowClear
                 placeholder="Select parent category"
@@ -149,7 +156,7 @@ const FormCreateCategory = ({ id }: { id?: number }) => {
             <TextArea placeholder="Description" rows={8} />
           </Form.Item>
           <Form.Item label="Image" name="image_url">
-            <UploadImage setImageApi={handleImageApi} />
+            {<UploadImage setImageApi={handleImageApi} url={imageUpdate} />}
           </Form.Item>
           <Form.Item>
             <div className="flex items-center justify-end gap-x-4">

@@ -1,4 +1,4 @@
-import { Input, Tag, Tooltip, type TableProps } from "antd";
+import { Input, Popconfirm, Tag, Tooltip, type TableProps } from "antd";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import { IoIosSearch } from "react-icons/io";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
@@ -19,8 +19,11 @@ import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { brandApi } from "../../../utils/api/brand.api";
 import type { BrandProps } from "../../../types/api/BrandResponse";
+import { useMessage } from "../../../hooks/useMessage";
 
 const ListBrand = () => {
+  const navigate = useNavigate();
+  const { showSuccess, contextHolder } = useMessage();
   const item: BreadcrumbItemType[] = [
     {
       title: <Link to="/admin">Dashboard</Link>,
@@ -116,28 +119,55 @@ const ListBrand = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <div className="flex items-center gap-x-2">
           <Tooltip title="Edit">
-            <div className="rounded-full border border-[#0fb981] p-2 cursor-pointer hover:bg-[#e6f9f3] transition">
+            <div
+              className="rounded-full border border-[#0fb981] p-2 cursor-pointer hover:bg-[#e6f9f3] transition"
+              onClick={() => navigate(`/admin/brand/${record.id}/edit`)}
+            >
               <MdOutlineModeEdit className="text-[#0fb981] text-base" />
             </div>
           </Tooltip>
-          <Tooltip title="Delete">
+          <Popconfirm
+            title="Delete the record"
+            description="Are you sure to delete this brand?"
+            onConfirm={() => handleDelete(Number(record.id))}
+            okText="Delete"
+            cancelText="Cancel"
+            placement="leftTop"
+          >
             <div className="rounded-full border border-[#d70119] p-2 cursor-pointer hover:bg-[#faeaea] transition">
               <MdDeleteOutline className="text-[#d70119] text-base" />
             </div>
-          </Tooltip>
+          </Popconfirm>
         </div>
       ),
     },
   ];
   const [dataBrands, setDataBrands] = useState<BrandProps[]>([]);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [reload, setReload] = useState<boolean>(false);
+
   const fetchBrands = async () => {
     try {
+      setLoading(true);
       const result = await brandApi.getAll();
-      setDataBrands(result.data);
+      if (Array.isArray(result.data)) {
+        setDataBrands(result.data);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const result = await brandApi.delete(id);
+      showSuccess(result.message);
+      setReload(!reload);
     } catch (error) {
       console.log(error);
     }
@@ -145,10 +175,11 @@ const ListBrand = () => {
 
   useEffect(() => {
     fetchBrands();
-  }, []);
+  }, [reload]);
 
   return (
     <>
+      {contextHolder}
       <div className="p-4">
         <div className="md:flex items-center justify-between hidden">
           <div>
@@ -200,6 +231,7 @@ const ListBrand = () => {
               dataSource={dataBrands}
               scroll={{ x: "max-content" }}
               pagination={{ pageSize: 10, position: ["bottomRight"] }}
+              loading={loading}
             />
           </div>
         </div>

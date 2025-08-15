@@ -12,7 +12,7 @@ export interface BrandProps {
 export interface BrandResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[];
+  data: T[] | T;
 }
 
 export interface BrandSelect {

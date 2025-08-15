@@ -34,5 +34,5 @@ export interface ProductSelect {
 export interface ProductResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[];
+  data: T[] | T;
 }

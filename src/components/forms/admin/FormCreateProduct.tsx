@@ -17,8 +17,14 @@ import type {
   BrandResponse,
   BrandSelect,
 } from "../../../types/api/BrandResponse";
+import { useForm } from "antd/es/form/Form";
 
-const FormCreateProduct = () => {
+// Interface for form data with is_active field instead of status
+interface ProductFormData extends Omit<ProductProps, "status"> {
+  is_active?: "active" | "inactive" | "out_of_stock";
+}
+
+const FormCreateProduct = ({ id }: { id?: number }) => {
   const navigate = useNavigate();
   const [allCategories, setAllCategories] = useState<
     CategoryResponse<CategoryTree>["data"]
@@ -27,15 +33,44 @@ const FormCreateProduct = () => {
     []
   );
   const { showSuccess, showError, contextHolder } = useMessage();
+  const [form] = useForm();
 
-  const handleFinish = async (value: ProductProps) => {
+  const fetchProductById = async () => {
+    if (!id) return;
     try {
-      const result = await productApi.create(value);
-      console.log(result);
-      showSuccess("Create product successfully!");
-      setTimeout(() => {
-        navigate(-1);
-      }, 1500);
+      const result = await productApi.getById(id);
+      if (!Array.isArray(result.data)) {
+        const formData = {
+          ...result.data,
+          is_active: result.data.status,
+        };
+        form.setFieldsValue(formData);
+      }
+    } catch (error) {
+      console.log("Error fetching product:", error);
+    }
+  };
+
+  const handleFinish = async (value: ProductFormData) => {
+    try {
+      const apiData: ProductProps = {
+        ...value,
+        status: (value.is_active || "active") as "active" | "inactive",
+      } as ProductProps;
+
+      if (id) {
+        const result = await productApi.update(id, apiData);
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      } else {
+        const result = await productApi.create(apiData);
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      }
     } catch (error) {
       showError(error as string);
     }
@@ -67,11 +102,16 @@ const FormCreateProduct = () => {
     getAllCategories();
   }, []);
 
+  useEffect(() => {
+    fetchProductById();
+  }, [id]);
+
   return (
     <>
       {contextHolder}
       <div className="bg-[#f5f5f5] rounded-lg p-4 mt-4 mb-[2rem]">
-        <Form<ProductProps>
+        <Form<ProductFormData>
+          form={form}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           onFinish={handleFinish}
@@ -116,7 +156,7 @@ const FormCreateProduct = () => {
                     size="large"
                   />
                 </Form.Item>
-                <Form.Item<ProductProps>
+                <Form.Item<ProductFormData>
                   label="Sale price"
                   name="sale_price"
                   className="md:flex-[1_1_calc(33.333%-1rem)] w-full"
@@ -181,7 +221,7 @@ const FormCreateProduct = () => {
                   className="md:flex-[1_1_calc(33.333%-1rem)] w-full"
                 >
                   <TreeSelect
-                    treeData={allCategories}
+                    treeData={Array.isArray(allCategories) ? allCategories : []}
                     showSearch
                     allowClear
                     placeholder="Select category"
@@ -198,7 +238,7 @@ const FormCreateProduct = () => {
                   <Select
                     showSearch
                     placeholder="Select brand"
-                    options={allBrand}
+                    options={Array.isArray(allBrand) ? allBrand : []}
                     className="h-[2.5rem]"
                   />
                 </Form.Item>
@@ -310,7 +350,7 @@ const FormCreateProduct = () => {
               />
               <ButtonCellphoneS
                 htmlType="submit"
-                children="Create"
+                children={id ? "Update" : "Create"}
                 className="w-[6rem] text-white"
               />
             </div>

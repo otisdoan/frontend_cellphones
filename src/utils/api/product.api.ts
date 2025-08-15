@@ -13,6 +13,12 @@ export const productApi = {
     );
     return response.data;
   },
+  getById: async (id: number) => {
+    const response = await axiosInstance.get<ProductResponse<ProductProps>>(
+      `${API_URL.PRODUCT}/${id}/detail`
+    );
+    return response.data;
+  },
   getProductBySlug: async (slug: string) => {
     const response = await axiosInstance.get<ProductResponse<ProductProps>>(
       `${API_URL.OTHER_PRODUCT.GET_BY_SLUG}${slug}`
@@ -23,6 +29,19 @@ export const productApi = {
     const response = await axiosInstance.post<ProductResponse<ProductProps>>(
       API_URL.PRODUCT,
       payload
+    );
+    return response.data;
+  },
+  update: async (id: number, payload: ProductProps) => {
+    const response = await axiosInstance.put<ProductResponse<ProductProps>>(
+      `${API_URL.PRODUCT}/${id}`,
+      payload
+    );
+    return response.data;
+  },
+  delete: async (id: number) => {
+    const response = await axiosInstance.delete<ProductResponse<ProductProps>>(
+      `${API_URL.PRODUCT}/${id}`
     );
     return response.data;
   },

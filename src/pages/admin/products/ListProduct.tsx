@@ -1,7 +1,7 @@
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
 import { Link, useNavigate } from "react-router-dom";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
-import { Input, Tag, type TableProps } from "antd";
+import { Input, Tag, type TableProps, Popconfirm } from "antd";
 import { IoIosSearch } from "react-icons/io";
 import DisplaStatistic, {
   type ListInforProps,
@@ -19,9 +19,15 @@ import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 import { productApi } from "../../../utils/api/product.api";
 import { useEffect, useState } from "react";
 import type { ProductProps } from "../../../types/api/ProductResponse";
+import { useMessage } from "../../../hooks/useMessage";
 
 const ListProduct = () => {
   const navigate = useNavigate();
+  const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
+  const { showSuccess, showError, contextHolder } = useMessage();
+
   const item: BreadcrumbItemType[] = [
     {
       title: <Link to="/admin">Dashboard</Link>,
@@ -199,33 +205,62 @@ const ListProduct = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      render: (_: unknown, record: any) => (
         <div className="flex items-center gap-x-3">
-          <div className="rounded-full flex items-center justify-center border-[1px] border-[#0fb981] p-1 cursor-pointer">
+          <div
+            className="rounded-full flex items-center justify-center border-[1px] border-[#0fb981] p-1 cursor-pointer"
+            onClick={() => navigate(`/admin/products/${record.id}/edit`)}
+          >
             <MdOutlineModeEdit className="text-[#0fb981] text-[0.9rem]" />
           </div>
-          <div className="rounded-full flex items-center justify-center border-[1px] border-[#d70119] p-1 cursor-pointer">
-            <MdDeleteOutline className="text-[#d70119] text-[0.9rem]" />
-          </div>
+          <Popconfirm
+            title="Are you sure you want to delete this product?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
+            placement="topRight"
+          >
+            <div className="rounded-full flex items-center justify-center border-[1px] border-[#d70119] p-1 cursor-pointer">
+              <MdDeleteOutline className="text-[#d70119] text-[0.9rem]" />
+            </div>
+          </Popconfirm>
         </div>
       ),
     },
   ];
-  const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+
+  const handleDelete = async (id: number) => {
+    setLoading(true);
+    try {
+      const result = await productApi.delete(id);
+      showSuccess(result.message);
+      setReload(!reload);
+    } catch (error) {
+      showError(error as string);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchProducts = async () => {
+    setLoading(true);
     try {
       const result = await productApi.getAll();
-      setDataProducts(result.data);
+      setDataProducts(Array.isArray(result.data) ? result.data : []);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [reload]);
   return (
     <>
+      {contextHolder}
       <div className="p-4">
         <div className="md:flex items-center justify-between hidden">
           <div>
@@ -277,6 +312,7 @@ const ListProduct = () => {
               dataSource={dataProducts}
               scroll={{ x: "max-content" }}
               pagination={{ pageSize: 10, position: ["bottomRight"] }}
+              loading={loading}
             />
           </div>
         </div>

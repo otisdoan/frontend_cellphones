@@ -26,4 +26,23 @@ export const brandApi = {
     );
     return response.data;
   },
+  getById: async (id: number) => {
+    const response = await axiosInstance.get<BrandResponse<BrandProps>>(
+      `${API_URL.BRAND}/${id}/detail`
+    );
+    return response.data;
+  },
+  update: async (id: number, payload: Partial<BrandProps>) => {
+    const response = await axiosInstance.patch<BrandResponse<BrandProps>>(
+      `${API_URL.BRAND}/${id}`,
+      payload
+    );
+    return response.data;
+  },
+  delete: async (id: number) => {
+    const response = await axiosInstance.delete<BrandResponse<BrandProps>>(
+      `${API_URL.BRAND}/${id}`
+    );
+    return response.data;
+  },
 };

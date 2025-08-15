@@ -1,31 +1,65 @@
 import { Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonCellphoneS from "../../ButtonCellphoneS";
 import type { BrandProps } from "../../../types/api/BrandResponse";
 import { brandApi } from "../../../utils/api/brand.api";
 import UploadImage from "../../admin/UploadImage";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../../hooks/useMessage";
+import { useForm } from "antd/es/form/Form";
 
-const FormCreateBrand = () => {
+const FormCreateBrand = ({ id }: { id?: number }) => {
   const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
   const { showSuccess, showError, contextHolder } = useMessage();
+  const [form] = useForm();
+  const [imageUpdate, setImageUpdate] = useState<string>();
+
+  const fetchBrandById = async () => {
+    if (!id) return;
+    try {
+      const result = await brandApi.getById(id);
+      if (!Array.isArray(result.data)) {
+        setImageUpdate(result.data.logo_url);
+        form.setFieldsValue(result.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleFinish = async (value: BrandProps) => {
     try {
-      const result = await brandApi.create({ ...value, logo_url: imageApi });
-      showSuccess(result.message);
-      setTimeout(() => {
-        navigate(-1);
-      }, 1500);
+      if (id) {
+        const result = await brandApi.update(id, {
+          ...value,
+          logo_url: imageApi || imageUpdate,
+        });
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      } else {
+        const result = await brandApi.create({ ...value, logo_url: imageApi });
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      }
     } catch (error) {
       showError(error as string);
     }
   };
+
   const handleImageApi = (image_url: string | undefined) => {
     setImageApi(image_url);
   };
+
+  useEffect(() => {
+    fetchBrandById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
   return (
     <>
       {contextHolder}
@@ -34,6 +68,7 @@ const FormCreateBrand = () => {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           onFinish={handleFinish}
+          form={form}
         >
           <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
@@ -81,7 +116,7 @@ const FormCreateBrand = () => {
             <TextArea placeholder="Description" rows={8} />
           </Form.Item>
           <Form.Item label="Logo" name="logo_url">
-            <UploadImage setImageApi={handleImageApi} />
+            <UploadImage setImageApi={handleImageApi} url={imageUpdate} />
           </Form.Item>
           <Form.Item>
             <div className="flex items-center justify-end gap-x-4">

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input, InputNumber, Select, TreeSelect } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
@@ -11,34 +12,54 @@ import type {
   CategoryResponse,
   CategoryTree,
 } from "../../../types/api/CategoryResponse";
+import { useForm } from "antd/es/form/Form";
 
-const FormCreateCategory = () => {
+const FormCreateCategory = ({ id }: { id?: number }) => {
   const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
   const [allCategories, setAllCategories] = useState<
     CategoryResponse<CategoryTree>["data"]
   >([]);
   const { showSuccess, showError, contextHolder } = useMessage();
+  const [form] = useForm();
 
   const getAllCategories = async () => {
     try {
       const result = await categoryApi.getAllNameCategories();
+      console.log(result);
       setAllCategories(result.data);
     } catch (error) {
       showError(error as string);
     }
   };
 
+  const fetchCategoryById = async () => {
+    try {
+      const result = await categoryApi.getById(id!);
+      form.setFieldsValue(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleFinish = async (value: CategoryProps) => {
     try {
-      const result = await categoryApi.create({
-        ...value,
-        image_url: imageApi,
-      });
-      showSuccess(result.message);
-      setTimeout(() => {
-        navigate(-1);
-      }, 1500);
+      if (id) {
+        const result = await categoryApi.updateCategory(id, value);
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      } else {
+        const result = await categoryApi.create({
+          ...value,
+          image_url: imageApi,
+        });
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      }
     } catch (error) {
       showError(error as string);
     }
@@ -49,8 +70,11 @@ const FormCreateCategory = () => {
 
   useEffect(() => {
     getAllCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    fetchCategoryById();
+  }, [id]);
 
   return (
     <>
@@ -60,6 +84,7 @@ const FormCreateCategory = () => {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           onFinish={handleFinish}
+          form={form}
         >
           <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
@@ -134,11 +159,20 @@ const FormCreateCategory = () => {
                 defaultHoverBg="none"
                 onClick={() => navigate(-1)}
               />
-              <ButtonCellphoneS
-                htmlType="submit"
-                children="Create"
-                className="w-[6rem] text-white"
-              />
+              {!id && (
+                <ButtonCellphoneS
+                  htmlType="submit"
+                  children="Create"
+                  className="w-[6rem] text-white"
+                />
+              )}
+              {id && (
+                <ButtonCellphoneS
+                  htmlType="submit"
+                  children="Save"
+                  className="w-[6rem] text-white"
+                />
+              )}
             </div>
           </Form.Item>
         </Form>

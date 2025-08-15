@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
-import { Input, Tag, Tooltip, type TableProps } from "antd";
+import { Input, Popconfirm, Tag, Tooltip, type TableProps } from "antd";
 import { IoIosSearch } from "react-icons/io";
 import DisplaStatistic, {
   type ListInforProps,
@@ -18,9 +18,12 @@ import type { CategoryProps } from "../../../types/api/CategoryResponse";
 import { categoryApi } from "../../../utils/api/category.api";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
+import { useMessage } from "../../../hooks/useMessage";
 
 const ListCategory = () => {
   const navigate = useNavigate();
+  const { showSuccess, contextHolder } = useMessage();
+
   const item: BreadcrumbItemType[] = [
     {
       title: <Link to="/admin">Dashboard</Link>,
@@ -134,18 +137,28 @@ const ListCategory = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <div className="flex items-center gap-x-2">
           <Tooltip title="Edit">
-            <div className="rounded-full border border-[#0fb981] p-2 cursor-pointer hover:bg-[#e6f9f3] transition">
+            <div
+              className="rounded-full border border-[#0fb981] p-2 cursor-pointer hover:bg-[#e6f9f3] transition"
+              onClick={() => navigate(`/admin/category/${record.id}/edit`)}
+            >
               <MdOutlineModeEdit className="text-[#0fb981] text-base" />
             </div>
           </Tooltip>
-          <Tooltip title="Delete">
+          <Popconfirm
+            title="Delete the record"
+            description="Are you sure to delete this task?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Delete"
+            cancelText="Cancel"
+            placement="leftTop"
+          >
             <div className="rounded-full border border-[#d70119] p-2 cursor-pointer hover:bg-[#faeaea] transition">
               <MdDeleteOutline className="text-[#d70119] text-base" />
             </div>
-          </Tooltip>
+          </Popconfirm>
         </div>
       ),
     },
@@ -166,12 +179,22 @@ const ListCategory = () => {
     }
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      const result = await categoryApi.deleteCategory(id);
+      showSuccess(result.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
 
   return (
     <>
+      {contextHolder}
       <div className="p-4">
         <div className="md:flex items-center justify-between hidden">
           <div>

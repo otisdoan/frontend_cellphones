@@ -20,7 +20,14 @@ const UploadImage = ({
 }: {
   setImageApi: (image_url: string | undefined) => void;
 }) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: "-1",
+      name: "image.png",
+      status: "done",
+      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    },
+  ]);
   const [previewOpen, setPreviewOpen] = useState<boolean>(false);
   const [previewImage, setPreviewImage] = useState<string>("");
 
@@ -35,6 +42,7 @@ const UploadImage = ({
   const onChange: UploadProps<UploadResponse>["onChange"] = async ({
     fileList: newFileList,
   }) => {
+    console.log(newFileList);
     setImageApi(newFileList[0].response?.data.url);
     setFileList(newFileList);
   };
@@ -57,7 +65,7 @@ const UploadImage = ({
         onPreview={handlePreview}
         name="file"
       >
-        {fileList.length < 1 && "+ Upload"}
+        {fileList.length < 5 && "+ Upload"}
       </Upload>
       {previewImage && (
         <Image

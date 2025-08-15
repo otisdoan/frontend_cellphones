@@ -15,6 +15,12 @@ export const categoryApi = {
     );
     return response.data;
   },
+  getById: async (id: number) => {
+    const response = await axiosInstance.get<CategoryResponse<CategoryProps>>(
+      `${API_URL.CATEGORY}/${id}/detail`
+    );
+    return response.data;
+  },
   create: async (payload: CategoryProps) => {
     const response = await axiosInstance.post<CategoryResponse<CategoryProps>>(
       API_URL.CATEGORY,
@@ -38,6 +44,18 @@ export const categoryApi = {
     const response = await axiosInstance.get<
       CategoryResponse<CategoryTabletMobile>
     >(API_URL.OTHER_CATEGORY.CATEGORY_TABLET_MOBILE);
+    return response.data;
+  },
+  updateCategory: async (id: number, payload: CategoryProps) => {
+    const response = await axiosInstance.patch<
+      CategoryResponse<CategoryTabletMobile>
+    >(`${API_URL.CATEGORY}/${id}`, payload);
+    return response.data;
+  },
+  deleteCategory: async (id: number) => {
+    const response = await axiosInstance.delete<
+      CategoryResponse<CategoryProps>
+    >(`${API_URL.CATEGORY}/${id}`);
     return response.data;
   },
 };

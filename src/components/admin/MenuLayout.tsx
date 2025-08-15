@@ -49,7 +49,11 @@ const MenuLayout = () => {
         },
         {
           key: "35",
-          label: <Link to="/admin/product-variant">Variants & Attributes</Link>,
+          label: <Link to="/admin/product-variant">Product Variants</Link>,
+        },
+        {
+          key: "36",
+          label: <Link to="/admin/product-attribute">Product Attributes</Link>,
         },
       ],
     },

@@ -90,13 +90,11 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
           wrapperCol={{ span: 24 }}
           onFinish={handleFinish}
         >
-          {/* Dòng 1: Product, Variant Name, SKU */}
-          <div className="flex flex-wrap gap-4 mb-4">
+          <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
               label="Product"
               name="product_id"
               rules={[{ required: true, message: "Product is required!" }]}
-              className="flex-1 min-w-[300px]"
             >
               <Select
                 showSearch
@@ -110,7 +108,6 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
               label="Variant Name"
               name="variant_name"
               rules={[{ required: true, message: "Variant name is required!" }]}
-              className="flex-1 min-w-[250px]"
             >
               <Input placeholder="Variant name" className="h-[2.5rem]" />
             </Form.Item>
@@ -119,19 +116,14 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
               label="SKU"
               name="sku"
               rules={[{ required: true, message: "SKU is required!" }]}
-              className="flex-1 min-w-[200px]"
             >
               <Input placeholder="SKU" className="h-[2.5rem]" />
             </Form.Item>
-          </div>
 
-          {/* Dòng 2: Status, Capacity, Stock Quantity */}
-          <div className="flex flex-wrap gap-4 mb-4">
             <Form.Item
               label="Status"
               name="is_active"
               rules={[{ required: true, message: "Status is required!" }]}
-              className="flex-1 min-w-[200px]"
             >
               <Select
                 placeholder="Select status"
@@ -143,38 +135,16 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
               />
             </Form.Item>
 
-            <Form.Item
-              label="Capacity"
-              name="capacity"
-              className="flex-1 min-w-[200px]"
-            >
+            <Form.Item label="Capacity" name="capacity">
               <Input placeholder="Capacity" className="h-[2.5rem]" />
-            </Form.Item>
-
-            <Form.Item
-              label="Stock Quantity"
-              name="stock_quantity"
-              rules={[
-                { required: true, message: "Stock quantity is required!" },
-              ]}
-              className="flex-1 min-w-[200px]"
-            >
-              <InputNumber
-                min={0}
-                placeholder="Stock quantity"
-                className="w-full"
-                size="large"
-              />
             </Form.Item>
           </div>
 
-          {/* Dòng 3: Price, Sale Price */}
-          <div className="flex flex-wrap gap-4 mb-4">
+          <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
               label="Price"
               name="price"
               rules={[{ required: true, message: "Price is required!" }]}
-              className="flex-1 min-w-[250px]"
             >
               <InputNumber
                 addonAfter="VND"
@@ -185,11 +155,7 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
               />
             </Form.Item>
 
-            <Form.Item
-              label="Sale Price"
-              name="sale_price"
-              className="flex-1 min-w-[250px]"
-            >
+            <Form.Item label="Sale Price" name="sale_price">
               <InputNumber
                 addonAfter="VND"
                 min={0}
@@ -198,14 +164,26 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
                 size="large"
               />
             </Form.Item>
-          </div>
 
-          {/* Image Upload */}
-          <div className="mb-6">
-            <Form.Item label="Image" name="image_url" className="w-full">
-              <UploadImage setImageApi={setImageApi} url={imageUpdate} />
+            <Form.Item
+              label="Stock Quantity"
+              name="stock_quantity"
+              rules={[
+                { required: true, message: "Stock quantity is required!" },
+              ]}
+            >
+              <InputNumber
+                min={0}
+                placeholder="Stock quantity"
+                className="w-full"
+                size="large"
+              />
             </Form.Item>
           </div>
+
+          <Form.Item label="Image" name="image_url">
+            <UploadImage setImageApi={setImageApi} url={imageUpdate} />
+          </Form.Item>
 
           <Form.Item>
             <div className="flex items-center justify-end gap-x-4 mt-[2rem]">

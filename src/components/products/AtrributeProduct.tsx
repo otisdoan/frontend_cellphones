@@ -14,7 +14,9 @@ const AtrributeProduct = ({
   const getAttribute = async () => {
     try {
       const result = await productAttributeApi.getByProductId(id_product);
-      setAttribute(result.data);
+      if (Array.isArray(result.data)) {
+        setAttribute(result.data);
+      }
       console.log(result.data);
     } catch (error) {
       console.log(error);

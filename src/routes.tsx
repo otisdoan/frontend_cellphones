@@ -20,6 +20,9 @@ import EditProductImage from "./pages/admin/product-images/EditProductImage";
 import ListProductVariant from "./pages/admin/product-variant/ListProductVariant";
 import CreateProductVariant from "./pages/admin/product-variant/CreateProductVariant";
 import EditProductVariant from "./pages/admin/product-variant/EditProductVariant";
+import ListProductAttribute from "./pages/admin/product-attribute/ListProductAttribute";
+import CreateProductAttribute from "./pages/admin/product-attribute/CreateProductAttribute";
+import EditProductAttribute from "./pages/admin/product-attribute/EditProductAttribute";
 import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
@@ -122,6 +125,18 @@ export const routes = createBrowserRouter([
       {
         path: "/admin/product-variant/:id/edit",
         element: <EditProductVariant />,
+      },
+      {
+        path: "/admin/product-attribute",
+        element: <ListProductAttribute />,
+      },
+      {
+        path: "/admin/product-attribute/create",
+        element: <CreateProductAttribute />,
+      },
+      {
+        path: "/admin/product-attribute/:id/edit",
+        element: <EditProductAttribute />,
       },
     ],
   },

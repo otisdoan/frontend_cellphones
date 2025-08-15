@@ -10,5 +10,5 @@ export interface ProductAttributeProps {
 export interface ProductAttributeResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[];
+  data: T[] | T;
 }

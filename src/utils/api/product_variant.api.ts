@@ -7,7 +7,42 @@ import type {
 import axiosInstance from "../axios";
 
 export const productVariantApi = {
-  getById: async (id: number | undefined) => {
+  getAll: async () => {
+    const response = await axiosInstance.get<
+      ProductVariantResponse<ProductVatiantProp>
+    >(API_URL.PRODUCT_VARIANT_BY_ID);
+    return response.data;
+  },
+
+  getById: async (id: number) => {
+    const response = await axiosInstance.get<
+      ProductVariantResponse<ProductVatiantProp>
+    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}/detail`);
+    return response.data;
+  },
+
+  create: async (payload: ProductVatiantProp) => {
+    const response = await axiosInstance.post<
+      ProductVariantResponse<ProductVatiantProp>
+    >(API_URL.PRODUCT_VARIANT_BY_ID, payload);
+    return response.data;
+  },
+
+  update: async (id: number, payload: ProductVatiantProp) => {
+    const response = await axiosInstance.patch<
+      ProductVariantResponse<ProductVatiantProp>
+    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`, payload);
+    return response.data;
+  },
+
+  delete: async (id: number) => {
+    const response = await axiosInstance.delete<
+      ProductVariantResponse<ProductVatiantProp>
+    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);
+    return response.data;
+  },
+
+  getByIdOriginal: async (id: number | undefined) => {
     const response = await axiosInstance.get<
       ProductVariantResponse<ProductVatiantProp>
     >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);

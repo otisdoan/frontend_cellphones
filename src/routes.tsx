@@ -17,6 +17,9 @@ import EditProduct from "./pages/admin/products/EditProduct";
 import ListProductImage from "./pages/admin/product-images/ListProductImage";
 import CreateProductImage from "./pages/admin/product-images/CreateProductImage";
 import EditProductImage from "./pages/admin/product-images/EditProductImage";
+import ListProductVariant from "./pages/admin/product-variant/ListProductVariant";
+import CreateProductVariant from "./pages/admin/product-variant/CreateProductVariant";
+import EditProductVariant from "./pages/admin/product-variant/EditProductVariant";
 import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
@@ -107,6 +110,18 @@ export const routes = createBrowserRouter([
       {
         path: "/admin/product-images/:id/edit",
         element: <EditProductImage />,
+      },
+      {
+        path: "/admin/product-variant",
+        element: <ListProductVariant />,
+      },
+      {
+        path: "/admin/product-variant/create",
+        element: <CreateProductVariant />,
+      },
+      {
+        path: "/admin/product-variant/:id/edit",
+        element: <EditProductVariant />,
       },
     ],
   },

@@ -12,24 +12,51 @@ import type {
   ProductSelect,
 } from "../../../types/api/ProductResponse";
 import { productImgaesApi } from "../../../utils/api/product_images.api";
+import { useForm } from "antd/es/form/Form";
 
-const FormCreateProductImage = () => {
+const FormCreateProductImage = ({ id }: { id?: number }) => {
   const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
   const { showSuccess, showError, contextHolder } = useMessage();
+  const [form] = useForm();
+  const [imageUpdate, setImageUpdate] = useState<string>();
   const [allNameProduct, setAllNameProduct] = useState<
     ProductResponse<ProductSelect>["data"]
   >([]);
+
+  const fetchProductImageById = async () => {
+    if (!id) return;
+    try {
+      const result = await productImgaesApi.getById(id);
+      if (!Array.isArray(result.data)) {
+        setImageUpdate(result.data.image_url);
+        form.setFieldsValue(result.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleFinish = async (value: ProductImagesProp) => {
     try {
-      const result = await productImgaesApi.create({
-        ...value,
-        image_url: imageApi,
-      });
-      showSuccess(result.message);
-      setTimeout(() => {
-        navigate(-1);
-      }, 1500);
+      if (id) {
+        const result = await productImgaesApi.update(id, {
+          ...value,
+          image_url: imageApi || imageUpdate,
+        });
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      } else {
+        const result = await productImgaesApi.create({
+          ...value,
+          image_url: imageApi,
+        });
+        showSuccess(result.message);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1500);
+      }
     } catch (error) {
       showError(error as string);
     }
@@ -50,11 +77,21 @@ const FormCreateProductImage = () => {
   useEffect(() => {
     getAllNameProduct();
   }, []);
+
+  useEffect(() => {
+    fetchProductImageById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  useEffect(() => {
+    getAllNameProduct();
+  }, []);
   return (
     <>
       {contextHolder}
       <div className="bg-[#f5f5f5] rounded-lg p-4 mt-4 mb-[2rem]">
         <Form
+          form={form}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           onFinish={handleFinish}
@@ -67,7 +104,7 @@ const FormCreateProductImage = () => {
             >
               <Select
                 showSearch
-                options={allNameProduct}
+                options={Array.isArray(allNameProduct) ? allNameProduct : []}
                 placeholder="Select product"
                 className="h-[2.5rem]"
               />
@@ -96,7 +133,7 @@ const FormCreateProductImage = () => {
             <TextArea placeholder="Alt text" rows={4} />
           </Form.Item>
           <Form.Item label="Image" name="image_url">
-            <UploadImage setImageApi={handleImageApi} />
+            <UploadImage setImageApi={handleImageApi} url={imageUpdate} />
           </Form.Item>
           <Form.Item>
             <div className="flex items-center justify-end gap-x-4">
@@ -108,7 +145,7 @@ const FormCreateProductImage = () => {
               />
               <ButtonCellphoneS
                 htmlType="submit"
-                children="Create"
+                children={id ? "Update" : "Create"}
                 className="w-[6rem] text-white"
               />
             </div>

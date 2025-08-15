@@ -112,9 +112,7 @@ const ListBrand = () => {
     {
       title: "Updated At",
       dataIndex: "updatedAt",
-      render: (date: string) => (
-        <span>{new Date(date).toLocaleString("vi-VN")}</span>
-      ),
+      render: (date) => <span>{new Date(date).toLocaleString("vi-VN")}</span>,
     },
     {
       title: "Action",

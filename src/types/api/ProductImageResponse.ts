@@ -12,5 +12,5 @@ export interface ProductImagesProp {
 export interface ProductImageResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[];
+  data: T[] | T;
 }

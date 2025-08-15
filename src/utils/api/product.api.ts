@@ -33,7 +33,7 @@ export const productApi = {
     return response.data;
   },
   update: async (id: number, payload: ProductProps) => {
-    const response = await axiosInstance.put<ProductResponse<ProductProps>>(
+    const response = await axiosInstance.patch<ProductResponse<ProductProps>>(
       `${API_URL.PRODUCT}/${id}`,
       payload
     );

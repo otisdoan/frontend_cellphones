@@ -79,7 +79,7 @@ const UploadImage = ({
         name="file"
         onRemove={handleRemove}
       >
-        {fileList.length < 5 && "+ Upload"}
+        {fileList.length < 2 && "+ Upload"}
       </Upload>
       {previewImage && (
         <Image

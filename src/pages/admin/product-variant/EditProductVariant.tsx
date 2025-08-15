@@ -2,15 +2,15 @@ import { MdOutlineArrowBack } from "react-icons/md";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import FormCreateProductImage from "../../../components/forms/admin/FormCreateProductImage";
+import FormCreateProductVariant from "../../../components/forms/admin/FormCreateProductVariant";
 
-const EditProductImage = () => {
+const EditProductVariant = () => {
   const item: BreadcrumbItemType[] = [
     {
       title: <Link to="/admin">Dashboard</Link>,
     },
     {
-      title: <Link to="/admin/product-images">Product Images</Link>,
+      title: <Link to="/admin/product-variant">Product Variants</Link>,
     },
     {
       title: "edit",
@@ -30,19 +30,19 @@ const EditProductImage = () => {
                 onClick={() => navigate(-1)}
               />
               <h1 className="md:font-medium md:text-[1.7rem] text-[1.2rem] md:block">
-                Edit product image
+                Edit product variant
               </h1>
             </div>
             <BreadcrumbAmin items={item} />
           </div>
         </div>
         <div className="bg-white rounded-lg mt-4 p-4">
-          <span className="font-medium">Edit Product Image Form</span>
-          {id && <FormCreateProductImage id={Number(id)} />}
+          <span className="font-medium">Edit Product Variant Form</span>
+          {id && <FormCreateProductVariant id={Number(id)} />}
         </div>
       </div>
     </>
   );
 };
 
-export default EditProductImage;
+export default EditProductVariant;

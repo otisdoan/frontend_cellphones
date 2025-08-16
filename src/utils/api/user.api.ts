@@ -9,9 +9,9 @@ export const userApi = {
     );
     return response.data;
   },
-  getById: async (id: number | string) => {
+  getById: async (id: number) => {
     const response = await axiosInstance.get<UserResponse<UserProps>>(
-      `${API_URL.USER}/${id}`
+      `${API_URL.USER}/${id}/detail`
     );
     return response.data;
   },
@@ -22,14 +22,14 @@ export const userApi = {
     );
     return response.data;
   },
-  update: async (id: number | string, payload: Partial<UserProps>) => {
-    const response = await axiosInstance.put<UserResponse<UserProps>>(
+  updateUser: async (id: number, payload: Partial<UserProps>) => {
+    const response = await axiosInstance.patch<UserResponse<UserProps>>(
       `${API_URL.USER}/${id}`,
       payload
     );
     return response.data;
   },
-  delete: async (id: number | string) => {
+  deleteUser: async (id: number) => {
     const response = await axiosInstance.delete<UserResponse<UserProps>>(
       `${API_URL.USER}/${id}`
     );

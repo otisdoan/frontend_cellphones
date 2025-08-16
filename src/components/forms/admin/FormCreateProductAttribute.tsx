@@ -1,22 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Form, Input, InputNumber } from "antd";
-import { useEffect } from "react";
+import { Form, Input, InputNumber, Select } from "antd";
+import { useEffect, useState } from "react";
 import ButtonCellphoneS from "../../ButtonCellphoneS";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../../hooks/useMessage";
 import { productAttributeApi } from "../../../utils/api/product_attribute.api";
+import { productApi } from "../../../utils/api/product.api";
 import type { ProductAttributeProps } from "../../../types/api/ProductAttributeResponse";
+import type {
+  ProductResponse,
+  ProductSelect,
+} from "../../../types/api/ProductResponse";
 import { useForm } from "antd/es/form/Form";
 
 const FormCreateProductAttribute = ({ id }: { id?: number }) => {
   const navigate = useNavigate();
   const { showSuccess, showError, contextHolder } = useMessage();
   const [form] = useForm();
+  const [allProducts, setAllProducts] = useState<
+    ProductResponse<ProductSelect>["data"]
+  >([]);
 
   const fetchProductAttributeById = async () => {
     try {
       const result = await productAttributeApi.getById(id!);
       form.setFieldsValue(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllProducts = async () => {
+    try {
+      const result = await productApi.getAllName();
+      setAllProducts(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +63,10 @@ const FormCreateProductAttribute = ({ id }: { id?: number }) => {
   };
 
   useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  useEffect(() => {
     if (id) {
       fetchProductAttributeById();
     }
@@ -63,16 +84,22 @@ const FormCreateProductAttribute = ({ id }: { id?: number }) => {
         >
           <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
-              label="Product ID"
+              label="Product"
               name="product_id"
               rules={[
                 {
                   required: true,
-                  message: "Product ID is required!",
+                  message: "Product is required!",
                 },
               ]}
             >
-              <Input placeholder="Product ID" className="h-[2.5rem]" />
+              <Select
+                showSearch
+                placeholder="Select product"
+                options={Array.isArray(allProducts) ? allProducts : []}
+                className="h-[2.5rem]"
+                allowClear
+              />
             </Form.Item>
             <Form.Item
               label="Attribute Name"

@@ -28,6 +28,11 @@ const MenuLayout = () => {
     },
     {
       key: "3",
+      icon: <HiOutlineUserGroup />,
+      label: <Link to="/admin/users">Users</Link>,
+    },
+    {
+      key: "4",
       icon: <MdProductionQuantityLimits />,
       label: "Products",
       children: [
@@ -58,14 +63,9 @@ const MenuLayout = () => {
       ],
     },
     {
-      key: "4",
+      key: "5",
       icon: <AiOutlineOrderedList />,
       label: <Link to="/admin/orders">Orders</Link>,
-    },
-    {
-      key: "5",
-      icon: <HiOutlineUserGroup />,
-      label: <Link to="/admin/products">Users</Link>,
     },
     {
       key: "6",

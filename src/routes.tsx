@@ -23,6 +23,9 @@ import EditProductVariant from "./pages/admin/product-variant/EditProductVariant
 import ListProductAttribute from "./pages/admin/product-attribute/ListProductAttribute";
 import CreateProductAttribute from "./pages/admin/product-attribute/CreateProductAttribute";
 import EditProductAttribute from "./pages/admin/product-attribute/EditProductAttribute";
+import ListUser from "./pages/admin/users/ListUser";
+import CreateUser from "./pages/admin/users/CreateUser";
+import EditUser from "./pages/admin/users/EditUser";
 import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
@@ -137,6 +140,18 @@ export const routes = createBrowserRouter([
       {
         path: "/admin/product-attribute/:id/edit",
         element: <EditProductAttribute />,
+      },
+      {
+        path: "/admin/users",
+        element: <ListUser />,
+      },
+      {
+        path: "/admin/users/create",
+        element: <CreateUser />,
+      },
+      {
+        path: "/admin/users/:id/edit",
+        element: <EditUser />,
       },
     ],
   },

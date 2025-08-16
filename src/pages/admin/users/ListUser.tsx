@@ -14,13 +14,13 @@ import ButtonCellphoneS from "../../../components/ButtonCellphoneS";
 import { IoAddCircleOutline } from "react-icons/io5";
 import TableAdmin from "../../../components/admin/templates/TableAdmin";
 import { useEffect, useState } from "react";
-import type { ProductAttributeProps } from "../../../types/api/ProductAttributeResponse";
-import { productAttributeApi } from "../../../utils/api/product_attribute.api";
+import type { UserProps } from "../../../types/api/UserResponse";
+import { userApi } from "../../../utils/api/user.api";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { useMessage } from "../../../hooks/useMessage";
 
-const ListProductAttribute = () => {
+const ListUser = () => {
   const navigate = useNavigate();
   const { showSuccess, contextHolder } = useMessage();
 
@@ -29,28 +29,28 @@ const ListProductAttribute = () => {
       title: <Link to="/admin">Dashboard</Link>,
     },
     {
-      title: "product-attributes",
+      title: "users",
     },
   ];
 
   const listInfor: ListInforProps[] = [
     {
-      title: "Total",
+      title: "Active",
       numbers: 34,
       icon: <AiOutlineDesktop />,
     },
     {
-      title: "Specifications",
+      title: "Inactive",
       numbers: 23,
       icon: <AiOutlineException />,
     },
     {
-      title: "Features",
+      title: "Verified Email",
       numbers: 62,
       icon: <AiOutlineHistory />,
     },
     {
-      title: "Others",
+      title: "Admin Users",
       numbers: 82,
       icon: <AiOutlinePieChart />,
     },
@@ -62,13 +62,8 @@ const ListProductAttribute = () => {
       dataIndex: "id",
     },
     {
-      title: "Product Name",
-      dataIndex: "product_name",
-      render: (product_name) => <span>{product_name}</span>,
-    },
-    {
-      title: "Attribute Name",
-      dataIndex: "attribute_name",
+      title: "Full Name",
+      dataIndex: "full_name",
       render: (name) => (
         <Tooltip title={name}>
           <span className="line-clamp-1 max-w-[150px]">{name}</span>
@@ -76,23 +71,86 @@ const ListProductAttribute = () => {
       ),
     },
     {
-      title: "Attribute Value",
-      dataIndex: "attribute_value",
-      render: (value) => (
-        <Tooltip title={value}>
-          <span className="line-clamp-1 max-w-[200px]">{value}</span>
+      title: "Avatar",
+      dataIndex: "avatar_url",
+      render: (url: string | null) =>
+        url ? (
+          <img
+            src={url}
+            alt="Avatar"
+            className="w-10 h-10 object-contain rounded-full border"
+          />
+        ) : (
+          <Tag color="default">No avatar</Tag>
+        ),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      render: (email) => (
+        <Tooltip title={email}>
+          <span className="line-clamp-1 max-w-[200px]">{email}</span>
         </Tooltip>
       ),
     },
     {
-      title: "Attribute Group",
-      dataIndex: "attribute_group",
-      render: (group) => <Tag color="green">{group}</Tag>,
+      title: "Phone",
+      dataIndex: "phone",
+      render: (phone) => (
+        <Tooltip title={phone}>
+          <span className="line-clamp-1 max-w-[150px]">{phone}</span>
+        </Tooltip>
+      ),
     },
     {
-      title: "Sort Order",
-      dataIndex: "sort_order",
-      render: (order) => <Tag color="purple">{order}</Tag>,
+      title: "Role",
+      dataIndex: "role",
+      render: (role: string) => (
+        <Tag
+          color={
+            role === "admin" ? "red" : role === "manager" ? "orange" : "blue"
+          }
+        >
+          {role?.toUpperCase()}
+        </Tag>
+      ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (status: string) => (
+        <Tag color={status === "active" ? "green" : "red"}>
+          {status?.toUpperCase()}
+        </Tag>
+      ),
+    },
+    {
+      title: "Email Verified",
+      dataIndex: "email_verified",
+      render: (verified: boolean) => (
+        <Tag color={verified ? "green" : "red"}>
+          {verified ? "Verified" : "Not Verified"}
+        </Tag>
+      ),
+    },
+    {
+      title: "Phone Verified",
+      dataIndex: "phone_verified",
+      render: (verified: boolean) => (
+        <Tag color={verified ? "green" : "red"}>
+          {verified ? "Verified" : "Not Verified"}
+        </Tag>
+      ),
+    },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      render: (date) => <span>{new Date(date).toLocaleString("vi-VN")}</span>,
+    },
+    {
+      title: "Updated At",
+      dataIndex: "updatedAt",
+      render: (date) => <span>{new Date(date).toLocaleString("vi-VN")}</span>,
     },
     {
       title: "Action",
@@ -102,16 +160,14 @@ const ListProductAttribute = () => {
           <Tooltip title="Edit">
             <div
               className="rounded-full border border-[#0fb981] p-2 cursor-pointer hover:bg-[#e6f9f3] transition"
-              onClick={() =>
-                navigate(`/admin/product-attribute/${record.id}/edit`)
-              }
+              onClick={() => navigate(`/admin/users/${record.id}/edit`)}
             >
               <MdOutlineModeEdit className="text-[#0fb981] text-base" />
             </div>
           </Tooltip>
           <Popconfirm
             title="Delete the record"
-            description="Are you sure to delete this task?"
+            description="Are you sure to delete this user?"
             onConfirm={() => handleDelete(record.id)}
             okText="Delete"
             cancelText="Cancel"
@@ -126,18 +182,16 @@ const ListProductAttribute = () => {
     },
   ];
 
-  const [dataProductAttributes, setDataProductAttributes] = useState<
-    ProductAttributeProps[]
-  >([]);
+  const [dataUsers, setDataUsers] = useState<UserProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [reload, setReload] = useState<boolean>(false);
 
-  const fetchProductAttributes = async () => {
+  const fetchUsers = async () => {
     try {
       setLoading(true);
-      const result = await productAttributeApi.getAll();
+      const result = await userApi.getAll();
       if (Array.isArray(result.data)) {
-        setDataProductAttributes(result.data);
+        setDataUsers(result.data);
       }
     } catch (error) {
       console.log(error);
@@ -148,7 +202,7 @@ const ListProductAttribute = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      const result = await productAttributeApi.deleteProductAttribute(id);
+      const result = await userApi.deleteUser(id);
       showSuccess(result.message);
       setReload(!reload);
     } catch (error) {
@@ -157,7 +211,7 @@ const ListProductAttribute = () => {
   };
 
   useEffect(() => {
-    fetchProductAttributes();
+    fetchUsers();
   }, [reload]);
 
   return (
@@ -167,7 +221,7 @@ const ListProductAttribute = () => {
         <div className="md:flex items-center justify-between hidden">
           <div>
             <h1 className="md:font-medium md:text-[1.7rem] hidden md:block">
-              Product Attributes
+              Users
             </h1>
             <BreadcrumbAmin items={item} />
           </div>
@@ -179,16 +233,16 @@ const ListProductAttribute = () => {
             />
           </div>
         </div>
-        <DisplaStatistic type="products" listInfor={listInfor} />
+        <DisplaStatistic type="category" listInfor={listInfor} />
         <div className="bg-white rounded-lg p-4 mt-4">
           <div className="flex items-center justify-between">
             <span className="text-[1.2rem] font-medium hidden md:block">
-              Product Attributes
+              Users
             </span>
             <div className="flex items-center gap-x-4 md:w-auto w-full">
               <div>
                 <Input
-                  placeholder="Search product attributes"
+                  placeholder="Search users"
                   prefix={<IoIosSearch className="text-[1.2rem]" />}
                   className="text-[0.8rem] md:w-[20rem] w-[15rem] bg-[#f5f5f5] h-[3rem]"
                 />
@@ -197,21 +251,21 @@ const ListProductAttribute = () => {
                 children={
                   <div className="flex items-center gap-x-1">
                     <IoAddCircleOutline className="text-white text-[1.5rem]" />
-                    <span className="hidden md:block">New attribute</span>
+                    <span className="hidden md:block">New user</span>
                   </div>
                 }
                 defaultActiveBg="#292929"
                 defaultHoverBg="#292929"
                 defaultHoverBorderColor="#292929"
                 className="text-white h-[2rem] bg-black border-none text-[0.8rem]"
-                onClick={() => navigate("/admin/product-attribute/create")}
+                onClick={() => navigate("/admin/users/create")}
               />
             </div>
           </div>
           <div className="mt-4">
             <TableAdmin
               columns={columns}
-              dataSource={dataProductAttributes}
+              dataSource={dataUsers}
               scroll={{ x: "max-content" }}
               loading={loading}
               pagination={{ pageSize: 10, position: ["bottomRight"] }}
@@ -223,4 +277,4 @@ const ListProductAttribute = () => {
   );
 };
 
-export default ListProductAttribute;
+export default ListUser;

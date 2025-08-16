@@ -101,6 +101,7 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
                 placeholder="Select product"
                 options={Array.isArray(allProducts) ? allProducts : []}
                 className="h-[2.5rem]"
+                allowClear
               />
             </Form.Item>
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input, InputNumber, Select } from "antd";
 import { useEffect, useState } from "react";
 import ButtonCellphoneS from "../../ButtonCellphoneS";
@@ -77,7 +78,6 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
 
   useEffect(() => {
     fetchProductVariantById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
@@ -93,7 +93,7 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
           <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
               label="Product"
-              name="product_id"
+              name="name"
               rules={[{ required: true, message: "Product is required!" }]}
             >
               <Select

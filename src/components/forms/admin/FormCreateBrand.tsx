@@ -126,11 +126,20 @@ const FormCreateBrand = ({ id }: { id?: number }) => {
                 defaultHoverBg="none"
                 onClick={() => navigate(-1)}
               />
-              <ButtonCellphoneS
-                htmlType="submit"
-                children="Create"
-                className="w-[6rem] text-white"
-              />
+              {!id && (
+                <ButtonCellphoneS
+                  htmlType="submit"
+                  children="Create"
+                  className="w-[6rem] text-white"
+                />
+              )}
+              {id && (
+                <ButtonCellphoneS
+                  htmlType="submit"
+                  children="Save"
+                  className="w-[6rem] text-white"
+                />
+              )}
             </div>
           </Form.Item>
         </Form>

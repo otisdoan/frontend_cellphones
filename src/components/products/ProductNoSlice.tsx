@@ -9,18 +9,21 @@ import {
 import { useRef } from "react";
 import type { CarouselRef } from "antd/es/carousel";
 import { useNavigate } from "react-router-dom";
+import SkeletonProduct from "../skeleton/SkeletonProduct";
 
 interface ProductHomeProps {
   title?: string;
   brand?: { name: string }[];
   list: ProductProps[];
   suggest?: boolean;
+  loading?: boolean;
 }
 const ProductNoSlice = ({
   title,
   brand,
   list,
   suggest = false,
+  loading = false,
 }: ProductHomeProps) => {
   const carouselRef = useRef<CarouselRef>(null);
   const navigate = useNavigate();
@@ -111,92 +114,100 @@ const ProductNoSlice = ({
           </div>
         </div>
         <div className="relative">
-          <Carousel {...setting}>
-            {list.map((item, index) => (
-              <div key={index} className="px-1 my-4 relative">
-                <div
-                  className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer"
-                  onClick={() => navigate(`/${item.slug}`)}
-                >
-                  <img
-                    src={`https://cdn2.cellphones.com.vn/358x/media/catalog/product/i/p/iphone-16-plus-hong.png`}
-                    className="object-contain hover:scale-105 duration-500"
-                  />
-                  <div className="h-[2rem] font-bold">
-                    <span>{item.name}</span>
-                  </div>
-                  <p className="flex items-center gap-x-1">
-                    <span className="text-[#d70019] font-bold text-[1rem]">
-                      {item.price}đ
-                    </span>
-                    <span className="line-through font-bold opacity-65 text-[0.7rem]">
-                      {item.cost_price}
-                    </span>
-                  </p>
-                  <div className="flex flex-col gap-y-1">
-                    <div className="bg-[#dae8fe] flex items-center p-1 rounded-md">
-                      <span className="text-[#20488b] text-[0.7rem]">
-                        Smember giảm đến 450.000đ
+          {loading ? (
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <SkeletonProduct key={index} />
+              ))}
+            </div>
+          ) : (
+            <Carousel {...setting}>
+              {list.map((item, index) => (
+                <div key={index} className="px-1 my-4 relative">
+                  <div
+                    className="bg-white flex flex-col gap-y-4 rounded-lg p-3 shadow-lg cursor-pointer"
+                    onClick={() => navigate(`/${item.slug}`)}
+                  >
+                    <img
+                      src={`https://cdn2.cellphones.com.vn/358x/media/catalog/product/i/p/iphone-16-plus-hong.png`}
+                      className="object-contain hover:scale-105 duration-500"
+                    />
+                    <div className="h-[2rem] font-bold">
+                      <span>{item.name}</span>
+                    </div>
+                    <p className="flex items-center gap-x-1">
+                      <span className="text-[#d70019] font-bold text-[1rem]">
+                        {item.price}đ
                       </span>
+                      <span className="line-through font-bold opacity-65 text-[0.7rem]">
+                        {item.cost_price}
+                      </span>
+                    </p>
+                    <div className="flex flex-col gap-y-1">
+                      <div className="bg-[#dae8fe] flex items-center p-1 rounded-md">
+                        <span className="text-[#20488b] text-[0.7rem]">
+                          Smember giảm đến 450.000đ
+                        </span>
+                      </div>
+                      <div
+                        className={`bg-[#EFE9FE] flex items-center p-1 rounded-md ${
+                          suggest && `hidden`
+                        }`}
+                      >
+                        <span className="text-[#421d95] text-[0.7rem]">
+                          S-Student giảm thêm 300.000đ
+                        </span>
+                      </div>
+                      <div
+                        className={`bg-[#F2F2F3] rounded-md p-1 ${
+                          suggest && `hidden`
+                        }`}
+                      >
+                        <span className="text-[0.7rem]">
+                          Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng
+                          kỳ hạn 3-6 tháng
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="flex items-center gap-x-1">
+                        <FaStar className="text-[#ffd531]" />
+                        <span>{item.rating_average}</span>
+                      </div>
+                      <div className="flex items-center gap-x-1">
+                        <FaRegHeart className="text-[#3c82f6]" />
+                        <span className="text-[#3c82f6]">Yêu thích</span>
+                      </div>
                     </div>
                     <div
-                      className={`bg-[#EFE9FE] flex items-center p-1 rounded-md ${
-                        suggest && `hidden`
-                      }`}
+                      className="object-contain absolute top-[-0.5rem] px-2"
+                      style={{
+                        backgroundImage:
+                          "url('/images/discount-badge-ui-2025.webp')",
+                      }}
                     >
-                      <span className="text-[#421d95] text-[0.7rem]">
-                        S-Student giảm thêm 300.000đ
-                      </span>
+                      <p className="text-white flex items-center gap-x-1">
+                        <span className="text-[0.7rem]">Giảm</span>
+                        <span className="text-[0.8rem]">14%</span>
+                      </p>
                     </div>
                     <div
-                      className={`bg-[#F2F2F3] rounded-md p-1 ${
-                        suggest && `hidden`
-                      }`}
+                      className="object-cover absolute right-0 top-0 px-1"
+                      style={{
+                        backgroundImage:
+                          "url('/images/zero-ins-badge-ui-2025.webp')",
+                      }}
                     >
-                      <span className="text-[0.7rem]">
-                        Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng kỳ
-                        hạn 3-6 tháng
-                      </span>
+                      <p className="text-[#3c82f6] flex items-center gap-x-1">
+                        <span className="text-[0.7rem]">Trả góp</span>
+                        <span className="text-[0.8rem]">0%</span>
+                      </p>
                     </div>
-                  </div>
-                  <div className="flex justify-between">
-                    <div className="flex items-center gap-x-1">
-                      <FaStar className="text-[#ffd531]" />
-                      <span>{item.rating_average}</span>
-                    </div>
-                    <div className="flex items-center gap-x-1">
-                      <FaRegHeart className="text-[#3c82f6]" />
-                      <span className="text-[#3c82f6]">Yêu thích</span>
-                    </div>
-                  </div>
-                  <div
-                    className="object-contain absolute top-[-0.5rem] px-2"
-                    style={{
-                      backgroundImage:
-                        "url('/images/discount-badge-ui-2025.webp')",
-                    }}
-                  >
-                    <p className="text-white flex items-center gap-x-1">
-                      <span className="text-[0.7rem]">Giảm</span>
-                      <span className="text-[0.8rem]">14%</span>
-                    </p>
-                  </div>
-                  <div
-                    className="object-cover absolute right-0 top-0 px-1"
-                    style={{
-                      backgroundImage:
-                        "url('/images/zero-ins-badge-ui-2025.webp')",
-                    }}
-                  >
-                    <p className="text-[#3c82f6] flex items-center gap-x-1">
-                      <span className="text-[0.7rem]">Trả góp</span>
-                      <span className="text-[0.8rem]">0%</span>
-                    </p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </Carousel>
+              ))}
+            </Carousel>
+          )}
           <div
             className="bg-white flex items-center justify-center p-1 rounded-full shadow-lg border-[1px] w-10 h-10 absolute top-[47.5%] cursor-pointer"
             onClick={handlePrev}

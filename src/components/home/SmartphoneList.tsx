@@ -6,6 +6,8 @@ import { sliceArray } from "../../utils/sliceArray";
 
 const SmartphoneList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[][]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -35,7 +37,10 @@ const SmartphoneList = () => {
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
-      setDataProducts(sliceArray(result.data, 2));
+      setLoading(false);
+      if (Array.isArray(result.data)) {
+        setDataProducts(sliceArray(result.data, 2));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +56,7 @@ const SmartphoneList = () => {
           title="ĐIỆN THOẠI NỔI BẬT NHẤT"
           list={dataProducts}
           brand={brand}
+          loading={loading}
         />
       </div>
     </>

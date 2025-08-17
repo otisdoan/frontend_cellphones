@@ -4,14 +4,34 @@ import HeaderHome from "../../../components/home/HeaderHome";
 import { Popover } from "antd";
 import ButtonCellphoneS from "../../../components/ButtonCellphoneS";
 import { SlEarphonesAlt } from "react-icons/sl";
+import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
+import { useEffect, useState } from "react";
 
 const HomeLayout = () => {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleBackTo = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
       <div>
-        {/* <BackTop
-          className="top-[36rem] right-[10rem] w-[6.4rem] hidden md:block"
-          children={
+        {showBackToTop && (
+          <div
+            className="top-[36rem] right-[10rem] w-[6.4rem] hidden md:block fixed z-50"
+            onClick={handleBackTo}
+          >
             <ButtonCellphoneS
               className="bg-black text-white h-[2rem] border-0"
               defaultHoverBg="black"
@@ -22,8 +42,8 @@ const HomeLayout = () => {
                 </div>
               }
             />
-          }
-        /> */}
+          </div>
+        )}
         <div className="fixed top-[40rem] right-[10rem] hidden md:block z-30">
           <Popover
             content={

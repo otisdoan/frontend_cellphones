@@ -23,7 +23,9 @@ const LaptopList = () => {
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
-      setDataProducts(sliceArray(result.data, 2));
+      if (Array.isArray(result.data)) {
+        setDataProducts(sliceArray(result.data, 2));
+      }
     } catch (error) {
       console.log(error);
     }

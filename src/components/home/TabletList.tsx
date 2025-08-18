@@ -22,7 +22,9 @@ const TabletList = () => {
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
-      setDataProducts(result.data);
+      if (Array.isArray(result.data)) {
+        setDataProducts(result.data);
+      }
     } catch (error) {
       console.log(error);
     }

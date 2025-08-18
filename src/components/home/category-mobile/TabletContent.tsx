@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import { categoryApi } from "../../../utils/api/category.api";
-import type {
-  CategoryResponse,
-  CategoryTabletMobile,
-} from "../../../types/api/CategoryResponse";
+import type { CategoryTabletMobile } from "../../../types/api/CategoryResponse";
 
 const TabletContent = () => {
-  const [category, setCategory] = useState<
-    CategoryResponse<CategoryTabletMobile>["data"]
-  >([]);
+  const [category, setCategory] = useState<CategoryTabletMobile[]>([]);
 
   const categorySmartphone = async () => {
     try {
       const result = await categoryApi.getCategoryTabletMobile();
-      setCategory(result.data);
+      if (Array.isArray(result.data)) {
+        setCategory(result.data);
+      }
     } catch (error) {
       console.log(error);
     }

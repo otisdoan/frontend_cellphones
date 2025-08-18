@@ -25,7 +25,6 @@ const GoogleLoginButton = () => {
       try {
         const result = await authApi.loginByGoogle(token);
         console.log(result);
-        localStorage.setItem("access_token", result.data.access_token);
         navigate("/");
         console.log(result);
       } catch (error) {

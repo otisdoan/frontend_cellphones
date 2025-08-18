@@ -4,7 +4,7 @@ interface ModalCellphoneProps extends ModalProps {
   open: boolean;
 }
 
-const ModalCellphoneS = ({ children, ...props }: ModalCellphoneProps) => {
+const useModalCellphoneS = ({ children, ...props }: ModalCellphoneProps) => {
   return (
     <>
       <Modal {...props} footer={false}>
@@ -14,4 +14,4 @@ const ModalCellphoneS = ({ children, ...props }: ModalCellphoneProps) => {
   );
 };
 
-export default ModalCellphoneS;
+export default useModalCellphoneS;

@@ -18,5 +18,5 @@ export interface UserProps {
 export interface UserResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[] | T;
+  data: T;
 }

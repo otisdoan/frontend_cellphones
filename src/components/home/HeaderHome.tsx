@@ -8,7 +8,7 @@ import SvgLogo from "../svg/SvgLogo";
 import { Badge, Input } from "antd";
 import { IoMdSearch } from "react-icons/io";
 import { GrMapLocation } from "react-icons/gr";
-import ModalCellphoneS from "../../hooks/ModalCellphoneS";
+import ModalCellphoneS from "../../hooks/useModalCellphoneS";
 import ButtonCellphoneS from "../ButtonCellphoneS";
 import { GoBell } from "react-icons/go";
 import SpaceCellphoneS from "../SpaceCellphoneS";

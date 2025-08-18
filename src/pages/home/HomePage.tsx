@@ -18,11 +18,13 @@ import SmartphoneContent from "../../components/home/category-mobile/SmartphoneC
 import TabletContent from "../../components/home/category-mobile/TabletContent";
 import ProductSale from "../../components/home/ProductSale";
 import { useLocation } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
   const [current, setCurrent] = useState<number>(0);
-
+  const { user } = useAuthContext() ?? {};
+  console.log(user);
   const handleShow = (open: boolean) => {
     setShow(open);
   };

@@ -5,11 +5,15 @@ import type { ProductProps } from "../../types/api/ProductResponse";
 
 const LaptopSale = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
-      setDataProducts(result.data);
+      setLoading(false);
+      if (Array.isArray(result.data)) {
+        setDataProducts(result.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -21,7 +25,7 @@ const LaptopSale = () => {
   return (
     <>
       <div>
-        <ProductNoSlice list={dataProducts} suggest={true} />
+        <ProductNoSlice list={dataProducts} suggest={true} loading={loading} />
       </div>
     </>
   );

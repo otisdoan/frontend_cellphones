@@ -12,16 +12,16 @@ const FormLogin = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { contextHolder, showSuccess } = useMessage();
+
   const onFinish = async (values: LoginFormType) => {
     try {
       const result = await authApi.login(values);
-      if (result.data && result.status === "success") {
-        localStorage.setItem("access_token", result.data.access_token);
-        showSuccess(result.message);
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      }
+      const { id } = result.data;
+      localStorage.setItem("user_id", id.toString());
+      showSuccess(result.message);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
       console.log("Error", error);
     }

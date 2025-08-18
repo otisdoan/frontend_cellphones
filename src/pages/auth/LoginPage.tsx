@@ -99,15 +99,15 @@ const LoginPage = () => {
             <img src="/images/smember-promotion-ant.a7833c47.png" />
           </div>
         </div>
-        <div className="flex items-center gap-x-4 md:hidden">
+        <div className="flex items-center justify gap-x-4 md:hidden">
           <ButtonCellphoneS
-            className="bg-white"
+            className="bg-white w-1/2"
             children="Đăng ký"
             onClick={() => navigate("/register")}
           />
           <ButtonCellphoneS
             onClick={showDrawer}
-            className="text-white"
+            className="text-white w-1/2"
             children="Đăng nhập"
           />
         </div>

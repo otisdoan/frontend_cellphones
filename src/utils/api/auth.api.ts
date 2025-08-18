@@ -1,6 +1,7 @@
 import { API_URL } from "../../constants/API_URL";
 import type { LoginResponse } from "../../types/api/LoginResponse";
 import type { RegisterResponse } from "../../types/api/RegisterResponse";
+import type { UserProps } from "../../types/api/UserResponse";
 
 import type {
   LoginFormType,
@@ -10,9 +11,10 @@ import axiosInstance from "../axios";
 
 export const authApi = {
   login: async (payload: LoginFormType) => {
-    const response = await axiosInstance.post<LoginResponse>(
+    const response = await axiosInstance.post<LoginResponse<UserProps>>(
       API_URL.LOGIN,
-      payload
+      payload,
+      { withCredentials: true }
     );
     return response.data;
   },
@@ -24,9 +26,12 @@ export const authApi = {
     return response.data;
   },
   loginByGoogle: async (token: string | undefined) => {
-    const response = await axiosInstance.post<LoginResponse>(API_URL.GOOGLE, {
-      token,
-    });
+    const response = await axiosInstance.post<LoginResponse<UserProps>>(
+      API_URL.GOOGLE,
+      {
+        token,
+      }
+    );
     return response.data;
   },
 };

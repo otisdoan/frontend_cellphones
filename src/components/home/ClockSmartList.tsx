@@ -5,6 +5,8 @@ import ProductNoSlice from "../products/ProductNoSlice";
 
 const ClockSmartList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -22,7 +24,10 @@ const ClockSmartList = () => {
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
-      setDataProducts(result.data);
+      setLoading(false);
+      if (Array.isArray(result.data)) {
+        setDataProducts(result.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,6 +43,7 @@ const ClockSmartList = () => {
           title="ĐỒNG HỒ THÔNG MINH"
           list={dataProducts}
           brand={brand}
+          loading={loading}
         />
       </div>
     </>

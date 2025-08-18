@@ -4,7 +4,7 @@ import SvgLogoDesktop from "../svg/SvgLogoDesktop";
 import ButtonCellphoneS from "../ButtonCellphoneS";
 import { GrMapLocation } from "react-icons/gr";
 import { IoIosArrowDown, IoMdSearch } from "react-icons/io";
-import ModalCellphoneS from "../../hooks/ModalCellphoneS";
+import ModalCellphoneS from "../../hooks/useModalCellphoneS";
 import { useState, type ReactNode } from "react";
 import { Badge, Input } from "antd";
 import { LuPhone } from "react-icons/lu";

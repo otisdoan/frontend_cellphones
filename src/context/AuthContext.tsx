@@ -13,31 +13,32 @@ import type { UserProps } from "../types/api/UserResponse";
 export interface AuthContextType {
   user: UserProps | null;
   setUser: (payload: UserProps) => void;
+  login: boolean;
 }
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(null);
+  const [login, setLogin] = useState<boolean>(false);
 
   const value: AuthContextType = {
     user,
     setUser,
+    login,
   };
 
-  const getUser = async (id: number) => {
+  const getUser = async () => {
     try {
-      const result = await userApi.getById(id);
+      const result = await userApi.getById();
       setUser(result.data);
+      setLogin(true);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const id = localStorage.getItem("user_id");
-    if (id) {
-      getUser(Number(id));
-    }
+    getUser();
   }, []);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

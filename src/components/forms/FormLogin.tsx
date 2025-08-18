@@ -5,22 +5,18 @@ import LinkCellphone from "../LinkCellohone";
 import LoginByAnother from "../LoginByAnother";
 import type { LoginFormType } from "../../types/forms/formType";
 import { authApi } from "../../utils/api/auth.api";
-import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../hooks/useMessage";
 
 const FormLogin = () => {
   const [form] = Form.useForm();
-  const navigate = useNavigate();
   const { contextHolder, showSuccess } = useMessage();
 
   const onFinish = async (values: LoginFormType) => {
     try {
       const result = await authApi.login(values);
-      const { id } = result.data;
-      localStorage.setItem("user_id", id.toString());
       showSuccess(result.message);
       setTimeout(() => {
-        navigate("/");
+        window.location.href = "/";
       }, 1000);
     } catch (error) {
       console.log("Error", error);

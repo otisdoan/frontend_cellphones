@@ -29,6 +29,7 @@ import EditUser from "./pages/admin/users/EditUser";
 import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
+import RoleGuard from "./guards/RoleGuard";
 
 export const routes = createBrowserRouter([
   {
@@ -63,7 +64,11 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: (
+      <RoleGuard roles={["admin"]}>
+        <AdminLayout />
+      </RoleGuard>
+    ),
     children: [
       {
         path: "/admin",

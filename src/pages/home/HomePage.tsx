@@ -23,8 +23,8 @@ import { useAuthContext } from "../../context/AuthContext";
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
   const [current, setCurrent] = useState<number>(0);
-  const { user } = useAuthContext() ?? {};
-  console.log(user);
+  const { user, login } = useAuthContext()!;
+  console.log(user, login);
   const handleShow = (open: boolean) => {
     setShow(open);
   };

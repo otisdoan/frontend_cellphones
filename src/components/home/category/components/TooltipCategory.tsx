@@ -105,6 +105,7 @@ const TooltipCategory = () => {
             arrow={false}
             trigger="hover"
             className=""
+            zIndex={0}
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-x-2">

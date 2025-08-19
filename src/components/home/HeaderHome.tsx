@@ -50,11 +50,15 @@ const HeaderHome = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const user = useAuthContext();
-  console.log(user);
+  const { user, login } = useAuthContext()!;
+
   const handleCart = () => {
-    dispatch(fetchCart());
-    navigate("/cart");
+    if (login) {
+      dispatch(fetchCart());
+      navigate("/cart");
+    } else {
+      setOpenLogin(true);
+    }
   };
 
   return (
@@ -152,16 +156,28 @@ const HeaderHome = () => {
                     <FiShoppingCart className="text-white text-[1.5rem]" />
                   </Badge>
                 </div>
-                <ButtonCellphoneS
-                  className="bg-[#e45464]"
-                  children={
-                    <div className="md:flex md:items-center md:gap-x-2 text-white">
-                      <p>Đăng nhập</p>
-                      <FaRegUserCircle className="text-[1.5rem] text-white" />
-                    </div>
-                  }
-                  onClick={() => setOpenLogin(true)}
-                />
+                {login ? (
+                  <ButtonCellphoneS
+                    className="bg-[#e45464]"
+                    children={
+                      <div className="md:flex md:items-center md:gap-x-2 text-white">
+                        <p>{user?.full_name}</p>
+                        <FaRegUserCircle className="text-[1.5rem] text-white" />
+                      </div>
+                    }
+                  />
+                ) : (
+                  <ButtonCellphoneS
+                    className="bg-[#e45464]"
+                    children={
+                      <div className="md:flex md:items-center md:gap-x-2 text-white">
+                        <p>Đăng nhập</p>
+                        <FaRegUserCircle className="text-[1.5rem] text-white" />
+                      </div>
+                    }
+                    onClick={() => setOpenLogin(true)}
+                  />
+                )}
               </div>
             </div>
             <ButtonCellphoneS

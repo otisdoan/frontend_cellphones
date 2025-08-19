@@ -37,7 +37,6 @@ const FormCreateCategory = ({ id }: { id?: number }) => {
     try {
       const result = await categoryApi.getById(id!);
       if (!Array.isArray(result.data)) {
-        console.log(result.data.image_url);
         setImageUpdate(result.data.image_url);
       }
       form.setFieldsValue(result.data);

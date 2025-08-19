@@ -24,6 +24,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/app/hook";
 import { fetchCart } from "../../redux/features/product/cartSlice";
+import { useAuthContext } from "../../context/AuthContext";
 
 interface MarqueeProps {
   icon: JSX.Element;
@@ -49,7 +50,8 @@ const HeaderHome = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-
+  const user = useAuthContext();
+  console.log(user);
   const handleCart = () => {
     dispatch(fetchCart());
     navigate("/cart");

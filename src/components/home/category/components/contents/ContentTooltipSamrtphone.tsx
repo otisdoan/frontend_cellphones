@@ -8,7 +8,6 @@ const ContentTooltipSamrtphone = () => {
   const getMenuSmartphone = async () => {
     try {
       const result = await menuSmartphoneApi.get();
-      console.log(result);
       setList(result.data);
     } catch (error) {
       console.log(error);

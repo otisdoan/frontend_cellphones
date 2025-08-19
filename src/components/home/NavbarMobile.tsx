@@ -47,7 +47,7 @@ const NavbarMobile = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
   };
   return (
     <>
-      <div className="md:hidden flex gap-x-4 bg-white sticky bottom-0 border-t-[1px] p-2">
+      <div className="md:hidden flex gap-x-4 bg-white sticky bottom-0 z-50 border-t-[1px] p-2">
         {navbar.map((item, index) => (
           <div
             key={index}

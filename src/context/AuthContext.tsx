@@ -14,17 +14,20 @@ export interface AuthContextType {
   user: UserProps | null;
   setUser: (payload: UserProps) => void;
   login: boolean;
+  loading: boolean;
 }
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(null);
   const [login, setLogin] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const value: AuthContextType = {
     user,
     setUser,
     login,
+    loading,
   };
 
   const getUser = async () => {
@@ -32,6 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const result = await userApi.getById();
       setUser(result.data);
       setLogin(true);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }

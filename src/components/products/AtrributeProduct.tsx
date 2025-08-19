@@ -17,7 +17,6 @@ const AtrributeProduct = ({
       if (Array.isArray(result.data)) {
         setAttribute(result.data);
       }
-      console.log(result.data);
     } catch (error) {
       console.log(error);
     }

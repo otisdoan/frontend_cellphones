@@ -21,12 +21,11 @@ const GoogleLoginButton = () => {
   const login = useGoogleLogin({
     onSuccess: async (credential) => {
       const token = credential.access_token;
-      console.log(token);
+
       try {
         const result = await authApi.loginByGoogle(token);
         console.log(result);
         navigate("/");
-        console.log(result);
       } catch (error) {
         console.log("Login failed", error);
       }

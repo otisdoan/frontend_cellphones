@@ -8,7 +8,6 @@ const ContentPopoverLaptop = () => {
   const getMenuSmartphone = async () => {
     try {
       const result = await menuSmartphoneApi.getLatop();
-      console.log(result);
       setList(result.data);
     } catch (error) {
       console.log(error);

@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { addCartItem } from "../../redux/features/cart/cartSlice";
 import { useAuthContext } from "../../context/AuthContext";
 import { useMessage } from "../../hooks/useMessage";
+import FavoriteProduct from "./FavoriteProduct";
 
 const GiftProduct = ({ product_id }: { product_id: number }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -185,7 +186,7 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-x-3 mt-4">
+        <div className="md:flex items-center gap-x-3 mt-4 hidden">
           <div className="flex items-center justify-center font-bold text-[1rem] border-[1px] border-[#3c82f6] text-[#3c82f6] w-[1/4] px-3 py-4 rounded-lg cursor-pointer hover:bg-[#eff5ff]">
             Trả góp 0%
           </div>
@@ -216,7 +217,7 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
                 <img src={item.icon} className="mix-w-5 w-7 h-7" />
                 <div className="flex items-center cursor-pointer">
                   <img src={item.image} />
-                  <span className="text-[0.9rem] ml-2 hover:">
+                  <span className="md:text-[0.9rem] ml-2 text-[0.7rem]">
                     {item.content}
                   </span>
                 </div>
@@ -235,6 +236,40 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
           <div className="flex items-center cursor-pointer">
             <span className="text-[0.8rem] text-[#4488f6]">Xem tất cả</span>
             <MdKeyboardArrowRight className="text-[#4488f6]" />
+          </div>
+        </div>
+        <div className="mt-4 px-3 md:px-0 md:hidden">
+          <FavoriteProduct />
+        </div>
+        <div className="flex flex-col sticky bottom-0 bg-white p-3 md:hidden">
+          <div className="flex justify-between">
+            <span>Đặc quyền SMEM</span>
+            <p className="flex items-center gap-x-1">
+              <span className="text-[0.8rem] line-through opacity-40">
+                25.990.000đ
+              </span>
+              <span className="text-[#d70019] font-bold text-[1rem]">
+                22.079.000đ
+              </span>
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-x-3 mt-4">
+            <div className="flex items-center justify-center font-bold text-[0.8rem] border-[1px] border-[#3c82f6] text-[#3c82f6] rounded-lg cursor-pointer hover:bg-[#eff5ff]">
+              Trả góp 0%
+            </div>
+            <div className="flex justify-center items-center rounded-lg bg-[#db172c] text-white cursor-pointer hover:bg-[#a60e1f]">
+              <span className="font-bold whitespace-nowrap text-[0.8rem]">
+                MUA NGAY
+              </span>
+            </div>
+            <div className="rounded-lg border-[1px] cursor-pointer border-[#db172c] py-2 hover:bg-[#fae6e8]">
+              <div
+                className="flex items-center justify-center text-[#db172c]"
+                onClick={handleAddCart}
+              >
+                <LiaCartPlusSolid className="text-[1.5rem]" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

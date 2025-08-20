@@ -85,10 +85,10 @@ const ProductDetailPage = () => {
             </div>
             <div className="flex gap-x-4 items-center">
               <span className="text-[1.5rem] font-medium ">
-                {product?.price}đ
+                {Number(product?.sale_price).toLocaleString("vi-VN")}đ
               </span>
               <span className="text-[1rem] opacity-60 line-through">
-                {product?.sale_price}đ
+                {Number(product?.price).toLocaleString("vi-VN")}đ
               </span>
             </div>
           </div>
@@ -96,7 +96,7 @@ const ProductDetailPage = () => {
           {product?.id && <GiftProduct product_id={product?.id} />}
         </div>
       </div>
-      <div className="mt-4 px-3 md:px-0">
+      <div className="mt-4 px-3 md:px-0 hidden md:block">
         <FavoriteProduct />
       </div>
     </>

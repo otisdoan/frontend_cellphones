@@ -33,7 +33,7 @@ const ProductCommitments = () => {
         <div className="flex gap-4 flex-wrap">
           {commit.map((item, index) => (
             <div
-              className="flex-[1_1_calc(50%-1rem)] p-4 bg-[#f7f7f8] rounded-lg flex flex-col gap-y-4 h-[10rem]"
+              className="flex-[1_1_calc(50%-1rem)] p-4 bg-[#f7f7f8] rounded-lg flex flex-col gap-y-4 md:h-[10rem] h-[13rem]"
               key={index}
             >
               <div className="flex justify-center items-center bg-[#d70019] p-1 rounded-lg w-7 h-7">

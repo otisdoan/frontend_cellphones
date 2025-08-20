@@ -97,7 +97,9 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
                 <span className="font-bold whitespace-nowrap">
                   {item.variant_name}
                 </span>
-                <span className="font-light text-[0.8rem]">{item.price}đ</span>
+                <span className="font-light text-[0.8rem]">
+                  {Number(item.price).toLocaleString("vi-VN")}đ
+                </span>
               </div>
               {currentVariant === index && (
                 <div className="flex items-center justify-center bg-[#d70019] absolute top-[-0.2rem] right-[-0.2rem] rounded-md w-5 h-5 p-1 ">

@@ -11,7 +11,7 @@ import { LuPhone } from "react-icons/lu";
 import { FiMapPin, FiShoppingCart, FiTruck } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
 
-const HeaderCart = () => {
+const HeaderCart = ({ totalCart }: { totalCart: number }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
@@ -94,7 +94,7 @@ const HeaderCart = () => {
         </div>
         <div className="md:flex  md:items-center md:gap-x-4">
           <div className="md:flex md:items-center md:gap-x-4 md:text-white cursor-pointer hover:bg-[#d02637] p-3 rounded-lg">
-            <Badge size="small" count={5}>
+            <Badge size="small" count={totalCart}>
               <FiShoppingCart className="text-white text-[1.5rem]" />
             </Badge>
             <p className="md:text-[0.8rem]">

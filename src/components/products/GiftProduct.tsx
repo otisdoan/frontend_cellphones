@@ -7,7 +7,9 @@ import { LiaCartPlusSolid } from "react-icons/lia";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useAppDispatch } from "../../redux/app/hook";
 import { useLocation } from "react-router-dom";
-import { addCartItem } from "../../redux/features/product/cartSlice";
+import { addCartItem } from "../../redux/features/cart/cartSlice";
+import { useAuthContext } from "../../context/AuthContext";
+import { useMessage } from "../../hooks/useMessage";
 
 const GiftProduct = ({ product_id }: { product_id: number }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -15,7 +17,8 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const search = new URLSearchParams(location.search);
-
+  const { user } = useAuthContext()!;
+  const { showSuccess, contextHolder } = useMessage();
   const handlePrev = () => {
     carouselRef.current?.prev();
   };
@@ -98,8 +101,20 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
     },
   ];
 
+  const handleAddCart = () => {
+    dispatch(
+      addCartItem({
+        user_id: user?.id,
+        quantity: 1,
+        variant_id: Number(search.get("id_variant")),
+        product_id: Number(product_id),
+      })
+    );
+    showSuccess("Thêm vào giỏ hành thành công");
+  };
   return (
     <>
+      {contextHolder}
       <div className="mt-4">
         <div className="border-[1px] p-4 border-[#e4e4e7] bg-[#f7f7f8] rounded-xl">
           <div className="flex items-center gap-x-2 mb-2">
@@ -183,16 +198,7 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
           <div className="rounded-lg border-[1px] cursor-pointer border-[#db172c] px-2 py-4 hover:bg-[#fae6e8]">
             <div
               className="flex items-center gap-x-1 text-[#db172c]"
-              onClick={() =>
-                dispatch(
-                  addCartItem({
-                    user_id: 24,
-                    quantity: 1,
-                    variant_id: Number(search.get("id_variant")),
-                    product_id: Number(product_id),
-                  })
-                )
-              }
+              onClick={handleAddCart}
             >
               <LiaCartPlusSolid className="text-[1.5rem]" />
               <span className="text-[0.8rem]">Thêm vào giỏ hàng</span>

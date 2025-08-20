@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { TbPointFilled } from "react-icons/tb";
 import Marquee from "react-fast-marquee";
-import { useState, type JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
 import { FaTruckFast } from "react-icons/fa6";
 import { GoArrowSwitch } from "react-icons/go";
 import { AiFillAlert } from "react-icons/ai";
@@ -22,8 +23,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../redux/app/hook";
-import { fetchCart } from "../../redux/features/product/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
+import { fetchCartById } from "../../redux/features/cart/cartSlice";
 import { useAuthContext } from "../../context/AuthContext";
 
 interface MarqueeProps {
@@ -51,16 +52,22 @@ const HeaderHome = () => {
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { user, login } = useAuthContext()!;
+  const { totalCart } = useAppSelector((state) => state.cart);
 
   const handleCart = () => {
-    if (login) {
-      dispatch(fetchCart());
+    if (login && user?.id) {
+      dispatch(fetchCartById(user?.id));
       navigate("/cart");
     } else {
       setOpenLogin(true);
     }
   };
 
+  useEffect(() => {
+    if (user?.id) {
+      dispatch(fetchCartById(user?.id));
+    }
+  }, [user?.id]);
   return (
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
@@ -152,7 +159,7 @@ const HeaderHome = () => {
                   onClick={handleCart}
                 >
                   <p className="whitespace-nowrap md:text-[0.9rem]">Giỏ hàng</p>
-                  <Badge size="small" count={5}>
+                  <Badge size="small" count={totalCart}>
                     <FiShoppingCart className="text-white text-[1.5rem]" />
                   </Badge>
                 </div>

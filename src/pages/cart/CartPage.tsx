@@ -1,14 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { GoArrowLeft } from "react-icons/go";
 import HeaderCart from "../../components/home/HeaderCart";
 import { Radio } from "antd";
 import { FiTrash2 } from "react-icons/fi";
 import { HiGift } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../redux/app/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
+import { useEffect } from "react";
+import { useAuthContext } from "../../context/AuthContext";
+import { fetchCartById } from "../../redux/features/cart/cartSlice";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { totalCart, cartItem } = useAppSelector((state) => state.cart);
+  const { user } = useAuthContext()!;
+  const dispatch = useAppDispatch();
 
   const promotion: { content: string }[] = [
     {
@@ -23,6 +29,11 @@ const CartPage = () => {
         "Tặng Sim/Esim Viettel 5G có 8GB data/ngày kèm TV360 4K - miễn phí 1 tháng sử dụng (Chỉ áp dụng tại cửa hàng)",
     },
   ];
+  useEffect(() => {
+    if (user?.id) {
+      dispatch(fetchCartById(user.id));
+    }
+  }, [user?.id]);
 
   return (
     <>
@@ -124,38 +135,38 @@ const CartPage = () => {
                 </div>
               </div>
             )}
-            {totalCart > 1 ? (
-              <div
-                className={
-                  totalCart < 2
-                    ? `fixed bottom-0 border-[1px] bg-white rounded-t-lg p-4 w-1/2`
-                    : `sticky bottom-0 border-[1px] bg-white rounded-t-lg p-4 w-full`
-                }
-              >
-                <div className="flex justify-between">
-                  <div className="flex flex-col">
-                    <span className="font-medium text-[1rem]">Tạm tính: </span>
-                    <span className="text-[0.8rem]">Tiết kiệm</span>
-                  </div>
-                  <div className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg">
-                    <span className="font-medium text-white">Mua ngay</span>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="fixed bottom-0 border-[1px] bg-white rounded-t-lg p-4 w-1/2">
-                <div
-                  className=" flex justify-between items-center bg-[#d70019] py-2 rounded-md relative h-[2.5rem] cursor-pointer"
-                  onClick={() => navigate("/")}
-                >
-                  <span className="text-white absolute left-1/2 translate-x-[-50%]">
-                    Quay lại trang chủ
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
+        {totalCart > 1 ? (
+          <div
+            className={
+              totalCart < 2
+                ? `fixed bottom-0 border-[1px] bg-white rounded-t-lg p-4 md:w-1/2 w-full md:left-1/2 md:translate-x-[-50%]`
+                : `sticky bottom-0 border-[1px] bg-white rounded-t-lg p-4 md:w-1/2 w-full md:left-1/2 md:translate-x-[-50%]`
+            }
+          >
+            <div className="flex justify-between">
+              <div className="flex flex-col">
+                <span className="font-medium text-[1rem]">Tạm tính: </span>
+                <span className="text-[0.8rem]">Tiết kiệm</span>
+              </div>
+              <div className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg">
+                <span className="font-medium text-white">Mua ngay</span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="fixed bottom-0 md:translate-x-1/2 border-[1px] bg-white rounded-t-lg p-4 md:w-1/2 w-full px-3">
+            <div
+              className=" flex justify-between items-center bg-[#d70019] py-2 rounded-md relative h-[2.5rem] cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              <span className="text-white absolute left-1/2 translate-x-[-50%]">
+                Quay lại trang chủ
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -17,6 +17,7 @@ import FavoriteProduct from "../../components/products/FavoriteProduct";
 const ProductDetailPage = () => {
   const location = useLocation();
   const [product, setProduct] = useState<ProductProps | null>(null);
+
   const getProductDetail = async () => {
     try {
       const result = await productApi.getProductBySlug(location.pathname);
@@ -40,15 +41,17 @@ const ProductDetailPage = () => {
   }, [location.pathname]);
   return (
     <>
-      <div className="flex gap-x-8 ">
-        <div className="w-1/2 flex flex-col gap-y-3 mt-4 sticky top-[2rem]">
-          <h2 className="text-[1.3rem] font-semibold">{product?.name}</h2>
-          <div className="flex items-center gap-x-1">
+      <div className="flex md:flex-row flex-col gap-x-8 px-3 md:px-0">
+        <div className="md:w-1/2 flex flex-col gap-y-3 mt-4">
+          <h2 className="text-[1.3rem] font-semibold md:block hidden">
+            {product?.name}
+          </h2>
+          <div className="md:flex items-center gap-x-1 hidden">
             <FaStar className="text-[#ffd531]" />
             <span className="font-medium">{product?.rating_average}</span>
             <span className="opacity-65">{`(${product?.rating_count} đánh giá)`}</span>
           </div>
-          <div className="flex items-center gap-x-3">
+          <div className="md:flex items-center gap-x-3 hidden">
             <div className="flex items-center gap-x-1 text-[#3c82f6] ">
               <FaRegHeart className="text-[1.5rem]" />
               <span className="text-[0.9rem]">Yêu thích</span>
@@ -69,13 +72,13 @@ const ProductDetailPage = () => {
               <span className="text-[0.9rem]">So sánh</span>
             </div>
           </div>
-          <div>
+          <div className="">
             <CarouselProduct array_image={product?.product_image} />
           </div>
           <ProductCommitments />
           {product?.id && <AtrributeProduct id_product={product?.id} />}
         </div>
-        <div className="w-1/2 mt-4">
+        <div className="md:w-1/2 mt-4 w-full">
           <div className="rounded-lg p-4 border-[1px] border-[#71a4fb] bg-[#f1f6ff] w-[21rem] mb-4">
             <div className="p-1 bg-[#fae6e8] text-[#d70019] rounded-md w-[13rem] mb-3">
               <span>Giá giành riêng cho SMEM</span>
@@ -93,7 +96,7 @@ const ProductDetailPage = () => {
           {product?.id && <GiftProduct product_id={product?.id} />}
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 px-3 md:px-0">
         <FavoriteProduct />
       </div>
     </>

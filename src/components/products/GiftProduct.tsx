@@ -124,7 +124,7 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
             </span>
           </div>
           <div className="flex items-center gap-x-2">
-            <div className=" w-6 h-6 p-1 rounded-full bg-[#508ff6] flex items-center justify-center">
+            <div className=" w-6 min-w-6 h-6 p-1 rounded-full bg-[#508ff6] flex items-center justify-center">
               <span className="text-white text-[0.8rem]">1</span>
             </div>
             <span className="text-[0.9rem]">

@@ -78,7 +78,7 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
           ))}
         </div>
         <h3 className="font-bold mb-3 mt-5">Màu sắc</h3>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 grid-cols-2 gap-4">
           {variant.map((item, index) => (
             <div
               className={`border-[1px] rounded-lg p-2 flex items-center gap-x-2 cursor-pointer relative overflow-hidden ${

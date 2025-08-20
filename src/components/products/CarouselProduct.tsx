@@ -22,6 +22,25 @@ const CarouselProduct = ({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [mainImage, setMainImage] = useState<string[]>(array_image ?? []);
 
+  const setting = {
+    responsive: [
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   const handlePrev = () => {
     carouselRef.current?.prev();
   };
@@ -98,6 +117,7 @@ const CarouselProduct = ({
           ref={carouselBottomRef}
           dots={false}
           arrows={false}
+          {...setting}
         >
           {array_image?.map((item, index) => (
             <div

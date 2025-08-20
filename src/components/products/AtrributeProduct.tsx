@@ -41,7 +41,7 @@ const AtrributeProduct = ({
             <tbody>
               {attribute.map((item, index) => (
                 <tr className="border-[1px]" key={index}>
-                  <td className="border-[1px] text-[0.9rem] font-light bg-[#f2f2f2] px-4 py-2 min-w-[13rem]">
+                  <td className="border-[1px] text-[0.9rem] font-light bg-[#f2f2f2] px-4 py-2 md:min-w-[13rem] w-[8rem]">
                     {item.attribute_name}
                   </td>
                   <td className="text-[0.9rem] font-light px-4">

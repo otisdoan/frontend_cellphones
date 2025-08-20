@@ -9,12 +9,14 @@ import { productVariantApi } from "../../utils/api/product_variant.api";
 import { FiTrash2 } from "react-icons/fi";
 import { HiGift } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const CartPage = () => {
   const [cartItem, setCartItem] = useState<ProductVatiantProp[]>();
   const [ids] = useState<number[]>([]);
   const navigate = useNavigate();
-
+  const { user } = useAuthContext()!;
+  console.log(user?.id);
   const promotion: { content: string }[] = [
     {
       content:
@@ -29,17 +31,19 @@ const CartPage = () => {
     },
   ];
 
-  const fetchCartById = async () => {
+  const fetchCartById = async (id: number) => {
     try {
-      const result = await cartItemApi.getById(24);
+      const result = await cartItemApi.getById(id);
       if (Array.isArray(result.data)) {
         result.data.forEach((item) => {
           ids.push(Number(item.variant_id));
         });
       }
-      const variant = await productVariantApi.getVariantByIds(ids);
-      if (Array.isArray(variant.data)) {
-        setCartItem(variant.data);
+      if (ids.length > 0) {
+        const variant = await productVariantApi.getVariantByIds(ids);
+        if (Array.isArray(variant.data)) {
+          setCartItem(variant.data);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -47,8 +51,10 @@ const CartPage = () => {
   };
 
   useEffect(() => {
-    fetchCartById();
-  }, []);
+    if (user?.id) {
+      fetchCartById(Number(user?.id));
+    }
+  }, [user?.id]);
 
   return (
     <>

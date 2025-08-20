@@ -136,16 +136,16 @@ const ProductNoSlice = ({
                       <span>{item.name}</span>
                     </div>
                     <p className="flex items-center gap-x-1">
-                      <span className="text-[#d70019] font-bold text-[1rem]">
-                        {item.price}đ
+                      <span className="text-[#d70019] font-bold md:text-[1rem] text-[0.8rem]">
+                        {Number(item.price).toLocaleString("vi-VN")}đ
                       </span>
-                      <span className="line-through font-bold opacity-65 text-[0.7rem]">
-                        {item.cost_price}
+                      <span className="line-through font-bold opacity-65 md:text-[0.7rem] text-[0.5rem]">
+                        {Number(item.cost_price).toLocaleString("vi-VN")}đ
                       </span>
                     </p>
                     <div className="flex flex-col gap-y-1">
                       <div className="bg-[#dae8fe] flex items-center p-1 rounded-md">
-                        <span className="text-[#20488b] text-[0.7rem]">
+                        <span className="text-[#20488b] md:text-[0.7rem] text-[0.5rem]">
                           Smember giảm đến 450.000đ
                         </span>
                       </div>
@@ -154,7 +154,7 @@ const ProductNoSlice = ({
                           suggest && `hidden`
                         }`}
                       >
-                        <span className="text-[#421d95] text-[0.7rem]">
+                        <span className="text-[#421d95] md:text-[0.7rem] text-[0.5rem]">
                           S-Student giảm thêm 300.000đ
                         </span>
                       </div>
@@ -163,7 +163,7 @@ const ProductNoSlice = ({
                           suggest && `hidden`
                         }`}
                       >
-                        <span className="text-[0.7rem]">
+                        <span className="md:text-[0.7rem] text-[0.5rem] line-clamp-2">
                           Không phí chuyển đổi khi trả góp 0% qua thẻ tín dụng
                           kỳ hạn 3-6 tháng
                         </span>

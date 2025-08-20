@@ -13,6 +13,7 @@
     "@ant-design/plots": "^2.6.1",
     "@react-oauth/google": "^0.12.2",
     "@reduxjs/toolkit": "^2.8.2",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "antd": "^5.26.1",
     "antd-img-crop": "^4.25.0",
     "axios": "^1.10.0",

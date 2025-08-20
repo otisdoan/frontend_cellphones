@@ -110,7 +110,7 @@ const HomePage = () => {
     <>
       <div className="z-30">
         {!show && (
-          <div className="px-4 bg-[#ffffff] flex flex-col gap-y-4">
+          <div className="px-3 bg-[#ffffff] flex flex-col gap-y-4">
             <CategoryHome />
             <img
               src="/images/special-b2s-dday2-desk.gif"

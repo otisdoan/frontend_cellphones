@@ -29,7 +29,7 @@ const CartPage = () => {
       <div className="">
         <HeaderCart totalCart={totalCart} />
         <div className="flex justify-center w-full">
-          <div className="flex flex-col w-1/2">
+          <div className="flex flex-col md:w-1/2 w-full px-3 md:px-0">
             <div className="flex p-4 border-b-[1px] ">
               <div className="flex justify-between w-3/5">
                 <GoArrowLeft
@@ -70,16 +70,19 @@ const CartPage = () => {
                           <Radio></Radio>
                           <img
                             src={item.image_url}
-                            className="w-[6rem] h-[6rem] mr-[2rem]"
+                            className="w-[6rem] h-[6rem] md:mr-[2rem] mr-1"
                           />
                           <div className="flex flex-col gap-y-2">
                             <span className="">{item.variant_name}</span>
-                            <p className="flex gap-x-2 items-center">
+                            <p className="flex md:flex-row flex-col gap-x-2 md:items-center">
                               <span className="text-[#d70019]">
-                                {item.price}
+                                {Number(item.price).toLocaleString("vi-VN")}đ
                               </span>
                               <span className="line-through text-[0.8rem] opacity-60">
-                                {item.sale_price}
+                                {Number(item.sale_price).toLocaleString(
+                                  "vi-VN"
+                                )}
+                                đ
                               </span>
                             </p>
                           </div>
@@ -109,7 +112,7 @@ const CartPage = () => {
                             className="flex items-center gap-x-2 mb-4"
                             key={index}
                           >
-                            <div className=" w-3 h-3 rounded-full bg-check"></div>
+                            <div className=" w-3 h-3 min-w-3 rounded-full bg-check"></div>
                             <span className="text-[0.9rem] opacity-70">
                               {item.content}
                             </span>

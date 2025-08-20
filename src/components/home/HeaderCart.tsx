@@ -50,7 +50,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
   ];
   return (
     <>
-      <div className="bg-[#d70019] px-[8.5rem] flex items-center gap-x-4">
+      <div className="bg-[#d70019] md:px-[8.5rem] px-3 flex items-center gap-x-4 py-1">
         <div className="md:hidden cursor-pointer" onClick={() => navigate("/")}>
           <SvgLogo width="38" height="40" />
         </div>
@@ -81,7 +81,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
           open={isOpen}
           onCancel={() => setIsOpen(false)}
         />
-        <div className="flex gap-x-4">
+        <div className="md:flex gap-x-4 hidden">
           {list.map((item, index) => (
             <div
               className="flex items-center gap-x-4 text-white hover:bg-[#e2484c] p-1 rounded-lg cursor-pointer duration-300"
@@ -93,7 +93,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
           ))}
         </div>
         <div className="md:flex  md:items-center md:gap-x-4">
-          <div className="md:flex md:items-center md:gap-x-4 md:text-white cursor-pointer hover:bg-[#d02637] p-3 rounded-lg">
+          <div className="md:flex md:items-center md:gap-x-4 md:text-white cursor-pointer hover:bg-[#d02637] p-3 rounded-lg hidden">
             <Badge size="small" count={totalCart}>
               <FiShoppingCart className="text-white text-[1.5rem]" />
             </Badge>

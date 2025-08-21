@@ -139,7 +139,9 @@ const ProductHome = ({
                           onClick={() => navigate(`/${item.slug}`)}
                         >
                           <img
-                            src={`https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/iphone-16-1_1.png?_gl=1*jhgdtn*_gcl_aw*R0NMLjE3NTE5NjM3NzMuQ2p3S0NBandnN1BEQmhCeEVpd0FmMUNWdTVwN2dwNmJUU0JZVmw5U2pyU2g0Zm5yaktoN04xOGNId0VBcEswbW9BR0VuRUQwZThEbEpCb0M4QnNRQXZEX0J3RQ..*_gcl_au*MTA5MzM1MTM1NC4xNzUwMTczODY3*_ga*MjA2MDUzNjEwOS4xNzUwMTczODY4*_ga_QLK8WFHNK9*czE3NTQ1NDkwNTAkbzEwMSRnMSR0MTc1NDU0OTM0MiRqNTYkbDAkaDEyMDQ0ODE5NzA.`}
+                            src={`${
+                              item.product_image ? item.product_image[0] : ""
+                            }`}
                             className="object-contain hover:scale-105 duration-500"
                           />
                           <div className="font-bold h-[2rem]">

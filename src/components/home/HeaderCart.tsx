@@ -10,11 +10,13 @@ import { Badge, Input } from "antd";
 import { LuPhone } from "react-icons/lu";
 import { FiMapPin, FiShoppingCart, FiTruck } from "react-icons/fi";
 import { FaRegUserCircle } from "react-icons/fa";
+import { useAuthContext } from "../../context/AuthContext";
 
 const HeaderCart = ({ totalCart }: { totalCart: number }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
+  const { user } = useAuthContext()!;
 
   const list: { icon: ReactNode; title: ReactNode }[] = [
     {
@@ -107,7 +109,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
             children={
               <div className="md:flex flex-col items-center text-white">
                 <FaRegUserCircle className="text-[1.5rem] text-white" />
-                <p>Hieu</p>
+                <p>{user?.full_name.split(" ").pop()}</p>
               </div>
             }
             onClick={() => setOpenLogin(true)}

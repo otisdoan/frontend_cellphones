@@ -129,7 +129,7 @@ const ProductNoSlice = ({
                     onClick={() => navigate(`/${item.slug}`)}
                   >
                     <img
-                      src={`https://cdn2.cellphones.com.vn/358x/media/catalog/product/i/p/iphone-16-plus-hong.png`}
+                      src={`${item.product_image ? item.product_image[0] : ""}`}
                       className="object-contain hover:scale-105 duration-500"
                     />
                     <div className="h-[2rem] font-bold">

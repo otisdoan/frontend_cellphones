@@ -92,7 +92,7 @@ const ProductDetailPage = () => {
               </span>
             </div>
           </div>
-          {product?.id && <OptionProduct idProduct={product?.id} />}
+          {product?.id && <OptionProduct group_name={product.group_name} />}
           {product?.id && <GiftProduct product_id={product?.id} />}
         </div>
       </div>

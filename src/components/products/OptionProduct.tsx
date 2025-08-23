@@ -8,7 +8,7 @@ import type {
 import { MdDone } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
+const OptionProduct = ({ group_name }: { group_name: string }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [capacity, setCapacity] = useState<ProductVariantCapacity[]>([]);
@@ -18,7 +18,7 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
 
   const getVariant = async () => {
     try {
-      const result = await productVariantApi.getCapacity(idProduct);
+      const result = await productVariantApi.getCapacity(group_name);
       if (Array.isArray(result.data)) {
         handleCapacity(result.data[0].capacity, 0);
         setCapacity(result.data);
@@ -31,7 +31,10 @@ const OptionProduct = ({ idProduct }: { idProduct: number | undefined }) => {
   const handleCapacity = async (capacity: string, index: number) => {
     try {
       setCurrent(index);
-      const result = await productVariantApi.getVariantByCapacity(capacity);
+      const result = await productVariantApi.getVariantByCapacity(
+        capacity,
+        group_name
+      );
       if (Array.isArray(result.data)) {
         setVariant(result.data);
       }

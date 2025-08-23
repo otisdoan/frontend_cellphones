@@ -49,17 +49,22 @@ export const productVariantApi = {
     return response.data;
   },
 
-  getCapacity: async (id_product: number | undefined) => {
+  getCapacity: async (group_name: string) => {
     const response = await axiosInstance.get<
       ProductVariantResponse<ProductVariantCapacity>
-    >(`${API_URL.PRODUCT_CAPACITY}/${id_product}`);
+    >(`${API_URL.PRODUCT_CAPACITY}/${group_name}`);
     return response.data;
   },
 
-  getVariantByCapacity: async (capacity: string | undefined) => {
+  getVariantByCapacity: async (
+    capacity: string | undefined,
+    group_name: string
+  ) => {
     const response = await axiosInstance.get<
       ProductVariantResponse<ProductVatiantProp>
-    >(`${API_URL.PRODUCT_VARIANT_BY_CAPACITY}/${capacity}`);
+    >(`${API_URL.PRODUCT_VARIANT_BY_CAPACITY}`, {
+      params: { capacity, group_name },
+    });
     return response.data;
   },
 

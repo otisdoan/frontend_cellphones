@@ -19,6 +19,7 @@ export interface ProductProps {
   rating_count: number;
   meta_title: string;
   meta_description: string;
+  group_name: string;
   createdAt: string;
   updatedAt: string;
   category_name: string;

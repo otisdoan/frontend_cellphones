@@ -122,12 +122,12 @@ const CarouselProduct = ({
           {array_image?.map((item, index) => (
             <div
               key={index}
-              className="w-full cursor-pointer h-full px-1 border-none"
+              className="w-full cursor-pointer h-[4rem] px-1 border-none"
               onClick={() => carouselRef.current?.goTo(index + 1)}
             >
               <img
                 src={item}
-                className={`object-contain w-full h-full border-[1px] rounded-lg ${
+                className={`object-cover w-full h-full border-[1px] rounded-lg ${
                   currentIndex === index && `border-[#d70019]`
                 }`}
               />

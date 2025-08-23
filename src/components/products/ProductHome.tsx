@@ -145,7 +145,9 @@ const ProductHome = ({
                             className="object-contain hover:scale-105 duration-500"
                           />
                           <div className="font-bold h-[2rem]">
-                            <span>{item.name}</span>
+                            <span className="text-[0.7rem] md:text-[0.9rem]">
+                              {item.name}
+                            </span>
                           </div>
                           <p className="flex items-center gap-x-1 whitespace-normal">
                             <span className="text-[#d70019] font-bold md:text-[1rem] text-[0.8rem]">

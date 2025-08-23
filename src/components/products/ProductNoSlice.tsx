@@ -133,7 +133,9 @@ const ProductNoSlice = ({
                       className="object-contain hover:scale-105 duration-500"
                     />
                     <div className="h-[2rem] font-bold">
-                      <span>{item.name}</span>
+                      <span className="text-[0.7rem] md:text-[0.9rem]">
+                        {item.name}
+                      </span>
                     </div>
                     <p className="flex items-center gap-x-1">
                       <span className="text-[#d70019] font-bold md:text-[1rem] text-[0.8rem]">

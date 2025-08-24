@@ -73,7 +73,7 @@ const ListProduct = () => {
       dataIndex: "product_image",
       render: (product_image: string[]) => {
         return product_image?.length > 0 ? (
-          <div className="flex gap-x-4 justify-between">
+          <div className="flex gap-x-4">
             {product_image.map(
               (item: string, index: number) =>
                 item && (

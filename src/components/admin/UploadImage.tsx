@@ -71,7 +71,7 @@ const UploadImage = ({
     <>
       <Upload
         method="POST"
-        action="http://localhost:3000/api/upload"
+        action={import.meta.env.VITE_DOMAIN_BACKEND}
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}

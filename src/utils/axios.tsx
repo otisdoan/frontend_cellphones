@@ -5,7 +5,7 @@ import axios, {
 } from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_DOMAIL_BACKEND,
+  baseURL: import.meta.env.VITE_DOMAIN_BACKEND,
   withCredentials: true,
 });
 
@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         await axios.post<{ access_token: string }>(
-          `${import.meta.env.VITE_DOMAIL_BACKEND}/auth/refresh-token`,
+          `${import.meta.env.VITE_DOMAIN_BACKEND}/auth/refresh-token`,
           {},
           { withCredentials: true }
         );

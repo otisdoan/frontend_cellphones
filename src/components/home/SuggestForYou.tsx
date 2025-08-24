@@ -6,11 +6,13 @@ import type { ProductProps } from "../../types/api/ProductResponse";
 
 const SuggestForYou = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
       if (Array.isArray(result.data)) {
+        setLoading(false);
         setDataProducts(result.data);
       }
     } catch (error) {
@@ -35,7 +37,7 @@ const SuggestForYou = () => {
             GỢI Ý CHO BẠN
           </h2>
         </div>
-        <ProductNoSlice list={dataProducts} suggest={true} />
+        <ProductNoSlice list={dataProducts} suggest={true} loading={loading} />
       </div>
     </>
   );

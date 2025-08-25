@@ -115,11 +115,18 @@ const ProductNoSlice = ({
         </div>
         <div className="relative">
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4">
-              {Array.from({ length: 5 }).map((_, index) => (
-                <SkeletonProduct key={index} />
-              ))}
-            </div>
+            <>
+              <div className="hidden md:grid md:grid-cols-5 gap-x-4">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <SkeletonProduct key={index} />
+                ))}
+              </div>
+              <div className="grid grid-cols-2 md:hidden gap-x-4">
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <SkeletonProduct key={index} />
+                ))}
+              </div>
+            </>
           ) : (
             <Carousel {...setting}>
               {list.map((item, index) => (

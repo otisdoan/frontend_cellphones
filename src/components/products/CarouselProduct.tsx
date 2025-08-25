@@ -50,7 +50,19 @@ const CarouselProduct = ({
   };
 
   const handleChange = (index: number) => {
-    setCurrentIndex(index);
+    if (mainImage.length > 0) {
+      setCurrentIndex(index - 1);
+    } else {
+      setCurrentIndex(index);
+    }
+  };
+
+  const handleGoToBottom = (index: number) => {
+    if (mainImage.length > 0) {
+      carouselRef.current?.goTo(index + 1);
+    } else {
+      carouselRef.current?.goTo(index);
+    }
   };
 
   const getVariant = async () => {
@@ -123,7 +135,7 @@ const CarouselProduct = ({
             <div
               key={index}
               className="w-full cursor-pointer h-[4rem] px-1 border-none"
-              onClick={() => carouselRef.current?.goTo(index + 1)}
+              onClick={() => handleGoToBottom(index)}
             >
               <img
                 src={item}

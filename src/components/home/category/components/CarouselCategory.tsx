@@ -9,6 +9,7 @@ const CarouselCategory = () => {
   const carouselBottomRef = useRef<CarouselRef>(null);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isEnter, setIsEnter] = useState<boolean>(false);
 
   const imageCarousel: { image: string }[] = [
     {
@@ -83,7 +84,9 @@ const CarouselCategory = () => {
   };
 
   const handleMainCarouselChange = (currentSlide: number) => {
-    carouselBottomRef.current?.goTo(currentSlide);
+    if (!isEnter) {
+      carouselBottomRef.current?.goTo(currentSlide);
+    }
   };
 
   const handleBottomItemClick = (index: number) => {
@@ -92,6 +95,16 @@ const CarouselCategory = () => {
 
   const handleChangeSlide = (currnet: number) => {
     setHoveredIndex(currnet + 1);
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndex(index);
+    setIsEnter(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsEnter(false);
+    setHoveredIndex(null);
   };
   return (
     <>
@@ -149,8 +162,8 @@ const CarouselCategory = () => {
           >
             {carouselBottom.map((item, index) => (
               <div
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
                 key={index + 1}
                 className={`bg-white p-2 w-[10rem] h-full pt-[1.5rem] pb-[2rem] !flex !flex-col items-center text-center cursor-pointer transition-colors duration-200 ${
                   hoveredIndex === index &&

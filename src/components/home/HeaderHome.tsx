@@ -72,14 +72,14 @@ const HeaderHome = () => {
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
         <div className="w-full">
-          <div className=" md:flex md:items-center md:px-[2rem]">
+          <div className=" md:flex md:items-center md:px-[5rem] 2xl:px-[15rem]">
             <div className="md:w-[60%]">
               <Marquee speed={40}>
                 <div className="flex mt-2">
                   {marquee.map((item, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-x-2 font-medium text-white text-[0.8rem] mr-2"
+                      className="flex items-center gap-x-2 font-medium text-white text-[0.8rem] mr-1"
                     >
                       <div className="text-[1.2rem]"> {item.icon}</div>
                       {item.content}
@@ -89,30 +89,30 @@ const HeaderHome = () => {
                 </div>
               </Marquee>
             </div>
-            <div className="md:flex md:items-center md:flex-1 md:mt-2 md:gap-x-4 hidden">
+            <div className="md:flex md:items-center justify-between md:flex-1 md:mt-2 md:gap-x-2 hidden">
               <SpaceCellphoneS />
               <div className="md:flex md:items-center md:gap-x-2 md:text-white md:text-[0.8rem]">
                 <LuStore />
                 <p>Cửa hàng gần bạn</p>
               </div>
               <SpaceCellphoneS />
-              <div className="md:flex md:items-center md:gap-x-2 md:text-white md:text-[0.8rem]">
+              <div className="md:flex md:items-center md:gap-x-1 md:text-white md:text-[0.8rem]">
                 <FiFileText />
                 <p>Tra cứu đơn hàng</p>
               </div>
               <SpaceCellphoneS />
-              <div className="md:flex md:items-center md:gap-x-2 md:text-white md:text-[0.8rem]">
+              <div className="md:flex md:items-center md:gap-x-1 md:text-white md:text-[0.8rem]">
                 <MdOutlinePhoneInTalk />
                 <p>1800 2097</p>
               </div>
               <SpaceCellphoneS />
-              <div className="md:flex md:items-center md:gap-x-2 md:text-white md:text-[0.8rem]">
+              <div className="md:flex md:items-center md:gap-x-1 md:text-white md:text-[0.8rem]">
                 <MdOutlinePhoneIphone />
                 <p>Tải ứng dụng</p>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-x-2 md:gap-x-4 mt-4 px-3 md:px-[8.5rem]">
+          <div className="flex items-center gap-x-2 md:gap-x-4 mt-4 px-3 md:px-[8.5rem] 2xl:px-[20rem]">
             <div
               className="md:hidden cursor-pointer"
               onClick={() => navigate("/")}

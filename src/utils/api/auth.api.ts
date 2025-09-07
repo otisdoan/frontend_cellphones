@@ -30,7 +30,8 @@ export const authApi = {
       API_URL.GOOGLE,
       {
         token,
-      }
+      },
+      { withCredentials: true }
     );
     return response.data;
   },

@@ -34,7 +34,7 @@ const SmartphoneList = () => {
       name: "TECHO",
     },
   ];
-  const fetchProducts = async () => {
+  const fetchProducts = async (): Promise<void> => {
     try {
       const result = await productApi.getAll();
       setLoading(false);

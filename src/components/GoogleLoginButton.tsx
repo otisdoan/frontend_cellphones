@@ -1,11 +1,9 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { authApi } from "../utils/api/auth.api";
-import { useNavigate } from "react-router-dom";
 import ButtonCellphoneS from "./ButtonCellphoneS";
 import { FcGoogle } from "react-icons/fc";
 
 const GoogleLoginButton = () => {
-  const navigate = useNavigate();
   // const handleSuccess = async (credentialResponse: CredentialResponse) => {
   //   const credential = credentialResponse.credential;
   //   console.log(credential);
@@ -25,7 +23,7 @@ const GoogleLoginButton = () => {
       try {
         const result = await authApi.loginByGoogle(token);
         console.log(result);
-        navigate("/");
+        window.location.href = "/";
       } catch (error) {
         console.log("Login failed", error);
       }

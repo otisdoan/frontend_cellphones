@@ -55,7 +55,7 @@ const CartPage = () => {
             {totalCart < 1 && (
               <div className="flex flex-col items-center">
                 <img
-                  src="/images/Cart-empty-v2.webp"
+                  src="https://cdn2.cellphones.com.vn/x,webp/media/cart/Cart-empty-v2.png"
                   className="mt-[5rem] mb-4"
                 />
                 <p className="text-center">

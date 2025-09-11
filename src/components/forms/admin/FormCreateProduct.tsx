@@ -323,6 +323,9 @@ const FormCreateProduct = ({ id }: { id?: number }) => {
                     className="h-[2.5rem]"
                   />
                 </Form.Item>
+                <Form.Item label="Group name" name="group_name" className="">
+                  <Input placeholder="Group name" className="h-[2.5rem]" />
+                </Form.Item>
                 <Form.Item
                   label="Meta title"
                   name="meta_title"

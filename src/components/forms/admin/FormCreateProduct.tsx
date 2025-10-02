@@ -19,7 +19,6 @@ import type {
 } from "../../../types/api/BrandResponse";
 import { useForm } from "antd/es/form/Form";
 
-// Interface for form data with is_active field instead of status
 interface ProductFormData extends Omit<ProductProps, "status"> {
   is_active?: "active" | "inactive" | "out_of_stock";
 }
@@ -196,6 +195,7 @@ const FormCreateProduct = ({ id }: { id?: number }) => {
                 >
                   <InputNumber min={0} defaultValue={0} className="py-1" />
                 </Form.Item>
+
                 <Form.Item
                   label="Short description"
                   name="short_description"

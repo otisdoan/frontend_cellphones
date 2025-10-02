@@ -142,7 +142,7 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
           <Carousel dots={false} arrows={false} ref={carouselRef}>
             <div className="rounded-lg overflow-hidden">
               <img
-                src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:120/q:90/plain/https://dashboard.cellphones.com.vn/storage/b2s-pdp-dday2.gif"
+                src="/images/PDP-b2s-dday3.webp"
                 className="w-full h-full object-contain"
               />
             </div>

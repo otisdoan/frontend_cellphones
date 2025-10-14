@@ -68,6 +68,9 @@ export const cartSlice = createSlice({
       state.totalCart = action.payload.totalCart;
       state.cartItem = action.payload.cartItem;
     });
+    builder.addCase(addCartItem.fulfilled, (state) => {
+      state.totalCart += 1;
+    });
   },
 });
 

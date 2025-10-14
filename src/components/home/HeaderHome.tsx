@@ -68,6 +68,7 @@ const HeaderHome = () => {
       dispatch(fetchCartById(user?.id));
     }
   }, [user?.id]);
+
   return (
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">

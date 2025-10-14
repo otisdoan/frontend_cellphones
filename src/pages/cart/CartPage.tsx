@@ -33,7 +33,14 @@ const CartPage = () => {
     if (user?.id) {
       dispatch(fetchCartById(user.id));
     }
-  }, [user?.id]);
+  }, [user?.id, totalCart]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <>

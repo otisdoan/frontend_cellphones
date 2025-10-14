@@ -1,13 +1,16 @@
 import { Carousel } from "antd";
 import type { CarouselRef } from "antd/es/carousel";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiGift } from "react-icons/hi";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useAppDispatch } from "../../redux/app/hook";
 import { useLocation } from "react-router-dom";
-import { addCartItem } from "../../redux/features/cart/cartSlice";
+import {
+  addCartItem,
+  fetchCartById,
+} from "../../redux/features/cart/cartSlice";
 import { useAuthContext } from "../../context/AuthContext";
 import { useMessage } from "../../hooks/useMessage";
 import FavoriteProduct from "./FavoriteProduct";
@@ -20,6 +23,8 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
   const search = new URLSearchParams(location.search);
   const { user } = useAuthContext()!;
   const { showSuccess, contextHolder } = useMessage();
+  const [clickCart, setClickCart] = useState<boolean>(false);
+
   const handlePrev = () => {
     carouselRef.current?.prev();
   };
@@ -103,16 +108,28 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
   ];
 
   const handleAddCart = () => {
-    dispatch(
-      addCartItem({
-        user_id: user?.id,
-        quantity: 1,
-        variant_id: Number(search.get("id_variant")),
-        product_id: Number(product_id),
-      })
-    );
-    showSuccess("Thêm vào giỏ hành thành công");
+    if (user) {
+      dispatch(
+        addCartItem({
+          user_id: user?.id,
+          quantity: 1,
+          variant_id: Number(search.get("id_variant")),
+          product_id: Number(product_id),
+        })
+      );
+    }
+    setClickCart(!clickCart);
+
+    showSuccess("Thêm vào giỏ hàng thành công");
   };
+
+  useEffect(() => {
+    if (user?.id) {
+      dispatch(fetchCartById(user?.id));
+    }
+    console.log("clickCart" + clickCart);
+  }, [clickCart, user?.id, dispatch]);
+
   return (
     <>
       {contextHolder}

@@ -24,7 +24,6 @@ export const fetchCartById = createAsyncThunk(
     const result = await cartItemApi.getById(id);
 
     if (Array.isArray(result.data)) {
-      totalCart = result.data.length;
       result.data.forEach((item) => {
         ids.push(Number(item.variant_id));
       });
@@ -33,6 +32,7 @@ export const fetchCartById = createAsyncThunk(
       const variant = await productVariantApi.getVariantByIds(ids);
       if (Array.isArray(variant.data)) {
         cartItem = variant.data.map((item) => ({ ...item, checked: false }));
+        totalCart = cartItem.length;
       }
     }
     return {

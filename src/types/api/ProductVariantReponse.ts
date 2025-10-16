@@ -14,6 +14,7 @@ export interface ProductVatiantProp {
   product_name: string;
   quantity: number;
   total: string;
+  checked?: boolean;
   createdAt: string;
   updatedAt: string;
 }

@@ -8,11 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
-import { fetchCartById } from "../../redux/features/cart/cartSlice";
+import {
+  fetchCartById,
+  updateCheckedCartItem,
+} from "../../redux/features/cart/cartSlice";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { totalCart, cartItem } = useAppSelector((state) => state.cart);
+
   const { user } = useAuthContext()!;
   const dispatch = useAppDispatch();
 
@@ -29,6 +33,7 @@ const CartPage = () => {
         "Tặng Sim/Esim Viettel 5G có 8GB data/ngày kèm TV360 4K - miễn phí 1 tháng sử dụng (Chỉ áp dụng tại cửa hàng)",
     },
   ];
+
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchCartById(user.id));
@@ -79,13 +84,23 @@ const CartPage = () => {
                     Giỏ hàng
                   </span>
                 </div>
-                <Radio>Chọn tất cả</Radio>
+                <Radio
+                  checked={cartItem.every((item) => item.checked)}
+                  onClick={() => dispatch(updateCheckedCartItem("all"))}
+                >
+                  Chọn tất cả
+                </Radio>
                 <div className="flex flex-col gap-y-5">
                   {cartItem?.map((item, index) => (
                     <div className="border-[1px] p-2 rounded-lg" key={index}>
                       <div className="flex justify-between">
                         <div className="flex items-start justify-between gap-x-2">
-                          <Radio></Radio>
+                          <Radio
+                            checked={item.checked}
+                            onClick={() => {
+                              dispatch(updateCheckedCartItem(item.id));
+                            }}
+                          ></Radio>
                           <img
                             src={item.image_url}
                             className="w-[6rem] h-[6rem] md:mr-[2rem] mr-1"
@@ -111,7 +126,7 @@ const CartPage = () => {
                             <div className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer">
                               -
                             </div>
-                            <span>1</span>
+                            <span>{item.quantity}</span>
                             <div className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer">
                               +
                             </div>
@@ -144,7 +159,7 @@ const CartPage = () => {
             )}
           </div>
         </div>
-        {totalCart > 1 ? (
+        {totalCart >= 1 ? (
           <div
             className={
               totalCart < 2
@@ -154,7 +169,20 @@ const CartPage = () => {
           >
             <div className="flex justify-between">
               <div className="flex flex-col">
-                <span className="font-medium text-[1rem]">Tạm tính: </span>
+                <span className="font-medium text-[1rem]">
+                  Tạm tính:
+                  <span className="text-[#d70019] ml-1 font-bold">
+                    {cartItem
+                      .reduce((total, item) => {
+                        if (item.checked) {
+                          return total + item.price * item.quantity;
+                        }
+                        return total;
+                      }, 0)
+                      .toLocaleString("vi-VN")}
+                    đ
+                  </span>
+                </span>
                 <span className="text-[0.8rem]">Tiết kiệm</span>
               </div>
               <div className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg">

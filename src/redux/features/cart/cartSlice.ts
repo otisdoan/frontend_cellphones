@@ -22,6 +22,7 @@ export const fetchCartById = createAsyncThunk(
     let totalCart: number = 0;
     let cartItem: ProductVatiantProp[] = [];
     const result = await cartItemApi.getById(id);
+
     if (Array.isArray(result.data)) {
       totalCart = result.data.length;
       result.data.forEach((item) => {
@@ -31,7 +32,7 @@ export const fetchCartById = createAsyncThunk(
     if (ids.length > 0) {
       const variant = await productVariantApi.getVariantByIds(ids);
       if (Array.isArray(variant.data)) {
-        cartItem = variant.data;
+        cartItem = variant.data.map((item) => ({ ...item, checked: false }));
       }
     }
     return {
@@ -59,7 +60,22 @@ export const addCartItem = createAsyncThunk(
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    updateCheckedCartItem: (state, action) => {
+      if (action.payload === "all") {
+        state.cartItem = state.cartItem.map((item) => ({
+          ...item,
+          checked: true,
+        }));
+      } else {
+        state.cartItem = state.cartItem.map((item) =>
+          item.id === action.payload
+            ? { ...item, checked: !item.checked }
+            : item
+        );
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
       state.items = action.payload.data;
@@ -73,5 +89,5 @@ export const cartSlice = createSlice({
     });
   },
 });
-
+export const { updateCheckedCartItem } = cartSlice.actions;
 export default cartSlice.reducer;

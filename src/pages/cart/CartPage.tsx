@@ -15,6 +15,7 @@ import {
   updateCheckedCartItem,
 } from "../../redux/features/cart/cartSlice";
 import type { ProductVatiantProp } from "../../types/api/ProductVariantReponse";
+import { setOrderItems } from "../../redux/features/cart/orderSlice";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -57,6 +58,17 @@ const CartPage = () => {
 
   const handleDeleteCartItem = (id: string) => {
     dispatch(deleteCartItem(id));
+  };
+
+  const handleCreateOrder = () => {
+    const orderItems: ProductVatiantProp[] = [];
+    cartItem.forEach((item) => {
+      if (item.checked) {
+        orderItems.push(item);
+      }
+    });
+    dispatch(setOrderItems(orderItems));
+    navigate("/cart/payment-info");
   };
 
   useEffect(() => {
@@ -223,19 +235,43 @@ const CartPage = () => {
                   Tiết kiệm: <span className="text-[#198efb]">754.000đ</span>
                 </span>
               </div>
-              <div className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg">
-                <span className="font-medium text-white mr-1">Mua ngay</span>
-                <span className="text-white">
-                  {`(${cartItem
-                    .reduce((total, item) => {
-                      if (item.checked) {
-                        return total + item.quantity;
-                      }
-                      return total;
-                    }, 0)
-                    .toLocaleString("vi-VN")})`}
-                </span>
-              </div>
+
+              {cartItem.some((item) => item.checked) ? (
+                <div
+                  className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg cursor-pointer"
+                  onClick={handleCreateOrder}
+                >
+                  <span className="font-medium text-white mr-1">Mua ngay</span>
+                  {cartItem.some((item) => item.checked) && (
+                    <span className="text-white">
+                      {`(${cartItem
+                        .reduce((total, item) => {
+                          if (item.checked) {
+                            return total + item.quantity;
+                          }
+                          return total;
+                        }, 0)
+                        .toLocaleString("vi-VN")})`}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <div className="bg-[#ccc] px-[3rem] flex justify-center items-center rounded-lg cursor-not-allowed">
+                  <span className="font-medium text-white mr-1">Mua ngay</span>
+                  {cartItem.some((item) => item.checked) && (
+                    <span className="text-white">
+                      {`(${cartItem
+                        .reduce((total, item) => {
+                          if (item.checked) {
+                            return total + item.quantity;
+                          }
+                          return total;
+                        }, 0)
+                        .toLocaleString("vi-VN")})`}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ) : (

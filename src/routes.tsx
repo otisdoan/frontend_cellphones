@@ -30,6 +30,7 @@ import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
 import RoleGuard from "./guards/RoleGuard";
+import PaymentInfor from "./pages/cart/PaymentInfor";
 
 export const routes = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const routes = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage />,
+  },
+  {
+    path: "/cart/payment-info",
+    element: <PaymentInfor />,
   },
   {
     path: "/login",

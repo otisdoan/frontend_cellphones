@@ -73,7 +73,7 @@ const HomeLayout = () => {
           </Popover>
         </div>
         <HeaderHome />
-        <div className="md:px-[8.5rem] 2xl:px-[20rem]">
+        <div className="lg:px-[8.5rem] 2xl:px-[20rem]">
           <Outlet />
         </div>
         <FooterHome />

@@ -73,7 +73,7 @@ const HeaderHome = () => {
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
         <div className="w-full">
-          <div className=" md:flex md:items-center md:px-[5rem] 2xl:px-[15rem]">
+          <div className=" md:flex md:items-center lg:px-[5rem] 2xl:px-[15rem]">
             <div className="md:w-[60%]">
               <Marquee speed={40}>
                 <div className="flex mt-2">

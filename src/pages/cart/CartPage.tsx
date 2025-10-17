@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import {
+  deleteCartItem,
   fetchCartById,
   updateCartItemQuantity,
   updateCheckedCartItem,
@@ -52,6 +53,10 @@ const CartPage = () => {
         quantity: item.quantity - 1,
       })
     );
+  };
+
+  const handleDeleteCartItem = (id: string) => {
+    dispatch(deleteCartItem(id));
   };
 
   useEffect(() => {
@@ -141,7 +146,12 @@ const CartPage = () => {
                           </div>
                         </div>
                         <div className="flex flex-col items-end gap-y-2">
-                          <FiTrash2 className="w-5 h-5" />
+                          <FiTrash2
+                            className="w-5 h-5 cursor-pointer"
+                            onClick={() =>
+                              handleDeleteCartItem(item.id.toString())
+                            }
+                          />
                           <div className="flex items-center gap-x-2">
                             <div
                               className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer"

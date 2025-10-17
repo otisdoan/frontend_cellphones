@@ -114,6 +114,15 @@ export const cartSlice = createSlice({
         return item;
       });
     });
+    builder.addCase(deleteCartItem.fulfilled, (state, action) => {
+      if (!Array.isArray(action.payload.data)) {
+        const deletedCart = action.payload.data as CartItemProps;
+        state.cartItem = state.cartItem.filter(
+          (item) => Number(item.id) !== Number(deletedCart.id)
+        );
+      }
+      state.totalCart -= 1;
+    });
   },
 });
 export const { updateCheckedCartItem } = cartSlice.actions;

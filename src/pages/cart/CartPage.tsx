@@ -219,10 +219,22 @@ const CartPage = () => {
                     đ
                   </span>
                 </span>
-                <span className="text-[0.8rem]">Tiết kiệm</span>
+                <span className="text-[0.8rem] ">
+                  Tiết kiệm: <span className="text-[#198efb]">754.000đ</span>
+                </span>
               </div>
               <div className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg">
-                <span className="font-medium text-white">Mua ngay</span>
+                <span className="font-medium text-white mr-1">Mua ngay</span>
+                <span className="text-white">
+                  {`(${cartItem
+                    .reduce((total, item) => {
+                      if (item.checked) {
+                        return total + item.quantity;
+                      }
+                      return total;
+                    }, 0)
+                    .toLocaleString("vi-VN")})`}
+                </span>
               </div>
             </div>
           </div>

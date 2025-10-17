@@ -37,7 +37,6 @@ const CartPage = () => {
   ];
 
   const handleIncreaseQuantity = (item: ProductVatiantProp) => {
-    console.log(item);
     dispatch(
       updateCartItemQuantity({
         id: item.id.toString(),
@@ -45,6 +44,16 @@ const CartPage = () => {
       })
     );
   };
+
+  const handleDecreaseQuantity = (item: ProductVatiantProp) => {
+    dispatch(
+      updateCartItemQuantity({
+        id: item.id.toString(),
+        quantity: item.quantity - 1,
+      })
+    );
+  };
+
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchCartById(user.id));
@@ -134,7 +143,10 @@ const CartPage = () => {
                         <div className="flex flex-col items-end gap-y-2">
                           <FiTrash2 className="w-5 h-5" />
                           <div className="flex items-center gap-x-2">
-                            <div className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer">
+                            <div
+                              className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer"
+                              onClick={() => handleDecreaseQuantity(item)}
+                            >
                               -
                             </div>
                             <span>{item.quantity}</span>

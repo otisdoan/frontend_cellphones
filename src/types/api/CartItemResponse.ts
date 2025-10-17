@@ -11,5 +11,5 @@ export interface CartItemProps {
 export interface CartItemResponse<T> {
   status: "success" | "error";
   message: string;
-  data: T[];
+  data: T | T[];
 }

@@ -10,8 +10,10 @@ import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import {
   fetchCartById,
+  updateCartItemQuantity,
   updateCheckedCartItem,
 } from "../../redux/features/cart/cartSlice";
+import type { ProductVatiantProp } from "../../types/api/ProductVariantReponse";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -34,6 +36,15 @@ const CartPage = () => {
     },
   ];
 
+  const handleIncreaseQuantity = (item: ProductVatiantProp) => {
+    console.log(item);
+    dispatch(
+      updateCartItemQuantity({
+        id: item.id.toString(),
+        quantity: item.quantity + 1,
+      })
+    );
+  };
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchCartById(user.id));
@@ -127,7 +138,10 @@ const CartPage = () => {
                               -
                             </div>
                             <span>{item.quantity}</span>
-                            <div className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer">
+                            <div
+                              className="w-5 h-5 bg-[#f3f3f3] rounded-md flex justify-center items-center p-4 cursor-pointer"
+                              onClick={() => handleIncreaseQuantity(item)}
+                            >
                               +
                             </div>
                           </div>

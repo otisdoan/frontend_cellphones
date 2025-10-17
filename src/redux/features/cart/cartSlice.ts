@@ -57,6 +57,20 @@ export const addCartItem = createAsyncThunk(
     });
   }
 );
+export const updateCartItemQuantity = createAsyncThunk(
+  "cart/updateCartItemQuantity",
+  async ({ id, quantity }: { id: string; quantity: number }) => {
+    return await cartItemApi.update(id, { quantity });
+  }
+);
+
+export const deleteCartItem = createAsyncThunk(
+  "cart/deleteCartItem",
+  async (id: string) => {
+    return await cartItemApi.delete(id);
+  }
+);
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -65,7 +79,7 @@ export const cartSlice = createSlice({
       if (action.payload === "all") {
         state.cartItem = state.cartItem.map((item) => ({
           ...item,
-          checked: true,
+          checked: !item.checked,
         }));
       } else {
         state.cartItem = state.cartItem.map((item) =>
@@ -78,7 +92,9 @@ export const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
-      state.items = action.payload.data;
+      if (Array.isArray(action.payload.data)) {
+        state.items = action.payload.data;
+      }
     });
     builder.addCase(fetchCartById.fulfilled, (state, action) => {
       state.totalCart = action.payload.totalCart;
@@ -86,6 +102,17 @@ export const cartSlice = createSlice({
     });
     builder.addCase(addCartItem.fulfilled, (state) => {
       state.totalCart += 1;
+    });
+    builder.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
+      state.cartItem = state.cartItem.map((item) => {
+        if (!Array.isArray(action.payload.data)) {
+          if (Number(item.id) === Number(action.payload.data.id)) {
+            return { ...item, quantity: action.payload.data.quantity };
+          }
+          return item;
+        }
+        return item;
+      });
     });
   },
 });

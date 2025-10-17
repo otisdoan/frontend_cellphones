@@ -75,11 +75,7 @@ const PaymentInfor = () => {
         </div>
 
         <div
-          className={
-            totalCart < 2
-              ? `fixed bottom-0 border-[1px] bg-white rounded-t-lg p-4 md:w-1/2 w-full md:left-1/2 md:translate-x-[-50%]`
-              : `sticky bottom-0 border-[1px] bg-white rounded-t-lg p-4 md:w-1/2 w-full md:left-1/2 md:translate-x-[-50%]`
-          }
+          className={`sticky bottom-0 border-[1px] bg-white rounded-t-lg p-4 md:w-1/2 w-full md:left-1/2 md:translate-x-[-50%]`}
         >
           <div className="flex justify-between">
             <span className="font-medium text-[1rem]">Tổng tiền tạm tính:</span>

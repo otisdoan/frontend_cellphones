@@ -217,7 +217,7 @@ const CartPage = () => {
           >
             <div className="flex justify-between">
               <div className="flex flex-col">
-                <span className="font-medium text-[1rem]">
+                <span className="font-medium text-[1rem] whitespace-nowrap">
                   Tạm tính:
                   <span className="text-[#d70019] ml-1 font-bold">
                     {cartItem
@@ -238,10 +238,12 @@ const CartPage = () => {
 
               {cartItem.some((item) => item.checked) ? (
                 <div
-                  className="bg-[#d70019] px-[3rem] flex justify-center items-center rounded-lg cursor-pointer"
+                  className="bg-[#d70019] px-4 flex justify-center items-center rounded-lg cursor-pointer"
                   onClick={handleCreateOrder}
                 >
-                  <span className="font-medium text-white mr-1">Mua ngay</span>
+                  <span className="font-medium text-white mr-1 whitespace-nowrap">
+                    Mua ngay
+                  </span>
                   {cartItem.some((item) => item.checked) && (
                     <span className="text-white">
                       {`(${cartItem

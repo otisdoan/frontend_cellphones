@@ -27,7 +27,7 @@ const ProductSelected = () => {
             <img src={item.image_url} className="w-24 h-24" />
             <div className="flex flex-col gap-y-2 w-full ">
               <span>{item.variant_name}</span>
-              <div className="flex items-center justify-between">
+              <div className="flex lg:items-center lg:flex-row flex-col gap-y-2 justify-between">
                 <div className="flex items-center gap-x-2">
                   <span className="text-[#d70019] font-semibold">
                     {Number(item.sale_price).toLocaleString("vi-VN")}đ

@@ -86,7 +86,7 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="">
+      <div className="bg-[#f5f6f8]">
         <HeaderCart totalCart={totalCart} />
         <div className="flex justify-center w-full">
           <div className="flex flex-col md:w-1/2 w-full px-3 md:px-0">
@@ -129,7 +129,10 @@ const CartPage = () => {
                 </Radio>
                 <div className="flex flex-col gap-y-5">
                   {cartItem?.map((item, index) => (
-                    <div className="border-[1px] p-2 rounded-lg" key={index}>
+                    <div
+                      className="border-[1px] p-2 rounded-lg bg-white"
+                      key={index}
+                    >
                       <div className="flex justify-between">
                         <div className="flex items-start justify-between gap-x-2">
                           <Radio
@@ -258,8 +261,10 @@ const CartPage = () => {
                   )}
                 </div>
               ) : (
-                <div className="bg-[#ccc] px-[3rem] flex justify-center items-center rounded-lg cursor-not-allowed">
-                  <span className="font-medium text-white mr-1">Mua ngay</span>
+                <div className="bg-[#c0c0c0] px-[3rem] flex justify-center items-center rounded-lg cursor-not-allowed">
+                  <span className="font-medium text-[#707070] mr-1">
+                    Mua ngay
+                  </span>
                   {cartItem.some((item) => item.checked) && (
                     <span className="text-white">
                       {`(${cartItem

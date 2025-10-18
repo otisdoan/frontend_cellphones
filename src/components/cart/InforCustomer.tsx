@@ -8,7 +8,7 @@ const InforCustomer = () => {
     <>
       <div className="mt-9">
         <h2 className="text-[1.1rem] mb-3">THÔNG TIN KHÁCH HÀNG</h2>
-        <div className="border rounded-lg p-4">
+        <div className="border rounded-lg p-4 bg-white">
           <div className="flex justify-between">
             <div className="flex items-center gap-x-3">
               <span className="uppercase text-[1.1rem]">{user?.full_name}</span>

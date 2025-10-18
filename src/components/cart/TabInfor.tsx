@@ -1,4 +1,5 @@
 import InforCustomer from "./InforCustomer";
+import InforReceive from "./InforReceive";
 import ProductSelected from "./ProductSelected";
 
 const TabInfor = () => {
@@ -7,6 +8,7 @@ const TabInfor = () => {
       <div>
         <ProductSelected />
         <InforCustomer />
+        <InforReceive />
       </div>
     </>
   );

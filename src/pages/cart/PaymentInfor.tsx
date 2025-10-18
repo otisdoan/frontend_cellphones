@@ -31,7 +31,7 @@ const PaymentInfor = () => {
 
   return (
     <>
-      <div className="">
+      <div className="bg-[#f5f6f8]">
         <HeaderCart totalCart={totalCart} />
         <div className="flex justify-center w-full">
           <div className="flex flex-col md:w-1/2 w-full px-3 md:px-0">

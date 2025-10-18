@@ -14,7 +14,7 @@ const ProductSelected = () => {
 
   return (
     <>
-      <div className="border rounded-lg p-4">
+      <div className="border rounded-lg p-4 bg-white">
         {orderItems.map((item, index) => (
           <div
             key={index}

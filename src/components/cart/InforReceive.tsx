@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Form, Input, Radio, Select } from "antd";
+import { Form, Input, Radio, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { removePrefix } from "../../utils/removePrefix";
 import { customSelectAntd } from "../../utils/customSelectAntd";
 
-const InforReceive = () => {
+interface InforReceiveProps {
+  form: any;
+}
+
+const InforReceive = ({ form }: InforReceiveProps) => {
   const [tab, setTab] = useState<string>("store");
   const { user } = useAuthContext()!;
-  const [form] = Form.useForm();
   const [provinceStore, setProvinceStore] = useState<any[]>([]);
   const [districtStore, setDistrictStore] = useState<any[]>([]);
   const [provinceHome, setProvinceHome] = useState<any[]>([]);
@@ -86,15 +89,11 @@ const InforReceive = () => {
     }
   }, [user, form]);
 
-  const handleFinish = (values: any) => {
-    console.log(values);
-  };
-
   return (
     <>
       <div className="mt-5">
         <h2 className="text-[1.1rem] mb-3">THÔNG TIN NHẬN HÀNG</h2>
-        <Form form={form} layout="vertical" onFinish={handleFinish}>
+        <Form form={form} layout="vertical">
           <div className="border rounded-lg overflow-hidden">
             <div className="flex items-center">
               <div
@@ -264,11 +263,6 @@ const InforReceive = () => {
                 </div>
               </Form.Item>
             </div>
-          </div>
-          <div className="flex justify-end">
-            <Button type="primary" htmlType="submit">
-              Tiếp theo
-            </Button>
           </div>
         </Form>
       </div>

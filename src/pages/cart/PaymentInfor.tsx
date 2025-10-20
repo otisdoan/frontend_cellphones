@@ -9,12 +9,14 @@ import { fetchCartById } from "../../redux/features/cart/cartSlice";
 import TabInfor from "../../components/cart/TabInfor";
 import TabPayment from "../../components/cart/TabPayment";
 import { getOrderItems } from "../../redux/features/cart/orderSlice";
+import { Form } from "antd";
 
 const PaymentInfor = () => {
   const navigate = useNavigate();
   const { totalCart } = useAppSelector((state) => state.cart);
   const orderItems = useAppSelector((state) => state.order.items);
   const [tab, setTab] = useState<string>("info");
+  const [receiveForm] = Form.useForm();
 
   const { user } = useAuthContext()!;
   const dispatch = useAppDispatch();
@@ -28,6 +30,11 @@ const PaymentInfor = () => {
       dispatch(fetchCartById(user.id));
     }
   }, [user?.id, totalCart]);
+
+  const handleContinue = () => {
+    const values = receiveForm.getFieldsValue();
+    console.log(values);
+  };
 
   return (
     <>
@@ -69,7 +76,11 @@ const PaymentInfor = () => {
             </div>
 
             <div className="mt-4">
-              {tab === "info" ? <TabInfor /> : <TabPayment />}
+              {tab === "info" ? (
+                <TabInfor receiveForm={receiveForm} />
+              ) : (
+                <TabPayment />
+              )}
             </div>
           </div>
         </div>
@@ -90,7 +101,10 @@ const PaymentInfor = () => {
               đ
             </span>
           </div>
-          <div className="bg-[#d70019] p-2 flex justify-center items-center rounded-md cursor-pointer mt-3">
+          <div
+            className="bg-[#d70019] p-2 flex justify-center items-center rounded-md cursor-pointer mt-3"
+            onClick={handleContinue}
+          >
             <span className="text-white font-medium">Tiếp tục</span>
           </div>
         </div>

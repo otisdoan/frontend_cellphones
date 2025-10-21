@@ -8,13 +8,17 @@ import { useEffect, useState } from "react";
 import { fetchCartById } from "../../redux/features/cart/cartSlice";
 import TabInfor from "../../components/cart/TabInfor";
 import TabPayment from "../../components/cart/TabPayment";
-import { getOrderItems } from "../../redux/features/cart/orderSlice";
+import {
+  getOrderItems,
+  setOrderAddress,
+} from "../../redux/features/cart/orderSlice";
 import { Form } from "antd";
 
 const PaymentInfor = () => {
   const navigate = useNavigate();
   const { totalCart } = useAppSelector((state) => state.cart);
   const orderItems = useAppSelector((state) => state.order.items);
+
   const [tab, setTab] = useState<string>("info");
   const [receiveForm] = Form.useForm();
 
@@ -33,7 +37,8 @@ const PaymentInfor = () => {
 
   const handleContinue = () => {
     const values = receiveForm.getFieldsValue();
-    console.log(values);
+    dispatch(setOrderAddress(values));
+    setTab("payment");
   };
 
   return (

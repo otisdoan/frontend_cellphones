@@ -107,7 +107,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
           <ButtonCellphoneS
             className="bg-[#e45464] py-2"
             children={
-              <div className="md:flex flex-col items-center text-white">
+              <div className="md:flex flex-col items-center justify-center text-white">
                 <FaRegUserCircle className="text-[1.5rem] text-white" />
                 <p>{user?.full_name.split(" ").pop()}</p>
               </div>

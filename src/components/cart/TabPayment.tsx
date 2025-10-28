@@ -122,6 +122,10 @@ const TabPayment = () => {
                 .join(", ")}
             </span>
           </div>
+          <div className="flex items-center justify-between">
+            <span className="text-[0.9rem] text-[#878b8d]">Người nhận</span>
+            <span className="font-bold uppercase">{`${user?.full_name} - ${user?.phone}`}</span>
+          </div>
         </div>
       </div>
       <div className="my-8">

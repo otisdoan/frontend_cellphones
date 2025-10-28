@@ -9,6 +9,7 @@ interface MethodPayProps {
 
 const OptionPayment = () => {
   const [open, setOpen] = useState(false);
+  const [methodPaySelected, setMethodPaySelected] = useState<number>();
 
   const methodPay: MethodPayProps[] = [
     {
@@ -48,6 +49,11 @@ const OptionPayment = () => {
       name: "Fundiin",
     },
   ];
+
+  const handleSelectMethodPay = (index: number) => {
+    setMethodPaySelected(index);
+    setOpen(false);
+  };
   return (
     <>
       <div className="mt-5">
@@ -56,7 +62,11 @@ const OptionPayment = () => {
           className="border rounded-lg p-4 bg-white cursor-pointer"
           onClick={() => setOpen(true)}
         >
-          <div className="flex items-center justify-between">
+          <div
+            className={` ${
+              methodPaySelected ? "hidden" : "flex items-center justify-between"
+            }`}
+          >
             <div className="flex items-center gap-x-2">
               <img src="/images/payment.png" alt="" className="w-10 h-10" />
               <div className="flex flex-col gap-y-1">
@@ -69,6 +79,23 @@ const OptionPayment = () => {
               </div>
             </div>
             <IoIosArrowForward className="text-[1.5rem] text-[#d70019]" />
+          </div>
+          <div className="space-y-4">
+            {methodPay.map((item, index) => (
+              <div
+                key={index}
+                className={`${
+                  methodPaySelected === index
+                    ? "border rounded-lg p-2 flex items-center gap-x-2 hover:bg-[#ffdcda] cursor-pointer "
+                    : "hidden"
+                }`}
+              >
+                <div className="w-14 h-14 flex items-center justify-center">
+                  <img src={item.image} alt="" className=" object-cover" />
+                </div>
+                <span className="text-[0.8rem] font-bold">{item.name}</span>
+              </div>
+            ))}
           </div>
         </div>
         <Modal
@@ -94,6 +121,7 @@ const OptionPayment = () => {
                   <div
                     key={index}
                     className="border rounded-lg p-2 flex items-center gap-x-2 hover:bg-[#ffdcda] cursor-pointer"
+                    onClick={() => handleSelectMethodPay(index)}
                   >
                     <div className="w-14 h-14 flex items-center justify-center">
                       <img src={item.image} alt="" className=" object-cover" />

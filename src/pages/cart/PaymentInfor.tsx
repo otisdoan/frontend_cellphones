@@ -13,6 +13,7 @@ import {
   setOrderAddress,
 } from "../../redux/features/cart/orderSlice";
 import { Form } from "antd";
+import { paymentApi } from "../../utils/api/payment.api";
 
 const PaymentInfor = () => {
   const navigate = useNavigate();
@@ -39,6 +40,29 @@ const PaymentInfor = () => {
     const values = receiveForm.getFieldsValue();
     dispatch(setOrderAddress(values));
     setTab("payment");
+  };
+
+  const handlePayment = async () => {
+    try {
+      const result = await paymentApi.checkout({
+        orderCode: Date.now(),
+        amount: Number(
+          orderItems.reduce(
+            (total, item) => total + Number(item.sale_price) * item.quantity,
+            0
+          )
+        ),
+        description: `Thanh toán đơn hàng`,
+        returnUrl: `${window.location.origin}`,
+        cancelUrl: `${window.location.origin}`,
+      });
+
+      if (result) {
+        window.location.href = result.checkoutUrl!;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -106,12 +130,21 @@ const PaymentInfor = () => {
               đ
             </span>
           </div>
-          <div
-            className="bg-[#d70019] p-2 flex justify-center items-center rounded-md cursor-pointer mt-3"
-            onClick={handleContinue}
-          >
-            <span className="text-white font-medium">Tiếp tục</span>
-          </div>
+          {tab === "info" ? (
+            <div
+              className="bg-[#d70019] p-2 flex justify-center items-center rounded-md cursor-pointer mt-3"
+              onClick={handleContinue}
+            >
+              <span className="text-white font-medium">Tiếp tục</span>
+            </div>
+          ) : (
+            <div
+              className="bg-[#d70019] p-2 flex justify-center items-center rounded-md cursor-pointer mt-3"
+              onClick={handlePayment}
+            >
+              <span className="text-white font-medium">Thanh toán</span>
+            </div>
+          )}
         </div>
       </div>
     </>

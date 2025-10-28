@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Asia/Ho_Chi_Minh
+X-LIC-LOCATION:Asia/Ho_Chi_Minh
+BEGIN:STANDARD
+TZOFFSETFROM:+0700
+TZOFFSETTO:+0700
+TZNAME:GMT+7
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Ho_Chi_Minh:20251027T151500
+DTEND;TZID=Asia/Ho_Chi_Minh:20251027T154500
+DTSTAMP:20251025T162549Z
+ORGANIZER;CN=NHAT DUONG TECH:mailto:nhatduongtech@gmail.com
+UID:3jeq37ikd8kp5scj0fej5in6ds@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=ledoanhieu12a6@gmail.com;X-NUM-GUESTS=0:mailto:ledoanhieu12a6@gmail
+ .com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=NHAT DUONG TECH;X-NUM-GUESTS=0:mailto:nhatduongtech@gmail.com
+X-GOOGLE-CONFERENCE:https://meet.google.com/khb-xqkk-mwi
+X-MICROSOFT-CDO-OWNERAPPTID:-1987954933
+CREATED:20251025T162442Z
+DESCRIPTION:-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~
+ :~:~:~:~:~:~:~:~::~:~::-\nTham gia qua Google Meet: https://meet.google.com
+ /khb-xqkk-mwi\n\nTìm hiểu thêm về Meet tại: https://support.google.com/a/us
+ ers/answer/9282720\n\nVui lòng đừng chỉnh sửa mục này.\n-::~:~::~:~:~:~:~:~
+ :~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-
+LAST-MODIFIED:20251025T162547Z
+LOCATION:https://meet.google.com/khb-xqkk-mwi
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Ứng tuyển vị trí Fullstack Developer Internship - Lê Doãn Hiếu
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

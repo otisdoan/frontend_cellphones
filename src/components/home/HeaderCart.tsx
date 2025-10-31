@@ -52,7 +52,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
   ];
   return (
     <>
-      <div className="bg-[#d70019] md:px-[8.5rem] px-3 flex items-center gap-x-4 py-1">
+      <div className="bg-[#d70019] md:px-[8.5rem] px-3 flex items-center justify-center gap-x-4 py-1">
         <div className="md:hidden cursor-pointer" onClick={() => navigate("/")}>
           <SvgLogo width="38" height="40" />
         </div>

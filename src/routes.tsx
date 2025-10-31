@@ -31,6 +31,17 @@ import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
 import RoleGuard from "./guards/RoleGuard";
 import PaymentInfor from "./pages/cart/PaymentInfor";
+import ProfilePage from "./pages/profile/ProfilePage";
+import ProfileOverview from "./pages/profile/ProfileOverview";
+import OrderHistory from "./pages/profile/OrderHistory";
+import WarrantyCheck from "./pages/profile/WarrantyCheck";
+import BenefitsPage from "./pages/profile/BenefitsPage";
+import BusinessPage from "./pages/profile/BusinessPage";
+import StudentPage from "./pages/profile/StudentPage";
+import AccountSettings from "./pages/profile/AccountSettings";
+import ReferralPage from "./pages/profile/ReferralPage";
+import TermsPage from "./pages/profile/TermsPage";
+import SearchResults from "./pages/SearchResults";
 
 export const routes = createBrowserRouter([
   {
@@ -48,12 +59,58 @@ export const routes = createBrowserRouter([
     ],
   },
   {
+    path: "/search",
+    element: <SearchResults />,
+  },
+  {
     path: "/cart",
     element: <CartPage />,
   },
   {
     path: "/cart/payment-info",
     element: <PaymentInfor />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
+    children: [
+      {
+        index: true,
+        element: <ProfileOverview />,
+      },
+      {
+        path: "orders",
+        element: <OrderHistory />,
+      },
+      {
+        path: "warranty",
+        element: <WarrantyCheck />,
+      },
+      {
+        path: "benefits",
+        element: <BenefitsPage />,
+      },
+      {
+        path: "business",
+        element: <BusinessPage />,
+      },
+      {
+        path: "student",
+        element: <StudentPage />,
+      },
+      {
+        path: "referral",
+        element: <ReferralPage />,
+      },
+      {
+        path: "settings",
+        element: <AccountSettings />,
+      },
+      {
+        path: "terms",
+        element: <TermsPage />,
+      },
+    ],
   },
   {
     path: "/login",

@@ -18,10 +18,15 @@ import SmartphoneContent from "../../components/home/category-mobile/SmartphoneC
 import TabletContent from "../../components/home/category-mobile/TabletContent";
 import ProductSale from "../../components/home/ProductSale";
 import { useLocation } from "react-router-dom";
+import ModalCellphoneS from "../../hooks/useModalCellphoneS";
+import LoginByAnother from "../../components/LoginByAnother";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 
 const HomePage = () => {
   const [show, setShow] = useState<boolean>(false);
   const [current, setCurrent] = useState<number>(0);
+  const [openLogin, setOpenLogin] = useState<boolean>(false);
+
   const handleShow = (open: boolean) => {
     setShow(open);
   };
@@ -164,7 +169,26 @@ const HomePage = () => {
             )}
           </div>
         )}
-        <NavbarMobile setOpen={handleShow} />
+        <NavbarMobile setOpen={handleShow} setOpenLogin={setOpenLogin} />
+
+        {/* Login Modal */}
+        <ModalCellphoneS
+          children={
+            <div className="bg-white rounded-lg p-4 flex flex-col items-center w-[20rem]">
+              <span className="text-[#d70019] font-medium text-[2rem] text-center">
+                Smember
+              </span>
+              <span className="text-center text-[0.8rem] py-4">
+                Vui lòng đăng nhập tài khoản Smember để xem ưu đãi và thanh toán
+                dễ dàng hơn.
+              </span>
+              <GoogleLoginButton />
+              <LoginByAnother title="Hoặc đăng nhập bằng" />
+            </div>
+          }
+          open={openLogin}
+          onCancel={() => setOpenLogin(false)}
+        />
       </div>
     </>
   );

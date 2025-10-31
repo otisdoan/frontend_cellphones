@@ -29,4 +29,5 @@ export const API_URL = {
   ORDER_ITEMS: "/order-items",
   CART_ITEM: "/cart-items",
   PAYMENT: "/payments/checkout",
+  NOTIFICATION: "/notifications",
 };

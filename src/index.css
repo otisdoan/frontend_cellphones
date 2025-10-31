@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles for notification modal */
+.notification-modal .ant-modal {
+  top: 60px !important;
+  right: 1rem !important;
+  left: auto !important;
+  margin: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notification-modal .ant-modal-content {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Custom scrollbar for notification list */
+.notification-modal .ant-tabs-content-holder {
+  overflow-y: auto;
+}
+
+.notification-modal .ant-tabs-content-holder::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-modal .ant-tabs-content-holder::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.notification-modal .ant-tabs-content-holder::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+.notification-modal .ant-tabs-content-holder::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}

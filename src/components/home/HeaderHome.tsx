@@ -11,7 +11,6 @@ import { IoMdSearch } from "react-icons/io";
 import { GrMapLocation } from "react-icons/gr";
 import ModalCellphoneS from "../../hooks/useModalCellphoneS";
 import ButtonCellphoneS from "../ButtonCellphoneS";
-import { GoBell } from "react-icons/go";
 import SpaceCellphoneS from "../SpaceCellphoneS";
 import { LuStore } from "react-icons/lu";
 import { FiFileText } from "react-icons/fi";
@@ -26,6 +25,8 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { fetchCartById } from "../../redux/features/cart/cartSlice";
 import { useAuthContext } from "../../context/AuthContext";
+import NotificationDropdown from "../modals/NotificationModal";
+import { notificationApi } from "../../utils/api/notification.api";
 
 interface MarqueeProps {
   icon: JSX.Element;
@@ -50,6 +51,9 @@ const HeaderHome = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
+  const [openNotification, setOpenNotification] = useState<boolean>(false);
+  const [unreadCount, setUnreadCount] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const dispatch = useAppDispatch();
   const { user, login } = useAuthContext()!;
   const { totalCart } = useAppSelector((state) => state.cart);
@@ -63,9 +67,33 @@ const HeaderHome = () => {
     }
   };
 
+  const fetchUnreadCount = async () => {
+    if (user?.id) {
+      try {
+        const response = await notificationApi.getUnreadCount(user.id);
+        setUnreadCount(response.data.count);
+      } catch (error) {
+        console.error("Error fetching unread count:", error);
+      }
+    }
+  };
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchCartById(user?.id));
+      fetchUnreadCount();
     }
   }, [user?.id]);
 
@@ -152,9 +180,12 @@ const HeaderHome = () => {
               placeholder="Bạn muốn mua gì hôm nay?"
               prefix={<IoMdSearch className="text-[1.5rem]" />}
               className="py-2"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleSearchKeyPress}
             />
             <div className="hidden md:block">
-              <div className="md:flex md:items-center md:gap-x-4">
+              <div className="md:flex items-center md:gap-x-4">
                 <div
                   className="md:flex md:items-center md:gap-x-2 md:text-white cursor-pointer hover:bg-[#d02637] p-3 rounded-lg"
                   onClick={handleCart}
@@ -165,15 +196,33 @@ const HeaderHome = () => {
                   </Badge>
                 </div>
                 {login ? (
-                  <ButtonCellphoneS
-                    className="bg-[#e45464]"
-                    children={
-                      <div className="md:flex md:items-center md:gap-x-2 text-white">
-                        <p>{user?.full_name}</p>
-                        <FaRegUserCircle className="text-[1.5rem] text-white" />
-                      </div>
-                    }
-                  />
+                  <NotificationDropdown
+                    open={openNotification}
+                    onClose={() => {
+                      setOpenNotification(false);
+                      fetchUnreadCount();
+                    }}
+                  >
+                    <div className="relative">
+                      <ButtonCellphoneS
+                        className="bg-[#e45464] cursor-pointer relative"
+                        children={
+                          <div className="md:flex md:items-center md:gap-x-2 text-white">
+                            <p>{user?.full_name}</p>
+                            <FaRegUserCircle className="text-[1.5rem] text-white" />
+                            {unreadCount > 0 && (
+                              <Badge
+                                count={unreadCount}
+                                size="small"
+                                className="absolute -top-1 -right-1"
+                              />
+                            )}
+                          </div>
+                        }
+                        onClick={() => setOpenNotification(true)}
+                      />
+                    </div>
+                  </NotificationDropdown>
                 ) : (
                   <ButtonCellphoneS
                     className="bg-[#e45464]"
@@ -207,9 +256,26 @@ const HeaderHome = () => {
               open={isOpen}
               onCancel={() => setIsOpen(false)}
             />
-            <Badge size="small" count={5} className="md:hidden">
-              <GoBell className="text-[1.4rem] text-white" />
-            </Badge>
+            {/* Mobile - Cart Icon */}
+            {login ? (
+              <div
+                className="md:hidden cursor-pointer relative flex items-center"
+                onClick={handleCart}
+              >
+                <Badge size="small" count={totalCart} offset={[-5, 5]}>
+                  <div className="bg-[#e45464] p-3 h-[3rem] rounded-lg">
+                    <FiShoppingCart className="text-white text-[1.5rem]" />
+                  </div>
+                </Badge>
+              </div>
+            ) : (
+              <div
+                className="md:hidden cursor-pointer"
+                onClick={() => setOpenLogin(true)}
+              >
+                <FiShoppingCart className="text-[1.5rem] text-white" />
+              </div>
+            )}
           </div>
         </div>
         <ModalCellphoneS

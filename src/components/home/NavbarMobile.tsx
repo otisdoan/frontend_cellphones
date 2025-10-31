@@ -5,8 +5,16 @@ import { RiAccountCircleLine } from "react-icons/ri";
 import { TbSmartHome } from "react-icons/tb";
 import { VscHome } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
-const NavbarMobile = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
+const NavbarMobile = ({
+  setOpen,
+  setOpenLogin,
+}: {
+  setOpen: (open: boolean) => void;
+  setOpenLogin?: (open: boolean) => void;
+}) => {
+  const { login } = useAuthContext()!;
   const navbar: { icon: ReactNode; title: string; path: string }[] = [
     {
       icon: <TbSmartHome />,
@@ -31,7 +39,7 @@ const NavbarMobile = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     {
       icon: <RiAccountCircleLine />,
       title: "Tài khoản",
-      path: "/",
+      path: "/profile",
     },
   ];
   const navigate = useNavigate();
@@ -39,15 +47,30 @@ const NavbarMobile = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
 
   const handleShow = (path: string, index: number) => {
     setCurrent(index);
-    navigate(path);
     setOpen(false);
+
+    // Danh mục - mở modal
     if (index === 1) {
       setOpen(true);
+      return;
     }
+
+    // Tài khoản - check login
+    if (index === 4) {
+      if (login) {
+        navigate(path);
+      } else {
+        setOpenLogin?.(true);
+      }
+      return;
+    }
+
+    // Các mục khác
+    navigate(path);
   };
   return (
     <>
-      <div className="md:hidden flex gap-x-4 bg-white sticky bottom-0 z-50 border-t-[1px] p-2">
+      <div className="md:hidden flex gap-x-4 bg-white sticky bottom-0 z-50 border-t-[1px] p-2 justify-center">
         {navbar.map((item, index) => (
           <div
             key={index}
@@ -59,7 +82,9 @@ const NavbarMobile = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
             onClick={() => handleShow(item.path, index)}
           >
             <div className="text-[1.5rem]">{item.icon}</div>
-            <span className="text-[0.8rem]">{item.title}</span>
+            <span className="text-[0.8rem] whitespace-nowrap">
+              {item.title}
+            </span>
           </div>
         ))}
       </div>

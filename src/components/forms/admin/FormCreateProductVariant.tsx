@@ -93,7 +93,7 @@ const FormCreateProductVariant = ({ id }: { id?: number }) => {
           <div className="flex md:flex-row flex-col md:items-center gap-x-4">
             <Form.Item
               label="Product"
-              name="name"
+              name="product_id"
               rules={[{ required: true, message: "Product is required!" }]}
             >
               <Select

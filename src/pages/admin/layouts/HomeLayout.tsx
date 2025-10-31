@@ -73,7 +73,7 @@ const HomeLayout = () => {
           </Popover>
         </div>
         <HeaderHome />
-        <div className="lg:px-[8.5rem] 2xl:px-[20rem]">
+        <div className="px-4 xl:px-32 2xl:px-40 max-w-screen-2xl mx-auto">
           <Outlet />
         </div>
         <FooterHome />

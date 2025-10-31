@@ -73,7 +73,7 @@ const HeaderHome = () => {
     <>
       <div className="bg-color md:w-full pb-4 sticky top-0 left-0 z-50">
         <div className="w-full">
-          <div className=" md:flex md:items-center lg:px-[5rem] 2xl:px-[15rem]">
+          <div className="md:flex md:items-center px-4 xl:px-24 2xl:px-28 max-w-screen-2xl mx-auto">
             <div className="md:w-[60%]">
               <Marquee speed={40}>
                 <div className="flex mt-2">
@@ -113,7 +113,7 @@ const HeaderHome = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-x-2 md:gap-x-4 mt-4 px-3 md:px-[8.5rem] 2xl:px-[20rem]">
+          <div className="flex items-center gap-x-2 md:gap-x-4 mt-4 px-4 xl:px-32 2xl:px-40 max-w-screen-2xl mx-auto ">
             <div
               className="md:hidden cursor-pointer"
               onClick={() => navigate("/")}

@@ -4,7 +4,7 @@ import { productApi } from "../../utils/api/product.api";
 import ProductNoSlice from "../products/ProductNoSlice";
 
 // TODO: Cập nhật categoryId này cho đúng với database của bạn
-const HOUSEHOLD_CATEGORY_ID = 8; // ID của category "Đồ gia dụng" trong DB
+const HOUSEHOLD_CATEGORY_ID = 15; // ID của category "Đồ gia dụng" trong DB
 
 const HouseHoldList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);

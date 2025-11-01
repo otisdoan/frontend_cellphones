@@ -5,7 +5,7 @@ import { sliceArray } from "../../utils/sliceArray";
 import type { ProductProps } from "../../types/api/ProductResponse";
 
 // TODO: Cập nhật categoryId này cho đúng với database của bạn
-const LAPTOP_CATEGORY_ID = 2; // ID của category "Laptop" trong DB
+const LAPTOP_CATEGORY_ID = 9; // ID của category "Laptop" trong DB
 
 const LaptopList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[][]>([]);

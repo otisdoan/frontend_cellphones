@@ -4,7 +4,7 @@ import { productApi } from "../../utils/api/product.api";
 import ProductNoSlice from "../products/ProductNoSlice";
 
 // TODO: Cập nhật categoryId này cho đúng với database của bạn
-const TV_CATEGORY_ID = 6; // ID của category "Tivi" trong DB
+const TV_CATEGORY_ID = 20; // ID của category "Tivi" trong DB
 
 const TiviList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);

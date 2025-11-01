@@ -4,7 +4,7 @@ import { productApi } from "../../utils/api/product.api";
 import ProductNoSlice from "../products/ProductNoSlice";
 
 // TODO: Cập nhật categoryId này cho đúng với database của bạn
-const SMARTWATCH_CATEGORY_ID = 4; // ID của category "Đồng hồ thông minh" trong DB
+const SMARTWATCH_CATEGORY_ID = 13; // ID của category "Đồng hồ thông minh" trong DB
 
 const ClockSmartList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);

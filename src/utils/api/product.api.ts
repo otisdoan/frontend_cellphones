@@ -51,4 +51,10 @@ export const productApi = {
     );
     return repsonse.data;
   },
+  getByCategory: async (categoryId: number) => {
+    const response = await axiosInstance.get<ProductResponse<ProductProps>>(
+      `${API_URL.PRODUCT}/category/${categoryId}`
+    );
+    return response.data;
+  },
 };

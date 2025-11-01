@@ -3,6 +3,9 @@ import type { ProductProps } from "../../types/api/ProductResponse";
 import { productApi } from "../../utils/api/product.api";
 import ProductNoSlice from "../products/ProductNoSlice";
 
+// TODO: Cập nhật categoryId này cho đúng với database của bạn
+const AUDIO_CATEGORY_ID = 7; // ID của category "Âm thanh" trong DB
+
 const SoundList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
   const brand: { name: string }[] = [
@@ -21,7 +24,7 @@ const SoundList = () => {
   ];
   const fetchProducts = async () => {
     try {
-      const result = await productApi.getAll();
+      const result = await productApi.getByCategory(AUDIO_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
       }

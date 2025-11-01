@@ -4,6 +4,9 @@ import { productApi } from "../../utils/api/product.api";
 import { sliceArray } from "../../utils/sliceArray";
 import type { ProductProps } from "../../types/api/ProductResponse";
 
+// TODO: Cập nhật categoryId này cho đúng với database của bạn
+const LAPTOP_CATEGORY_ID = 2; // ID của category "Laptop" trong DB
+
 const LaptopList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[][]>([]);
   const brand: { name: string }[] = [
@@ -22,7 +25,7 @@ const LaptopList = () => {
   ];
   const fetchProducts = async () => {
     try {
-      const result = await productApi.getAll();
+      const result = await productApi.getByCategory(LAPTOP_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(sliceArray(result.data, 2));
       }

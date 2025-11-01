@@ -10,7 +10,7 @@ const ProductSale = () => {
             className="object-contain h-full md:w-full max-w-[17rem] md:max-w-[30rem]"
           />
           <span className="absolute top-1/3 left-1/2 translate-x-[-50%] font-bold text-white whitespace-nowrap md:text-[1.2rem] text-[0.8rem]">
-            LAPTOP GIẢM ĐẬM - CHẬM LÀ TIẾC
+            ĐIỆN THOẠI GIẢM ĐẬM - CHẬM LÀ TIẾC
           </span>
         </div>
         <div className="h-[3.5rem] w-full absolute z-10 md:top-5 top-1">

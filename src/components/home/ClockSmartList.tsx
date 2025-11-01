@@ -3,6 +3,9 @@ import type { ProductProps } from "../../types/api/ProductResponse";
 import { productApi } from "../../utils/api/product.api";
 import ProductNoSlice from "../products/ProductNoSlice";
 
+// TODO: Cập nhật categoryId này cho đúng với database của bạn
+const SMARTWATCH_CATEGORY_ID = 4; // ID của category "Đồng hồ thông minh" trong DB
+
 const ClockSmartList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +26,7 @@ const ClockSmartList = () => {
   ];
   const fetchProducts = async () => {
     try {
-      const result = await productApi.getAll();
+      const result = await productApi.getByCategory(SMARTWATCH_CATEGORY_ID);
       setLoading(false);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);

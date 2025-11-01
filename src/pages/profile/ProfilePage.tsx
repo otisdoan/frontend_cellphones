@@ -122,6 +122,12 @@ const ProfilePage = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
   if (!user) return null;
 
   return (

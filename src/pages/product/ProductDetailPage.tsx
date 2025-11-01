@@ -6,7 +6,7 @@ import type { ProductProps } from "../../types/api/ProductResponse";
 import { FaRegHeart, FaStar } from "react-icons/fa6";
 import { LuCirclePlus, LuMessageSquareText } from "react-icons/lu";
 import { HiOutlineChip } from "react-icons/hi";
-import { Divider } from "antd";
+import { Divider, Spin } from "antd";
 import CarouselProduct from "../../components/products/CarouselProduct";
 import ProductCommitments from "../../components/products/ProductCommitments";
 import OptionProduct from "../../components/products/OptionProduct";
@@ -17,15 +17,19 @@ import FavoriteProduct from "../../components/products/FavoriteProduct";
 const ProductDetailPage = () => {
   const location = useLocation();
   const [product, setProduct] = useState<ProductProps | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getProductDetail = async () => {
     try {
+      setLoading(true);
       const result = await productApi.getProductBySlug(location.pathname);
       if (!Array.isArray(result.data)) {
         setProduct(result.data);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,6 +43,16 @@ const ProductDetailPage = () => {
       behavior: "smooth",
     });
   }, [location.pathname]);
+
+  // Hiển thị loading khi đang tải dữ liệu
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Spin size="large" tip="Đang tải thông tin sản phẩm..." />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex md:flex-row flex-col gap-x-8 px-3 md:px-0">

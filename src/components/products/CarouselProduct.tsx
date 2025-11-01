@@ -135,7 +135,7 @@ const CarouselProduct = ({
             <div
               key={index}
               className="w-full cursor-pointer h-[4rem] px-1 border-none"
-              onClick={() => handleGoToBottom(index)}
+              onClick={() => handleGoToBottom(index - 1)}
             >
               <img
                 src={item}

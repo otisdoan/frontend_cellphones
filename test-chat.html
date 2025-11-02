@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Chat API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      #result {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        white-space: pre-wrap;
+      }
+      button {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background: #4338ca;
+      }
+      .success {
+        color: green;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🧪 Test Chat API</h1>
+
+    <div>
+      <input
+        type="text"
+        id="message"
+        placeholder="Nhập tin nhắn..."
+        style="width: 300px; padding: 8px; font-size: 14px"
+      />
+      <button onclick="testChat()">Gửi</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+      async function testChat() {
+        const message =
+          document.getElementById("message").value || "iPhone giá rẻ";
+        const resultDiv = document.getElementById("result");
+
+        resultDiv.innerHTML = "<p>⏳ Đang gửi...</p>";
+
+        try {
+          console.log("📤 Sending:", message);
+
+          const response = await fetch(
+            "http://localhost:3000/api/chat/message",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: message,
+                user_id: 1,
+              }),
+            }
+          );
+
+          console.log("📥 Response status:", response.status);
+
+          const data = await response.json();
+          console.log("📦 Response data:", data);
+
+          if (data.success) {
+            resultDiv.innerHTML = `
+                        <h3 class="success">✅ Thành công!</h3>
+                        <h4>Session ID:</h4>
+                        <p>${data.data.session_id}</p>
+                        
+                        <h4>AI Response:</h4>
+                        <p>${data.data.text}</p>
+                        
+                        <h4>Products (${data.data.products?.length || 0}):</h4>
+                        ${
+                          data.data.products
+                            ?.map(
+                              (p) => `
+                            <div style="border: 1px solid #ddd; padding: 10px; margin: 5px 0; border-radius: 4px;">
+                                <strong>${p.name}</strong><br>
+                                Giá: ${p.sale_price?.toLocaleString(
+                                  "vi-VN"
+                                )} đ<br>
+                                Slug: ${p.slug}
+                            </div>
+                        `
+                            )
+                            .join("") || "<p>Không có sản phẩm</p>"
+                        }
+                        
+                        <h4>Quick Replies:</h4>
+                        <p>${
+                          data.data.quick_replies?.join(", ") || "Không có"
+                        }</p>
+                        
+                        <h4>Full JSON:</h4>
+                        <pre style="background: #333; color: #0f0; padding: 10px; overflow-x: auto;">${JSON.stringify(
+                          data,
+                          null,
+                          2
+                        )}</pre>
+                    `;
+          } else {
+            resultDiv.innerHTML = `
+                        <h3 class="error">❌ Lỗi!</h3>
+                        <p>${data.error}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+          }
+        } catch (error) {
+          console.error("❌ Error:", error);
+          resultDiv.innerHTML = `
+                    <h3 class="error">❌ Lỗi kết nối!</h3>
+                    <p>${error.message}</p>
+                    <p style="color: #666;">Kiểm tra xem Express server có đang chạy không (port 3000)</p>
+                `;
+        }
+      }
+
+      // Auto test on load
+      // window.onload = () => testChat();
+    </script>
+  </body>
+</html>

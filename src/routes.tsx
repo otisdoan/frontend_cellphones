@@ -42,6 +42,8 @@ import AccountSettings from "./pages/profile/AccountSettings";
 import ReferralPage from "./pages/profile/ReferralPage";
 import TermsPage from "./pages/profile/TermsPage";
 import SearchResults from "./pages/SearchResults";
+import OrderSuccess from "./pages/OrderSuccess";
+import OrderFailed from "./pages/OrderFailed";
 
 export const routes = createBrowserRouter([
   {
@@ -69,6 +71,14 @@ export const routes = createBrowserRouter([
   {
     path: "/cart/payment-info",
     element: <PaymentInfor />,
+  },
+  {
+    path: "/order/success/:orderId",
+    element: <OrderSuccess />,
+  },
+  {
+    path: "/order/failed/:orderId",
+    element: <OrderFailed />,
   },
   {
     path: "/profile",

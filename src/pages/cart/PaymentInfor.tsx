@@ -44,8 +44,9 @@ const PaymentInfor = () => {
 
   const handlePayment = async () => {
     try {
+      const orderCode = Date.now();
       const result = await paymentApi.checkout({
-        orderCode: Date.now(),
+        orderCode,
         amount: Number(
           orderItems.reduce(
             (total, item) => total + Number(item.sale_price) * item.quantity,
@@ -53,8 +54,8 @@ const PaymentInfor = () => {
           )
         ),
         description: `Thanh toán đơn hàng`,
-        returnUrl: `${window.location.origin}`,
-        cancelUrl: `${window.location.origin}`,
+        returnUrl: `${window.location.origin}/order/success/${orderCode}`,
+        cancelUrl: `${window.location.origin}/order/failed/${orderCode}`,
       });
 
       if (result) {

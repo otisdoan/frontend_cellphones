@@ -46,7 +46,7 @@ const ChatWidget = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-0 right-0 md:bottom-4 md:right-4 z-50 w-full h-full md:w-[420px] md:h-[650px] md:max-h-[calc(100vh-2rem)] bg-white md:rounded-2xl shadow-2xl flex flex-col overflow-hidden border-0 md:border md:border-gray-200">
+        <div className="fixed bottom-0 right-0 md:bottom-4 md:right-4 z-50 w-full h-full md:w-[400px] md:h-[550px] md:max-h-[calc(100vh-2rem)] bg-white md:rounded-2xl shadow-2xl flex flex-col overflow-hidden border-0 md:border md:border-gray-200">
           {/* Header */}
           <div className="bg-gradient-to-r from-red-600 to-red-500 text-white p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">

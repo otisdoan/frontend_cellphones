@@ -24,7 +24,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <a
-      href={`/products/${product.slug}`}
+      href={`/${product.slug}`}
       className="block bg-white rounded-lg md:rounded-xl border border-gray-200 hover:border-red-500 hover:shadow-lg transition-all duration-300 overflow-hidden group"
     >
       <div className="p-2 md:p-3">

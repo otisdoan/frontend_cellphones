@@ -1,15 +1,92 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
+import { orderApi } from "../utils/api/order.api";
+import { message } from "antd";
+
+interface OrderItem {
+  id: number;
+  product_id: number;
+  variant_id?: number;
+  product_name: string;
+  variant_name?: string;
+  sku: string;
+  price: number;
+  sale_price?: number;
+  quantity: number;
+  total: number;
+  image_url?: string;
+}
+
+interface OrderData {
+  id: number;
+  order_number: string;
+  total_amount: number;
+  subtotal: number;
+  shipping_fee: number;
+  discount_amount: number;
+  payment_method: string;
+  payment_status: string;
+  status: string;
+  guest_email?: string;
+  guest_phone?: string;
+  items: OrderItem[];
+}
 
 const OrderSuccess = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
+  const [order, setOrder] = useState<OrderData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Scroll to top khi vào trang
     window.scrollTo(0, 0);
-  }, []);
+
+    // Xử lý payment callback
+    const handlePaymentCallback = async () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const paymentCode = params.get("code");
+        const paymentStatus = params.get("status");
+
+        if (orderId) {
+          // Update order status nếu payment thành công
+          if (paymentCode === "00" || paymentStatus === "PAID") {
+            await orderApi.update(orderId, {
+              payment_status: "paid",
+              status: "confirmed",
+            });
+            message.success("Thanh toán thành công!");
+          }
+
+          // Fetch order details
+          const response = await orderApi.getById(orderId);
+          if (response?.data) {
+            setOrder(response.data as unknown as OrderData);
+          }
+        }
+      } catch (error) {
+        console.error("Error processing payment:", error);
+        message.error("Có lỗi xảy ra khi xử lý đơn hàng");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    handlePaymentCallback();
+  }, [orderId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Đang xử lý...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -36,92 +113,55 @@ const OrderSuccess = () => {
           <div className="space-y-3">
             <div className="flex justify-between py-2">
               <span className="text-gray-600">Mã đơn hàng</span>
-              <span className="font-semibold">{orderId || "WN0303747717"}</span>
+              <span className="font-semibold">
+                {order?.order_number || orderId}
+              </span>
             </div>
 
             <div className="flex justify-between py-2">
               <span className="text-gray-600">Số lượng sản phẩm</span>
-              <span className="font-semibold">01</span>
+              <span className="font-semibold">{order?.items?.length || 0}</span>
             </div>
 
             <div className="flex justify-between py-2">
               <span className="text-gray-600">Tổng tiền hàng</span>
-              <span className="font-semibold">28.990.000đ</span>
+              <span className="font-semibold">
+                {Number(order?.subtotal || 0).toLocaleString("vi-VN")}đ
+              </span>
             </div>
 
             <div className="flex justify-between py-2">
               <span className="text-gray-600">Phí vận chuyển</span>
-              <span className="font-semibold text-green-600">Miễn phí</span>
+              <span className="font-semibold text-green-600">
+                {Number(order?.shipping_fee || 0) === 0
+                  ? "Miễn phí"
+                  : `${Number(order?.shipping_fee).toLocaleString("vi-VN")}đ`}
+              </span>
             </div>
 
             <div className="flex justify-between py-2">
               <span className="text-gray-600">Phương thức thanh toán</span>
               <span className="font-semibold">
-                Chuyển khoản ngân hàng qua mã QR
+                {order?.payment_method === "bank_transfer"
+                  ? "Chuyển khoản ngân hàng qua mã QR"
+                  : "Thanh toán online"}
               </span>
             </div>
 
-            <div className="flex justify-between py-2 border-t pt-3">
-              <span className="text-gray-600">Giảm giá trực tiếp</span>
-              <span className="font-semibold text-red-600">- 3.000.000đ</span>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Chiết khấu Smember</span>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
-                  S-MEM
+            {Number(order?.discount_amount || 0) > 0 && order && (
+              <div className="flex justify-between py-2 border-t pt-3">
+                <span className="text-gray-600">Giảm giá</span>
+                <span className="font-semibold text-red-600">
+                  - {Number(order.discount_amount).toLocaleString("vi-VN")}đ
                 </span>
-                <span className="font-semibold text-red-600">- 130.000đ</span>
               </div>
-            </div>
+            )}
 
             <div className="flex justify-between py-3 border-t mt-3">
-              <span className="text-lg font-semibold">Cần thanh toán</span>
+              <span className="text-lg font-semibold">Tổng thanh toán</span>
               <span className="text-2xl font-bold text-red-600">
-                25.860.000đ
+                {Number(order?.total_amount || 0).toLocaleString("vi-VN")}đ
               </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Thông tin nhận hàng */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-xl font-bold mb-4 pb-2 border-b">
-            THÔNG TIN NHẬN HÀNG
-          </h2>
-
-          <div className="space-y-3">
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Khách hàng</span>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">
-                  S-MEM
-                </span>
-                <span className="font-semibold">LÊ DOÃN HIẾU</span>
-              </div>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Số điện thoại</span>
-              <span className="font-semibold">0344258554</span>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Email</span>
-              <span className="font-semibold">ledoanhieu12a6@gmail.com</span>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Nhận hàng tại</span>
-              <span className="font-semibold text-right max-w-md">
-                8 Quang Trung, Thị trấn Tam Quan, Huyện Hoài Nhơn, Bình Định
-              </span>
-            </div>
-
-            <div className="flex justify-between py-2">
-              <span className="text-gray-600">Người nhận</span>
-              <span className="font-semibold">LÊ DOÃN HIẾU - 0344258558</span>
             </div>
           </div>
         </div>
@@ -132,32 +172,60 @@ const OrderSuccess = () => {
             DANH SÁCH SẢN PHẨM
           </h2>
 
-          <div className="flex gap-4 items-start p-4 border rounded-lg">
-            <img
-              src="/images/product-placeholder.webp"
-              alt="iPhone 16 Pro"
-              className="w-24 h-24 object-contain"
-              onError={(e) => {
-                e.currentTarget.src =
-                  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"%3E%3Crect x="3" y="3" width="18" height="18" rx="2"/%3E%3Ccircle cx="8.5" cy="8.5" r="1.5"/%3E%3Cpath d="M21 15l-5-5L5 21"/%3E%3C/svg%3E';
-              }}
-            />
-            <div className="flex-1">
-              <h3 className="font-semibold text-lg mb-2">
-                iPhone 16 Pro 128GB | Chính hãng VN/A-Titan Trắng
-              </h3>
-              <div className="flex items-center gap-3">
-                <span className="text-2xl font-bold text-red-600">
-                  25.860.000đ
-                </span>
-                <span className="text-gray-400 line-through">28.990.000đ</span>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className="text-gray-600">
-                Số lượng: <span className="font-semibold text-red-600">1</span>
+          <div className="space-y-4">
+            {order?.items && order.items.length > 0 ? (
+              order.items.map((item: OrderItem, index: number) => (
+                <div
+                  key={index}
+                  className="flex gap-4 items-start p-4 border rounded-lg"
+                >
+                  <img
+                    src={item.image_url || "/images/product-placeholder.webp"}
+                    alt={item.product_name}
+                    className="w-24 h-24 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"%3E%3Crect x="3" y="3" width="18" height="18" rx="2"/%3E%3Ccircle cx="8.5" cy="8.5" r="1.5"/%3E%3Cpath d="M21 15l-5-5L5 21"/%3E%3C/svg%3E';
+                    }}
+                  />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-2">
+                      {item.product_name}
+                      {item.variant_name && (
+                        <span className="text-gray-500 text-sm ml-2">
+                          ({item.variant_name})
+                        </span>
+                      )}
+                    </h3>
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl font-bold text-red-600">
+                        {Number(item.sale_price || item.price).toLocaleString(
+                          "vi-VN"
+                        )}
+                        đ
+                      </span>
+                      {item.sale_price && item.price > item.sale_price && (
+                        <span className="text-gray-400 line-through">
+                          {Number(item.price).toLocaleString("vi-VN")}đ
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-gray-600">
+                      Số lượng:{" "}
+                      <span className="font-semibold text-red-600">
+                        {item.quantity}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500 py-8">
+                Không có sản phẩm
               </p>
-            </div>
+            )}
           </div>
         </div>
 
@@ -250,7 +318,7 @@ const OrderSuccess = () => {
             Tiếp tục mua hàng
           </button>
           <button
-            onClick={() => navigate("/orders")}
+            onClick={() => navigate("/profile/orders")}
             className="flex-1 bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition"
           >
             Xem đơn hàng

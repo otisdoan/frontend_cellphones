@@ -8,17 +8,20 @@ export interface ListInforProps {
   icon: JSX.Element;
 }
 interface DisplaStatisticProps {
-  type: "category" | "brand" | "products";
+  type?: "category" | "brand" | "products" | "orders";
   listInfor: ListInforProps[];
 }
 
-const DisplaStatistic = ({ type, listInfor }: DisplaStatisticProps) => {
+const DisplaStatistic = ({
+  type = "category",
+  listInfor,
+}: DisplaStatisticProps) => {
   const formatter: StatisticProps["formatter"] = (value) => (
     <CountUp end={value as number} separator="," />
   );
   return (
     <>
-      {type === "category" && (
+      {(type === "category" || type === "orders") && (
         <div className="flex items-center gap-4 mt-4 flex-wrap md:flex-nowrap ">
           {listInfor.map((item, index) => (
             <div

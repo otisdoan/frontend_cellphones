@@ -26,6 +26,7 @@ import EditProductAttribute from "./pages/admin/product-attribute/EditProductAtt
 import ListUser from "./pages/admin/users/ListUser";
 import CreateUser from "./pages/admin/users/CreateUser";
 import EditUser from "./pages/admin/users/EditUser";
+import ListOrder from "./pages/admin/orders/ListOrder";
 import HomeLayout from "./pages/admin/layouts/HomeLayout";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import CartPage from "./pages/cart/CartPage";
@@ -229,6 +230,10 @@ export const routes = createBrowserRouter([
       {
         path: "/admin/users/:id/edit",
         element: <EditUser />,
+      },
+      {
+        path: "/admin/orders",
+        element: <ListOrder />,
       },
     ],
   },

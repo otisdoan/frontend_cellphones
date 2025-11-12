@@ -51,4 +51,8 @@ export default tseslint.config({
     ...reactDom.configs.recommended.rules,
   },
 })
+VITE_GOOGLE_CLIENT_ID=566050216696-2d8pe12hamn2igtosqqbsfimos98i8en.apps.googleusercontent.com
+VITE_DOMAIN_BACKEND=http://localhost:3000/api
+VITE_API_URL=http://localhost:3000
+
 ```

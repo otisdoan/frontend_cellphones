@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { ChatResponse } from "../types/chat.types";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "https://backend-cellphones-5.onrender.com";
 
 export const chatService = {
   /**

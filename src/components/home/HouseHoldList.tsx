@@ -8,6 +8,7 @@ const HOUSEHOLD_CATEGORY_ID = 15; // ID của category "Đồ gia dụng" trong 
 
 const HouseHoldList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -27,6 +28,7 @@ const HouseHoldList = () => {
       const result = await productApi.getByCategory(HOUSEHOLD_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -39,7 +41,12 @@ const HouseHoldList = () => {
   return (
     <>
       <div>
-        <ProductNoSlice title="ĐỒ GIA DỤNG" list={dataProducts} brand={brand} />
+        <ProductNoSlice
+          title="ĐỒ GIA DỤNG"
+          list={dataProducts}
+          brand={brand}
+          loading={loading}
+        />
       </div>
     </>
   );

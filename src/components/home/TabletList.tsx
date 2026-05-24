@@ -8,6 +8,7 @@ const TABLET_CATEGORY_ID = 10; // ID của category "Máy tính bảng" trong DB
 
 const TabletList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -27,6 +28,7 @@ const TabletList = () => {
       const result = await productApi.getByCategory(TABLET_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -43,6 +45,7 @@ const TabletList = () => {
           title="MÁY TÍNH BẢNG"
           list={dataProducts}
           brand={brand}
+          loading={loading}
         />
       </div>
     </>

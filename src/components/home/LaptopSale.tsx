@@ -13,9 +13,9 @@ const LaptopSale = () => {
   const fetchProducts = async () => {
     try {
       const result = await productApi.getByCategory(LAPTOP_CATEGORY_ID);
-      setLoading(false);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);

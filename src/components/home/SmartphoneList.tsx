@@ -40,9 +40,9 @@ const SmartphoneList = () => {
   const fetchProducts = async (): Promise<void> => {
     try {
       const result = await productApi.getByCategory(SMARTPHONE_CATEGORY_ID);
-      setLoading(false);
       if (Array.isArray(result.data)) {
         setDataProducts(sliceArray(result.data, 2));
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);

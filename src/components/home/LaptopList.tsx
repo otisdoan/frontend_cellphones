@@ -9,6 +9,7 @@ const LAPTOP_CATEGORY_ID = 9; // ID của category "Laptop" trong DB
 
 const LaptopList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[][]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -28,6 +29,7 @@ const LaptopList = () => {
       const result = await productApi.getByCategory(LAPTOP_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(sliceArray(result.data, 2));
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -40,7 +42,12 @@ const LaptopList = () => {
   return (
     <>
       <div>
-        <ProductHome title="LAPTOP" list={dataProducts} brand={brand} />
+        <ProductHome
+          title="LAPTOP"
+          list={dataProducts}
+          brand={brand}
+          loading={loading}
+        />
       </div>
     </>
   );

@@ -8,6 +8,7 @@ const AUDIO_CATEGORY_ID = 11; // ID của category "Âm thanh" trong DB
 
 const SoundList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -27,6 +28,7 @@ const SoundList = () => {
       const result = await productApi.getByCategory(AUDIO_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -39,7 +41,12 @@ const SoundList = () => {
   return (
     <>
       <div>
-        <ProductNoSlice title="ÂM THANH" list={dataProducts} brand={brand} />
+        <ProductNoSlice
+          title="ÂM THANH"
+          list={dataProducts}
+          brand={brand}
+          loading={loading}
+        />
       </div>
     </>
   );

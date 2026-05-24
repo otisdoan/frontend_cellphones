@@ -6,12 +6,14 @@ import type { ProductProps } from "../../types/api/ProductResponse";
 
 const ProductWatched = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchProducts = async () => {
     try {
       const result = await productApi.getAll();
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -21,6 +23,7 @@ const ProductWatched = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
   return (
     <>
       <div
@@ -35,7 +38,7 @@ const ProductWatched = () => {
             SẢN PHẨM BẠN ĐÃ XEM
           </h2>
         </div>
-        <ProductNoSlice list={dataProducts} suggest={true} />
+        <ProductNoSlice list={dataProducts} suggest={true} loading={loading} />
       </div>
     </>
   );

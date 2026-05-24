@@ -8,6 +8,7 @@ const SCREEN_CATEGORY_ID = 18; // ID của category "Màn hình, máy tính đ�
 
 const ScreenList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -27,6 +28,7 @@ const ScreenList = () => {
       const result = await productApi.getByCategory(SCREEN_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -43,6 +45,7 @@ const ScreenList = () => {
           title="MÀN HÌNH, MÁY TÍNH ĐỂ BÀN"
           list={dataProducts}
           brand={brand}
+          loading={loading}
         />
       </div>
     </>

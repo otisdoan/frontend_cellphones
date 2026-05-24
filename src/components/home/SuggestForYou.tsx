@@ -12,8 +12,8 @@ const SuggestForYou = () => {
     try {
       const result = await productApi.getAll();
       if (Array.isArray(result.data)) {
-        setLoading(false);
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -23,6 +23,7 @@ const SuggestForYou = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
   return (
     <>
       <div

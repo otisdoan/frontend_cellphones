@@ -8,6 +8,7 @@ const TV_CATEGORY_ID = 20; // ID của category "Tivi" trong DB
 
 const TiviList = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const brand: { name: string }[] = [
     {
       name: "Apple",
@@ -27,6 +28,7 @@ const TiviList = () => {
       const result = await productApi.getByCategory(TV_CATEGORY_ID);
       if (Array.isArray(result.data)) {
         setDataProducts(result.data);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -39,7 +41,12 @@ const TiviList = () => {
   return (
     <>
       <div>
-        <ProductNoSlice title="TIVI" list={dataProducts} brand={brand} />
+        <ProductNoSlice
+          title="TIVI"
+          list={dataProducts}
+          brand={brand}
+          loading={loading}
+        />
       </div>
     </>
   );

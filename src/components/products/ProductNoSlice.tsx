@@ -118,9 +118,17 @@ const ProductNoSlice = ({
         <div className="relative">
           {showSkeleton ? (
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {Array.from({ length: 5 }).map((_, index) => (
-                <SkeletonProduct key={index} />
-              ))}
+              <SkeletonProduct />
+              <SkeletonProduct />
+              <div className="hidden md:block">
+                <SkeletonProduct />
+              </div>
+              <div className="hidden md:block">
+                <SkeletonProduct />
+              </div>
+              <div className="hidden md:block">
+                <SkeletonProduct />
+              </div>
             </div>
           ) : (
             <>

@@ -32,7 +32,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const getUser = async () => {
     try {
-      const result = await userApi.getById();
+      const result = await userApi.getCurrentUser();
+      console.log(result);
       setUser(result.data);
       setLogin(true);
       setLoading(false);

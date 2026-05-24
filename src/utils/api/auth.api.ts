@@ -25,14 +25,22 @@ export const authApi = {
     );
     return response.data;
   },
-  loginByGoogle: async (token: string | undefined) => {
+  loginByGoogle: async (accessToken: string | undefined) => {
     const response = await axiosInstance.post<LoginResponse<UserProps>>(
       API_URL.GOOGLE,
       {
-        token,
+        accessToken: accessToken,
       },
       { withCredentials: true }
     );
     return response.data;
   },
+  logout: async () => {
+    const response = await axiosInstance.post(
+      API_URL.LOGOUT,
+      {},
+      { withCredentials: true }
+    );
+    return response.data;
+  }
 };

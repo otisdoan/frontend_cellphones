@@ -9,7 +9,7 @@ const AccountSettings = () => {
 
   // Mock form states
   const [formData, setFormData] = useState({
-    full_name: user?.full_name || "",
+    full_name: user?.fullName || "",
     email: user?.email || "",
     phone: user?.phone || "",
     date_of_birth: "",

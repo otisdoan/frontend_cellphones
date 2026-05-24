@@ -1,13 +1,13 @@
 export interface LoginFormType {
   phone: string;
-  password_login: string;
+  passwordLogin: string;
 }
 
 export interface RegisterFormType {
-  full_name: string;
-  date_of_birth: string;
+  fullName: string;
+  dateOfBirth: string;
   phone: string;
   email: string;
-  password_hash: string;
+  passwordRegister: string;
   confirm_password?: string;
 }

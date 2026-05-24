@@ -60,7 +60,7 @@ const FormLogin = () => {
 
             <FormItem<LoginFormType>
               label="Mật khẩu"
-              name="password_login"
+              name="passwordLogin"
               rules={[
                 { required: true, message: "Mật khẩu là bắt buộc!" },
                 { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },

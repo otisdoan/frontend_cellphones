@@ -95,7 +95,7 @@ const TabPayment = () => {
                   S-MEM
                 </span>
               </div>
-              <span className="font-medium uppercase">{user?.full_name}</span>
+              <span className="font-medium uppercase">{user?.fullName}</span>
             </div>
           </div>
           <div className="flex items-center justify-between">
@@ -124,7 +124,7 @@ const TabPayment = () => {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-[0.9rem] text-[#878b8d]">Người nhận</span>
-            <span className="font-bold uppercase">{`${user?.full_name} - ${user?.phone}`}</span>
+            <span className="font-bold uppercase">{`${user?.fullName} - ${user?.phone}`}</span>
           </div>
         </div>
       </div>

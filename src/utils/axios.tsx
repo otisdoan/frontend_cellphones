@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        await axios.post<{ access_token: string }>(
+        await axios.post<{ refreshToken: string }>(
           `${import.meta.env.VITE_DOMAIN_BACKEND}/auth/refresh-token`,
           {},
           { withCredentials: true }

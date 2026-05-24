@@ -17,7 +17,7 @@ const FormRegister = () => {
     try {
       const result = await authApi.register({
         ...data,
-        date_of_birth: dayjs(data.date_of_birth).format("YYYY-MM-DD"),
+        dateOfBirth: dayjs(data.dateOfBirth).format("YYYY-MM-DD"),
       });
       if (result.data && result.status === "success") {
         showSuccess(result.message);
@@ -42,7 +42,7 @@ const FormRegister = () => {
         >
           <div className="md:flex md:items-center md:gap-x-4">
             <Form.Item<RegisterFormType>
-              name={"full_name"}
+              name={"fullName"}
               rules={[
                 { required: true, message: "Họ và tên không được để trống!" },
               ]}
@@ -52,7 +52,7 @@ const FormRegister = () => {
               <Input placeholder="Nhập họ và tên" className="h-[3rem]" />
             </Form.Item>
             <Form.Item<RegisterFormType>
-              name={"date_of_birth"}
+              name={"dateOfBirth"}
               rules={[
                 {
                   required: true,
@@ -118,7 +118,7 @@ const FormRegister = () => {
           <div className="md:flex md:items-center md:gap-x-4">
             <Form.Item<RegisterFormType>
               label="Mật khẩu"
-              name="password_hash"
+              name="passwordRegister"
               rules={[
                 { required: true, message: "Mật khẩu là bắt buộc!" },
                 { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
@@ -141,13 +141,13 @@ const FormRegister = () => {
             <Form.Item<RegisterFormType>
               label="Nhập lại mật khẩu"
               name="confirm_password"
-              dependencies={["password_hash"]}
+              dependencies={["passwordRegister"]}
               rules={[
                 { required: true, message: "Làm ơn xác nhận mật khẩu!" },
                 { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
-                    if (!value || getFieldValue("password_hash") === value) {
+                    if (!value || getFieldValue("passwordRegister") === value) {
                       return Promise.resolve();
                     }
                     return Promise.reject(

@@ -3,7 +3,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const ProfileOverview = () => {
-  const { user } = useAuthContext()!;
+  const authContext = useAuthContext();
   const navigate = useNavigate();
   const [stats] = useState({
     orders: 4,
@@ -11,12 +11,23 @@ const ProfileOverview = () => {
     points: 0,
   });
 
+  if (!authContext || authContext.loading) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm p-6">
+        <p className="text-gray-600">Đang tải thông tin tài khoản...</p>
+      </div>
+    );
+  }
+
+  const { user } = authContext;
+  const displayName = user?.fullName || "bạn";
+
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          Xin chào, {user?.full_name}!
+          Xin chào, {displayName}!
         </h2>
         <p className="text-gray-600">
           Chào mừng bạn đến với trang quản lý tài khoản Smember.

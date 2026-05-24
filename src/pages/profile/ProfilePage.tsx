@@ -15,6 +15,7 @@ import { Avatar, Badge } from "antd";
 import SvgLogoDesktop from "../../components/svg/SvgLogoDesktop";
 import { FiShoppingCart } from "react-icons/fi";
 import { useAppSelector } from "../../redux/app/hook";
+import { authApi } from "../../utils/api/auth.api";
 
 interface MenuItem {
   key: string;
@@ -116,10 +117,13 @@ const ProfilePage = () => {
     navigate(item.path);
   };
 
-  const handleLogout = () => {
-    // Clear auth data
-    localStorage.removeItem("token");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Error occurred while logging out:", error);
+    }
   };
 
   useEffect(() => {
@@ -189,12 +193,12 @@ const ProfilePage = () => {
           {/* User Info */}
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center gap-x-3">
-              <Avatar size={48} src={user.avatar_url} className="bg-[#d70019]">
-                {user.full_name?.charAt(0).toUpperCase()}
+              <Avatar size={48} src={user.avatarUrl} className="bg-[#d70019]">
+                {user.fullName?.charAt(0).toUpperCase()}
               </Avatar>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-900 truncate">
-                  {user.full_name}
+                  {user.fullName}
                 </p>
                 <p className="text-xs text-gray-500 truncate">{user.email}</p>
               </div>

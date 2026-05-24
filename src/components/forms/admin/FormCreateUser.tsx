@@ -10,6 +10,23 @@ import type { UserProps } from "../../../types/api/UserResponse";
 import { useForm } from "antd/es/form/Form";
 import dayjs from "dayjs";
 
+type UserFormValues = Omit<
+  UserProps,
+  | "fullName"
+  | "passwordHash"
+  | "dateOfBirth"
+  | "avatarUrl"
+  | "emailVerified"
+  | "phoneVerified"
+> & {
+  full_name?: string;
+  password_hash?: string;
+  date_of_birth?: string;
+  avatar_url?: string | null;
+  email_verified?: boolean;
+  phone_verified?: boolean;
+};
+
 const FormCreateUser = ({ id }: { id?: number }) => {
   const navigate = useNavigate();
   const [imageApi, setImageApi] = useState<string | undefined>("");
@@ -21,12 +38,17 @@ const FormCreateUser = ({ id }: { id?: number }) => {
     try {
       const result = await userApi.getById(id!);
       if (!Array.isArray(result.data)) {
-        setImageUpdate(result.data.avatar_url || undefined);
+        setImageUpdate(result.data.avatarUrl || undefined);
         const userData = {
           ...result.data,
-          date_of_birth: result.data.date_of_birth
-            ? dayjs(result.data.date_of_birth)
+          full_name: result.data.fullName,
+          password_hash: result.data.passwordHash,
+          date_of_birth: result.data.dateOfBirth
+            ? dayjs(result.data.dateOfBirth)
             : null,
+          avatar_url: result.data.avatarUrl,
+          email_verified: result.data.emailVerified,
+          phone_verified: result.data.phoneVerified,
         };
         form.setFieldsValue(userData);
       }
@@ -35,15 +57,26 @@ const FormCreateUser = ({ id }: { id?: number }) => {
     }
   };
 
-  const handleFinish = async (value: UserProps) => {
+  const handleFinish = async (value: UserFormValues) => {
     try {
-      const userData = {
+      const userData: Partial<UserProps> = {
         ...value,
-        date_of_birth: value.date_of_birth
+        fullName: value.full_name || "",
+        passwordHash: value.password_hash || "",
+        dateOfBirth: value.date_of_birth
           ? dayjs(value.date_of_birth).format("YYYY-MM-DD")
           : "",
-        avatar_url: imageApi || imageUpdate || null,
+        avatarUrl: imageApi || imageUpdate || null,
+        emailVerified: value.email_verified ?? false,
+        phoneVerified: value.phone_verified ?? false,
       };
+
+      delete (userData as UserFormValues).full_name;
+      delete (userData as UserFormValues).password_hash;
+      delete (userData as UserFormValues).date_of_birth;
+      delete (userData as UserFormValues).avatar_url;
+      delete (userData as UserFormValues).email_verified;
+      delete (userData as UserFormValues).phone_verified;
 
       if (id) {
         const result = await userApi.updateUser(id, userData);
@@ -52,7 +85,7 @@ const FormCreateUser = ({ id }: { id?: number }) => {
           navigate(-1);
         }, 1500);
       } else {
-        const result = await userApi.create(userData);
+        const result = await userApi.create(userData as UserProps);
         showSuccess(result.message);
         setTimeout(() => {
           navigate(-1);

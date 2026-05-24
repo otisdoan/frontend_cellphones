@@ -138,7 +138,7 @@ export const routes = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <RoleGuard roles={["admin"]}>
+      <RoleGuard roles={["ADMIN"]}>
         <AdminLayout />
       </RoleGuard>
     ),

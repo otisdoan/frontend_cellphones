@@ -11,7 +11,14 @@ export const userApi = {
   },
   getById: async (id?: number) => {
     const response = await axiosInstance.get<UserResponse<UserProps>>(
-      `${API_URL.USER}/${id}/detail`,
+      `${API_URL.USER}/${id}`,
+      { withCredentials: true }
+    );
+    return response.data;
+  },
+  getCurrentUser: async () => {
+    const response = await axiosInstance.get<UserResponse<UserProps>>(
+      `${API_URL.USER}/me`,
       { withCredentials: true }
     );
     return response.data;

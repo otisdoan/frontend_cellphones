@@ -11,7 +11,7 @@ const InforCustomer = () => {
         <div className="border rounded-lg p-4 bg-white">
           <div className="flex justify-between">
             <div className="flex items-center gap-x-3">
-              <span className="uppercase text-[1.1rem]">{user?.full_name}</span>
+              <span className="uppercase text-[1.1rem]">{user?.fullName}</span>
               <div className="border border-[#4dccad] rounded-md px-1">
                 <span className="font-bold text-[#4dccad] text-[0.8rem]">
                   S-MEM

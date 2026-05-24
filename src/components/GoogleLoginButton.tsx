@@ -18,10 +18,10 @@ const GoogleLoginButton = () => {
   // };
   const login = useGoogleLogin({
     onSuccess: async (credential) => {
-      const token = credential.access_token;
+      const accessToken = credential.access_token;
 
       try {
-        const result = await authApi.loginByGoogle(token);
+        const result = await authApi.loginByGoogle(accessToken);
         console.log(result);
         window.location.href = "/";
       } catch (error) {

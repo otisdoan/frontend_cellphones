@@ -109,7 +109,7 @@ const HeaderCart = ({ totalCart }: { totalCart: number }) => {
             children={
               <div className="md:flex flex-col items-center justify-center text-white">
                 <FaRegUserCircle className="text-[1.5rem] text-white" />
-                <p>{user?.full_name.split(" ").pop()}</p>
+                <p>{user?.fullName.split(" ").pop()}</p>
               </div>
             }
             onClick={() => setOpenLogin(true)}

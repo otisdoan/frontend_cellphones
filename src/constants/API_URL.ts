@@ -1,4 +1,5 @@
 export const API_URL = {
+  LOGOUT: "/auth/logout",
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
   GOOGLE: "/auth/google",

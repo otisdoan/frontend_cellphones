@@ -208,7 +208,7 @@ const HeaderHome = () => {
                         className="bg-[#e45464] cursor-pointer relative"
                         children={
                           <div className="md:flex md:items-center md:gap-x-2 text-white">
-                            <p>{user?.full_name}</p>
+                            <p>{user?.fullName}</p>
                             <FaRegUserCircle className="text-[1.5rem] text-white" />
                             {unreadCount > 0 && (
                               <Badge

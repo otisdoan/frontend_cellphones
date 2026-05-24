@@ -1,16 +1,16 @@
 export interface UserProps {
   id: number;
   email: string;
-  password_hash: string;
+  passwordHash: string;
   phone: string;
-  full_name: string;
-  date_of_birth: string;
+  fullName: string;
+  dateOfBirth: string;
   gender: string | null;
-  avatar_url: string | null;
+  avatarUrl: string | null;
   status: "active" | "inactive";
   role: string;
-  email_verified: boolean;
-  phone_verified: boolean;
+  emailVerified: boolean;
+  phoneVerified: boolean;
   createdAt: string;
   updatedAt: string;
 }

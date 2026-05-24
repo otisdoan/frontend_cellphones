@@ -81,9 +81,9 @@ const InforReceive = ({ form }: InforReceiveProps) => {
   }, []);
 
   useEffect(() => {
-    if (user?.full_name || user?.phone) {
+    if (user?.fullName || user?.phone) {
       form.setFieldsValue({
-        receiverName: user?.full_name,
+        receiverName: user?.fullName,
         receiverPhone: user?.phone,
       });
     }

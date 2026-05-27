@@ -15,7 +15,7 @@ export const productImgaesApi = {
   getById: async (id: number) => {
     const response = await axiosInstance.get<
       ProductImageResponse<ProductImagesProp>
-    >(`${API_URL.PRODUCT_IMAGES}/${id}/detail`);
+    >(`${API_URL.PRODUCT_IMAGES}/${id}`);
     return response.data;
   },
   create: async (paylaod: ProductImagesProp) => {
@@ -25,7 +25,7 @@ export const productImgaesApi = {
     return response.data;
   },
   update: async (id: number, payload: ProductImagesProp) => {
-    const response = await axiosInstance.patch<
+    const response = await axiosInstance.put<
       ProductImageResponse<ProductImagesProp>
     >(`${API_URL.PRODUCT_IMAGES}/${id}`, payload);
     return response.data;

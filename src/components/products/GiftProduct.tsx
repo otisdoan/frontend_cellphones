@@ -113,7 +113,7 @@ const GiftProduct = ({ product_id }: { product_id: number }) => {
         addCartItem({
           user_id: user?.id,
           quantity: 1,
-          variant_id: Number(search.get("id_variant")),
+          variant_id: search.get("id_variant") ? Number(search.get("id_variant")) : undefined,
           product_id: Number(product_id),
         })
       );

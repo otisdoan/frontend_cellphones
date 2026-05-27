@@ -12,6 +12,7 @@ export interface ProductVatiantProp {
   order_id: string;
   variant_id: string;
   product_name: string;
+  product_slug?: string;
   quantity: number;
   total: string;
   checked?: boolean;
@@ -26,3 +27,8 @@ export interface ProductVariantResponse<T> {
 }
 
 export type ProductVariantCapacity = Pick<ProductVatiantProp, "capacity">;
+
+export interface ProductVariantCapacityResponse {
+  capacity: string[];
+}
+

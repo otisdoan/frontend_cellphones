@@ -58,7 +58,7 @@ const CarouselProduct = ({
   };
 
   const handleGoToBottom = (index: number) => {
-    if (mainImage.length > 0) {
+    if (location.search && mainImage.length > 0) {
       carouselRef.current?.goTo(index + 1);
     } else {
       carouselRef.current?.goTo(index);
@@ -134,13 +134,15 @@ const CarouselProduct = ({
           {array_image?.map((item, index) => (
             <div
               key={index}
-              className="w-full cursor-pointer h-[4rem] px-1 border-none"
-              onClick={() => handleGoToBottom(index - 1)}
+              className="w-full cursor-pointer h-[4rem] px-1 border-none outline-none focus:outline-none"
+              onClick={() => handleGoToBottom(index)}
             >
               <img
                 src={item}
-                className={`object-cover w-full h-full border-[1px] rounded-lg ${
-                  currentIndex === index && `border-[#d70019]`
+                className={`object-cover w-full h-full rounded-lg outline-none focus:outline-none transition-all duration-200 ${
+                  currentIndex === index
+                    ? "border-[2px] border-[#d70019]"
+                    : "border-[1px] border-gray-200"
                 }`}
               />
             </div>

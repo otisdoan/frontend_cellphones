@@ -1,8 +1,9 @@
 import { API_URL } from "../../constants/API_URL";
 import type {
-  ProductVariantCapacity,
   ProductVariantResponse,
   ProductVatiantProp,
+  ProductVariantCapacity,
+  ProductVariantCapacityResponse,
 } from "../../types/api/ProductVariantReponse";
 import axiosInstance from "../axios";
 
@@ -17,7 +18,7 @@ export const productVariantApi = {
   getById: async (id: number) => {
     const response = await axiosInstance.get<
       ProductVariantResponse<ProductVatiantProp>
-    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}/detail`);
+    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);
     return response.data;
   },
 
@@ -29,7 +30,7 @@ export const productVariantApi = {
   },
 
   update: async (id: number, payload: ProductVatiantProp) => {
-    const response = await axiosInstance.patch<
+    const response = await axiosInstance.put<
       ProductVariantResponse<ProductVatiantProp>
     >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`, payload);
     return response.data;
@@ -42,45 +43,67 @@ export const productVariantApi = {
     return response.data;
   },
 
-  getByIdOriginal: async (id: number | undefined) => {
-    const response = await axiosInstance.get<
-      ProductVariantResponse<ProductVatiantProp>
-    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);
-    return response.data;
-  },
+  getCapacity: async (
+    groupName: string
+  ): Promise<ProductVariantResponse<ProductVariantCapacity>> => {
+    const response = await axiosInstance.get<{
+      code?: number;
+      status?: string;
+      message: string;
+      data: ProductVariantCapacityResponse;
+    }>(`${API_URL.PRODUCT_CAPACITY}/${groupName}`);
 
-  getCapacity: async (group_name: string) => {
-    const response = await axiosInstance.get<
-      ProductVariantResponse<ProductVariantCapacity>
-    >(`${API_URL.PRODUCT_CAPACITY}/${group_name}`);
-    return response.data;
+    const mappedData = response.data.data.capacity.map((cap) => ({
+      capacity: cap,
+    }));
+
+    return {
+      status: response.data.status || (response.data.code === 1000 ? "success" : "error"),
+      message: response.data.message,
+      data: mappedData,
+    };
   },
 
   getVariantByCapacity: async (
-    capacity: string | undefined,
-    group_name: string
-  ) => {
-    const response = await axiosInstance.get<
-      ProductVariantResponse<ProductVatiantProp>
-    >(`${API_URL.PRODUCT_VARIANT_BY_CAPACITY}`, {
-      params: { capacity, group_name },
+    capacity: string,
+    groupName: string
+  ): Promise<ProductVariantResponse<ProductVatiantProp>> => {
+    const response = await axiosInstance.get<{
+      code?: number;
+      status?: string;
+      message: string;
+      data: ProductVatiantProp[];
+    }>(API_URL.PRODUCT_VARIANT_BY_CAPACITY, {
+      params: {
+        capacity,
+        group_name: groupName,
+      },
     });
-    return response.data;
+
+    return {
+      status: response.data.status || (response.data.code === 1000 ? "success" : "error"),
+      message: response.data.message,
+      data: response.data.data,
+    };
   },
 
   getVariantById: async (id: number) => {
-    const response = await axiosInstance.get<
-      ProductVariantResponse<ProductVatiantProp>
-    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/${id}`);
-    return response.data;
+    return productVariantApi.getById(id);
   },
 
-  getVariantByIds: async (ids: number[]) => {
-    const response = await axiosInstance.get<
-      ProductVariantResponse<ProductVatiantProp>
-    >(`${API_URL.PRODUCT_VARIANT_BY_ID}/many-id`, {
-      params: { ids: ids.join(",") },
-    });
-    return response.data;
+  getVariantByIds: async (
+    ids: number[]
+  ): Promise<ProductVariantResponse<ProductVatiantProp>> => {
+    const results = await Promise.all(
+      ids.map((id) => productVariantApi.getById(id))
+    );
+
+    const variants = results.map((r) => r.data as ProductVatiantProp);
+
+    return {
+      status: "success",
+      message: "Get variants by ids successfully",
+      data: variants,
+    };
   },
 };

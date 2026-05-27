@@ -18,6 +18,12 @@ export const cartItemApi = {
     );
     return response.data;
   },
+  getByUserId: async (userId: number) => {
+    const response = await axiosInstance.get<CartItemResponse<CartItemProps>>(
+      `${API_URL.CART_ITEM}/user/${userId}`
+    );
+    return response.data;
+  },
   create: async ({
     product_id,
     variant_id,
@@ -30,14 +36,14 @@ export const cartItemApi = {
     );
     return response.data;
   },
-  update: async (id: string, payload: Partial<CartItemProps>) => {
-    const response = await axiosInstance.patch<CartItemResponse<CartItemProps>>(
+  update: async (id: number | string, payload: Partial<CartItemProps>) => {
+    const response = await axiosInstance.put<CartItemResponse<CartItemProps>>(
       `${API_URL.CART_ITEM}/${id}`,
       payload
     );
     return response.data;
   },
-  delete: async (id: string) => {
+  delete: async (id: number | string) => {
     const response = await axiosInstance.delete<
       CartItemResponse<CartItemProps>
     >(`${API_URL.CART_ITEM}/${id}`);

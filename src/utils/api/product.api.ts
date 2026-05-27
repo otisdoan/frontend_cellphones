@@ -2,7 +2,6 @@ import { API_URL } from "../../constants/API_URL";
 import type {
   ProductProps,
   ProductResponse,
-  ProductSelect,
 } from "../../types/api/ProductResponse";
 import axiosInstance from "../axios";
 
@@ -15,13 +14,14 @@ export const productApi = {
   },
   getById: async (id: number) => {
     const response = await axiosInstance.get<ProductResponse<ProductProps>>(
-      `${API_URL.PRODUCT}/${id}/detail`
+      `${API_URL.PRODUCT}/${id}`
     );
     return response.data;
   },
   getProductBySlug: async (slug: string) => {
+    const cleanSlug = slug.startsWith("/") ? slug.slice(1) : slug;
     const response = await axiosInstance.get<ProductResponse<ProductProps>>(
-      `${API_URL.OTHER_PRODUCT.GET_BY_SLUG}${slug}`
+      `${API_URL.PRODUCT}/slug/${cleanSlug}`
     );
     return response.data;
   },
@@ -33,7 +33,7 @@ export const productApi = {
     return response.data;
   },
   update: async (id: number, payload: ProductProps) => {
-    const response = await axiosInstance.patch<ProductResponse<ProductProps>>(
+    const response = await axiosInstance.put<ProductResponse<ProductProps>>(
       `${API_URL.PRODUCT}/${id}`,
       payload
     );
@@ -42,18 +42,6 @@ export const productApi = {
   delete: async (id: number) => {
     const response = await axiosInstance.delete<ProductResponse<ProductProps>>(
       `${API_URL.PRODUCT}/${id}`
-    );
-    return response.data;
-  },
-  getAllName: async () => {
-    const repsonse = await axiosInstance.get<ProductResponse<ProductSelect>>(
-      API_URL.OTHER_PRODUCT.GET_ALL_NAME
-    );
-    return repsonse.data;
-  },
-  getByCategory: async (categoryId: number) => {
-    const response = await axiosInstance.get<ProductResponse<ProductProps>>(
-      `${API_URL.PRODUCT}/category/${categoryId}`
     );
     return response.data;
   },

@@ -2,7 +2,6 @@ import { API_URL } from "../../constants/API_URL";
 import type {
   BrandProps,
   BrandResponse,
-  BrandSelect,
 } from "../../types/api/BrandResponse";
 import axiosInstance from "../axios";
 
@@ -20,20 +19,14 @@ export const brandApi = {
     );
     return response.data;
   },
-  getAllNameBrand: async () => {
-    const response = await axiosInstance.get<BrandResponse<BrandSelect>>(
-      API_URL.OTHER_BRAND.GET_ALL_NAME
-    );
-    return response.data;
-  },
   getById: async (id: number) => {
     const response = await axiosInstance.get<BrandResponse<BrandProps>>(
-      `${API_URL.BRAND}/${id}/detail`
+      `${API_URL.BRAND}/${id}`
     );
     return response.data;
   },
   update: async (id: number, payload: Partial<BrandProps>) => {
-    const response = await axiosInstance.patch<BrandResponse<BrandProps>>(
+    const response = await axiosInstance.put<BrandResponse<BrandProps>>(
       `${API_URL.BRAND}/${id}`,
       payload
     );

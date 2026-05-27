@@ -1,10 +1,7 @@
 import { API_URL } from "../../constants/API_URL";
 import type {
-  CategoryMobile,
   CategoryProps,
   CategoryResponse,
-  CategoryTabletMobile,
-  CategoryTree,
 } from "../../types/api/CategoryResponse";
 import axiosInstance from "../axios";
 
@@ -17,7 +14,7 @@ export const categoryApi = {
   },
   getById: async (id: number) => {
     const response = await axiosInstance.get<CategoryResponse<CategoryProps>>(
-      `${API_URL.CATEGORY}/${id}/detail`
+      `${API_URL.CATEGORY}/${id}`
     );
     return response.data;
   },
@@ -28,34 +25,17 @@ export const categoryApi = {
     );
     return response.data;
   },
-  getAllNameCategories: async () => {
-    const response = await axiosInstance.get<CategoryResponse<CategoryTree>>(
-      API_URL.OTHER_CATEGORY.GET_ALL_NAME
+  update: async (id: number, payload: CategoryProps) => {
+    const response = await axiosInstance.put<CategoryResponse<CategoryProps>>(
+      `${API_URL.CATEGORY}/${id}`,
+      payload
     );
     return response.data;
   },
-  getCategoryMobile: async () => {
-    const response = await axiosInstance.get<CategoryResponse<CategoryMobile>>(
-      API_URL.OTHER_CATEGORY.CATEGORY_MOBILE
+  delete: async (id: number) => {
+    const response = await axiosInstance.delete<CategoryResponse<CategoryProps>>(
+      `${API_URL.CATEGORY}/${id}`
     );
-    return response.data;
-  },
-  getCategoryTabletMobile: async () => {
-    const response = await axiosInstance.get<
-      CategoryResponse<CategoryTabletMobile>
-    >(API_URL.OTHER_CATEGORY.CATEGORY_TABLET_MOBILE);
-    return response.data;
-  },
-  updateCategory: async (id: number, payload: CategoryProps) => {
-    const response = await axiosInstance.patch<
-      CategoryResponse<CategoryTabletMobile>
-    >(`${API_URL.CATEGORY}/${id}`, payload);
-    return response.data;
-  },
-  deleteCategory: async (id: number) => {
-    const response = await axiosInstance.delete<
-      CategoryResponse<CategoryProps>
-    >(`${API_URL.CATEGORY}/${id}`);
     return response.data;
   },
 };

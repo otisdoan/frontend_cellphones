@@ -3,6 +3,8 @@ import type { CartState } from "./cartType";
 import type { CartItemProps } from "../../../types/api/CartItemResponse";
 import { cartItemApi } from "../../../utils/api/cart_item.api";
 import { productVariantApi } from "../../../utils/api/product_variant.api";
+import { productApi } from "../../../utils/api/product.api";
+import type { ProductProps } from "../../../types/api/ProductResponse";
 import type { ProductVatiantProp } from "../../../types/api/ProductVariantReponse";
 
 const initialState: CartState = {
@@ -18,23 +20,64 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async () => {
 export const fetchCartById = createAsyncThunk(
   "cart/fetchCartById",
   async (id: number) => {
-    const ids: number[] = [];
     let totalCart: number = 0;
     let cartItem: ProductVatiantProp[] = [];
-    const result = await cartItemApi.getById(id);
+    const result = await cartItemApi.getByUserId(id);
 
     if (Array.isArray(result.data)) {
-      result.data.forEach((item) => {
-        ids.push(Number(item.variant_id));
+      const cartItemsData = result.data as CartItemProps[];
+
+      const promises = cartItemsData.map(async (cItem) => {
+        try {
+          if (cItem.variant_id && Number(cItem.variant_id) > 0) {
+            const varResult = await productVariantApi.getById(Number(cItem.variant_id));
+            if (varResult && varResult.data && !Array.isArray(varResult.data)) {
+              const v = varResult.data as ProductVatiantProp;
+              return {
+                ...v,
+                id: Number(cItem.id),
+                quantity: cItem.quantity,
+                checked: false,
+              };
+            }
+          } else {
+            const prodResult = await productApi.getById(Number(cItem.product_id));
+            if (prodResult && prodResult.data && !Array.isArray(prodResult.data)) {
+              const p = prodResult.data as ProductProps;
+              return {
+                id: Number(cItem.id),
+                product_id: p.id.toString(),
+                variant_name: p.name,
+                sku: p.sku,
+                price: Number(p.price),
+                sale_price: Number(p.sale_price),
+                stock_quantity: 999,
+                image_url: (p.product_image && p.product_image.length > 0) ? p.product_image[0] : "/images/product-placeholder.webp",
+                is_active: p.status === "active",
+                capacity: "",
+                order_id: "",
+                variant_id: "",
+                product_name: p.name,
+                product_slug: p.slug,
+                quantity: cItem.quantity,
+                total: (Number(p.price) * cItem.quantity).toString(),
+                checked: false,
+                createdAt: p.createdAt,
+                updatedAt: p.updatedAt,
+              } as ProductVatiantProp;
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch details for cart item:", cItem, error);
+        }
+        return null;
       });
+
+      const resolvedItems = await Promise.all(promises);
+      cartItem = resolvedItems.filter((item): item is ProductVatiantProp => item !== null);
+      totalCart = cartItem.length;
     }
-    if (ids.length > 0) {
-      const variant = await productVariantApi.getVariantByIds(ids);
-      if (Array.isArray(variant.data)) {
-        cartItem = variant.data.map((item) => ({ ...item, checked: false }));
-        totalCart = cartItem.length;
-      }
-    }
+
     return {
       totalCart,
       cartItem,
@@ -67,7 +110,8 @@ export const updateCartItemQuantity = createAsyncThunk(
 export const deleteCartItem = createAsyncThunk(
   "cart/deleteCartItem",
   async (id: string) => {
-    return await cartItemApi.delete(id);
+    await cartItemApi.delete(id);
+    return id;
   }
 );
 
@@ -115,12 +159,10 @@ export const cartSlice = createSlice({
       });
     });
     builder.addCase(deleteCartItem.fulfilled, (state, action) => {
-      if (!Array.isArray(action.payload.data)) {
-        const deletedCart = action.payload.data as CartItemProps;
-        state.cartItem = state.cartItem.filter(
-          (item) => Number(item.id) !== Number(deletedCart.id)
-        );
-      }
+      const deletedId = action.payload;
+      state.cartItem = state.cartItem.filter(
+        (item) => Number(item.id) !== Number(deletedId)
+      );
       state.totalCart -= 1;
     });
   },

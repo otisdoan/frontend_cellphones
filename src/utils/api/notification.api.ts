@@ -23,18 +23,10 @@ export interface NotificationResponse<T> {
 }
 
 export const notificationApi = {
-  getAll: async (userId: number, type?: string) => {
-    const params = type ? { type } : {};
+  getAll: async () => {
     const response = await axiosInstance.get<
       NotificationResponse<NotificationProps[]>
-    >(`${API_URL.NOTIFICATION}/user/${userId}`, { params });
-    return response.data;
-  },
-
-  getUnreadCount: async (userId: number) => {
-    const response = await axiosInstance.get<
-      NotificationResponse<{ count: number }>
-    >(`${API_URL.NOTIFICATION}/user/${userId}/unread-count`);
+    >(API_URL.NOTIFICATION);
     return response.data;
   },
 
@@ -45,17 +37,17 @@ export const notificationApi = {
     return response.data;
   },
 
-  markAsRead: async (id: number) => {
-    const response = await axiosInstance.patch<
+  create: async (payload: NotificationProps) => {
+    const response = await axiosInstance.post<
       NotificationResponse<NotificationProps>
-    >(`${API_URL.NOTIFICATION}/${id}/read`);
+    >(API_URL.NOTIFICATION, payload);
     return response.data;
   },
 
-  markAllAsRead: async (userId: number) => {
-    const response = await axiosInstance.patch<NotificationResponse<void>>(
-      `${API_URL.NOTIFICATION}/user/${userId}/read-all`
-    );
+  update: async (id: number, payload: Partial<NotificationProps>) => {
+    const response = await axiosInstance.put<
+      NotificationResponse<NotificationProps>
+    >(`${API_URL.NOTIFICATION}/${id}`, payload);
     return response.data;
   },
 

@@ -30,14 +30,14 @@ export const userApi = {
     );
     return response.data;
   },
-  updateUser: async (id: number, payload: Partial<UserProps>) => {
-    const response = await axiosInstance.patch<UserResponse<UserProps>>(
+  update: async (id: number, payload: Partial<UserProps>) => {
+    const response = await axiosInstance.put<UserResponse<UserProps>>(
       `${API_URL.USER}/${id}`,
       payload
     );
     return response.data;
   },
-  deleteUser: async (id: number) => {
+  delete: async (id: number) => {
     const response = await axiosInstance.delete<UserResponse<UserProps>>(
       `${API_URL.USER}/${id}`
     );

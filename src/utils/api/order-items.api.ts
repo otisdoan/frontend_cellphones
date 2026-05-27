@@ -12,7 +12,7 @@ export const orderItemsApi = {
     );
     return response.data;
   },
-  getById: async (id: string) => {
+  getById: async (id: number | string) => {
     const response = await axiosInstance.get<OrderItemResponse<OrderItemProps>>(
       `${API_URL.ORDER_ITEMS}/${id}`
     );
@@ -24,13 +24,13 @@ export const orderItemsApi = {
     >(API_URL.ORDER_ITEMS, payload);
     return response.data;
   },
-  update: async (id: string, payload: Partial<OrderItemProps>) => {
-    const response = await axiosInstance.patch<
+  update: async (id: number | string, payload: Partial<OrderItemProps>) => {
+    const response = await axiosInstance.put<
       OrderItemResponse<OrderItemProps>
     >(`${API_URL.ORDER_ITEMS}/${id}`, payload);
     return response.data;
   },
-  delete: async (id: string) => {
+  delete: async (id: number | string) => {
     const response = await axiosInstance.delete<
       OrderItemResponse<OrderItemProps>
     >(`${API_URL.ORDER_ITEMS}/${id}`);

@@ -143,10 +143,24 @@ const CartPage = () => {
                           ></Radio>
                           <img
                             src={item.image_url}
-                            className="w-[6rem] h-[6rem] md:mr-[2rem] mr-1"
+                            className="w-[6rem] h-[6rem] md:mr-[2rem] mr-1 cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => {
+                              if (item.product_slug) {
+                                navigate(`/${item.product_slug}?id_variant=${item.id}`);
+                              }
+                            }}
                           />
                           <div className="flex flex-col gap-y-2">
-                            <span className="">{item.variant_name}</span>
+                            <span
+                              className="cursor-pointer hover:text-[#d70019] transition-colors font-medium"
+                              onClick={() => {
+                                if (item.product_slug) {
+                                  navigate(`/${item.product_slug}?id_variant=${item.id}`);
+                                }
+                              }}
+                            >
+                              {item.variant_name}
+                            </span>
                             <p className="flex md:flex-row flex-col gap-x-2 md:items-center">
                               <span className="text-[#d70019]">
                                 {Number(item.price).toLocaleString("vi-VN")}đ

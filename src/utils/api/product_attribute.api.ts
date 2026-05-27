@@ -15,7 +15,7 @@ export const productAttributeApi = {
   getById: async (id: number) => {
     const response = await axiosInstance.get<
       ProductAttributeResponse<ProductAttributeProps>
-    >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}/detail`);
+    >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`);
     return response.data;
   },
   create: async (payload: ProductAttributeProps) => {
@@ -24,23 +24,17 @@ export const productAttributeApi = {
     >(API_URL.PRODUCT_ATTRIBUTE, payload);
     return response.data;
   },
-  updateProductAttribute: async (
+  update: async (
     id: number,
     payload: ProductAttributeProps
   ) => {
-    const response = await axiosInstance.patch<
+    const response = await axiosInstance.put<
       ProductAttributeResponse<ProductAttributeProps>
     >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`, payload);
     return response.data;
   },
-  deleteProductAttribute: async (id: number) => {
+  delete: async (id: number) => {
     const response = await axiosInstance.delete<
-      ProductAttributeResponse<ProductAttributeProps>
-    >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`);
-    return response.data;
-  },
-  getByProductId: async (id: number | string | undefined) => {
-    const response = await axiosInstance.get<
       ProductAttributeResponse<ProductAttributeProps>
     >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`);
     return response.data;

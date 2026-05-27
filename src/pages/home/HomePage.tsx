@@ -3,6 +3,7 @@ import SmartphoneList from "../../components/home/SmartphoneList";
 import LaptopList from "../../components/home/LaptopList";
 import ScreenList from "../../components/home/ScreenList";
 import TabletList from "../../components/home/TabletList";
+import ChatWidget from "../../components/chat/ChatWidget";
 import SoundList from "../../components/home/SoundList";
 import ClockSmartList from "../../components/home/ClockSmartList";
 import HouseHoldList from "../../components/home/HouseHoldList";
@@ -189,6 +190,7 @@ const HomePage = () => {
           open={openLogin}
           onCancel={() => setOpenLogin(false)}
         />
+        <ChatWidget />
       </div>
     </>
   );

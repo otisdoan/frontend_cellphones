@@ -15,6 +15,8 @@ import {
 import { Form, message } from "antd";
 import { paymentApi } from "../../utils/api/payment.api";
 import { orderApi } from "../../utils/api/order.api";
+import { cartItemApi } from "../../utils/api/cart_item.api";
+import { clearCart } from "../../redux/features/cart/cartSlice";
 import type { OrderProps } from "../../types/api/OrderResponse";
 
 interface CreateOrderPayload {
@@ -183,9 +185,19 @@ const PaymentInfor = () => {
         cancelUrl: `${window.location.origin}/order/failed/${orderId}?paymentCode=${paymentOrderCode}`,
       });
 
-      if (result?.checkoutUrl) {
-        // 3. REDIRECT to PayOS
-        window.location.href = result.checkoutUrl;
+      if (result?.data?.checkoutUrl) {
+        // 3. CLEAR CART (both DB and local Redux state)
+        try {
+          await Promise.all(
+            orderItems.map((item) => cartItemApi.delete(String(item.id)))
+          );
+          dispatch(clearCart());
+        } catch (err) {
+          console.error("Failed to clear cart:", err);
+        }
+
+        // 4. REDIRECT to PayOS
+        window.location.href = result.data.checkoutUrl;
       } else {
         message.error("Không thể tạo link thanh toán");
       }

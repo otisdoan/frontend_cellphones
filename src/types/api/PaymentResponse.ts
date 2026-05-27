@@ -12,3 +12,9 @@ export interface PaymentResponse {
   checkoutUrl?: string;
   qrCode?: string;
 }
+
+export interface ApiResponse<T> {
+  code: number;
+  message: string;
+  data: T;
+}

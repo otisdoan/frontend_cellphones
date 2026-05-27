@@ -133,6 +133,10 @@ export const cartSlice = createSlice({
         );
       }
     },
+    clearCart: (state) => {
+      state.cartItem = [];
+      state.totalCart = 0;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (state, action) => {
@@ -167,5 +171,5 @@ export const cartSlice = createSlice({
     });
   },
 });
-export const { updateCheckedCartItem } = cartSlice.actions;
+export const { updateCheckedCartItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

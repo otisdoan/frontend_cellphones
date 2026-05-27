@@ -89,11 +89,19 @@ const InforReceive = ({ form }: InforReceiveProps) => {
     }
   }, [user, form]);
 
+  const handleTabChange = (value: string) => {
+    setTab(value);
+    form.setFieldValue("shippingMethod", value);
+  };
+
   return (
     <>
       <div className="mt-5">
         <h2 className="text-[1.1rem] mb-3">THÔNG TIN NHẬN HÀNG</h2>
         <Form form={form} layout="vertical">
+          <Form.Item name="shippingMethod" initialValue="store" style={{ display: "none" }}>
+            <Input />
+          </Form.Item>
           <div className="border rounded-lg overflow-hidden">
             <div className="flex items-center">
               <div
@@ -103,7 +111,7 @@ const InforReceive = ({ form }: InforReceiveProps) => {
               >
                 <Radio
                   checked={tab === "store"}
-                  onClick={() => setTab("store")}
+                  onClick={() => handleTabChange("store")}
                 >
                   <span className="text-[0.77rem] lg:text-[0.9rem] font-medium whitespace-nowrap">
                     Nhận hàng tại cửa hàng
@@ -117,7 +125,7 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                     : "rounded-bl-lg bg-[#f1f1f1]"
                 }`}
               >
-                <Radio checked={tab === "home"} onClick={() => setTab("home")}>
+                <Radio checked={tab === "home"} onClick={() => handleTabChange("home")}>
                   <span className="lg:text-[0.9rem] text-[0.77rem] font-medium">
                     Giao hàng tận nơi
                   </span>
@@ -130,7 +138,11 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                   TỈNH / THÀNH PHỐ
                 </span>
                 <div className="flex items-center gap-x-2 mt-2">
-                  <Form.Item name="storeProvince" className="w-1/2 mb-0">
+                  <Form.Item
+                    name="storeProvince"
+                    className="w-1/2 mb-0"
+                    rules={[{ required: true, message: "Vui lòng chọn tỉnh / thành phố" }]}
+                  >
                     <Select
                       variant="underlined"
                       className="w-full"
@@ -140,7 +152,11 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                       onChange={handleChangeProvince}
                     />
                   </Form.Item>
-                  <Form.Item name="storeDistrict" className="w-1/2 mb-0">
+                  <Form.Item
+                    name="storeDistrict"
+                    className="w-1/2 mb-0"
+                    rules={[{ required: true, message: "Vui lòng chọn quận / huyện" }]}
+                  >
                     <Select
                       variant="underlined"
                       className="w-full"
@@ -154,7 +170,11 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                   <span className="text-[0.7rem] font-medium opacity-50">
                     CỬA HÀNG
                   </span>
-                  <Form.Item name="storeAddress" className="mt-2 mb-0">
+                  <Form.Item
+                    name="storeAddress"
+                    className="mt-2 mb-0"
+                    rules={[{ required: true, message: "Vui lòng chọn cửa hàng nhận hàng" }]}
+                  >
                     <Select
                       variant="underlined"
                       className="w-full"
@@ -177,11 +197,22 @@ const InforReceive = ({ form }: InforReceiveProps) => {
               </div>
             ) : (
               <div className="bg-white p-4">
-                <div className="flex items-center gap-x-4 mt-5">
-                  <Form.Item name="receiverName" className="flex-1 mb-0">
+                 <div className="flex items-center gap-x-4 mt-5">
+                  <Form.Item
+                    name="receiverName"
+                    className="flex-1 mb-0"
+                    rules={[{ required: true, message: "Vui lòng nhập tên người nhận" }]}
+                  >
                     <Input placeholder="Tên người nhận" variant="underlined" />
                   </Form.Item>
-                  <Form.Item name="receiverPhone" className="flex-1 mb-0">
+                  <Form.Item
+                    name="receiverPhone"
+                    className="flex-1 mb-0"
+                    rules={[
+                      { required: true, message: "Vui lòng nhập số điện thoại người nhận" },
+                      { pattern: /^[0-9]{10}$/, message: "Số điện thoại không hợp lệ (10 số)" }
+                    ]}
+                  >
                     <Input
                       placeholder="Số điện thoại người nhận"
                       variant="underlined"
@@ -192,6 +223,7 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                   <Form.Item
                     name="homeProvince"
                     className="lg:w-[calc(33.333%-0.5rem)] w-full mb-5 lg:mb-0"
+                    rules={[{ required: true, message: "Vui lòng chọn tỉnh / thành phố" }]}
                   >
                     <Select
                       placeholder="Chọn tỉnh / thành phố"
@@ -205,6 +237,7 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                   <Form.Item
                     name="homeDistrict"
                     className="lg:w-[calc(33.333%-0.5rem)] w-[calc(50%-0.5rem)] mb-0"
+                    rules={[{ required: true, message: "Vui lòng chọn quận / huyện" }]}
                   >
                     <Select
                       placeholder="Chọn quận / huyện"
@@ -218,6 +251,7 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                   <Form.Item
                     name="homeWard"
                     className="lg:w-[calc(33.333%-0.5rem)] w-[calc(50%-0.5rem)] mb-0"
+                    rules={[{ required: true, message: "Vui lòng chọn phường / xã" }]}
                   >
                     <Select
                       placeholder="Chọn phường / xã"
@@ -227,7 +261,11 @@ const InforReceive = ({ form }: InforReceiveProps) => {
                       showSearch
                     />
                   </Form.Item>
-                  <Form.Item name="homeAddress" className="w-full mt-10 mb-0">
+                  <Form.Item
+                    name="homeAddress"
+                    className="w-full mt-10 mb-0"
+                    rules={[{ required: true, message: "Vui lòng nhập số nhà, tên đường" }]}
+                  >
                     <Input
                       placeholder="Số nhà, tên đường (Vui lòng chọn quận / huyện trước)"
                       variant="underlined"

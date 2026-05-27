@@ -68,10 +68,20 @@ const PaymentInfor = () => {
     }
   }, [user?.id, totalCart]);
 
-  const handleContinue = () => {
-    const values = receiveForm.getFieldsValue();
-    dispatch(setOrderAddress(values));
-    setTab("payment");
+  const handleContinue = async () => {
+    try {
+      const shippingMethod = receiveForm.getFieldValue("shippingMethod") || "store";
+      const fieldsToValidate = shippingMethod === "store"
+        ? ["storeProvince", "storeDistrict", "storeAddress"]
+        : ["receiverName", "receiverPhone", "homeProvince", "homeDistrict", "homeWard", "homeAddress"];
+
+      const values = await receiveForm.validateFields(fieldsToValidate);
+      dispatch(setOrderAddress({ ...values, shippingMethod }));
+      setTab("payment");
+    } catch (error) {
+      console.error("Validation failed:", error);
+      message.error("Vui lòng điền đầy đủ và chính xác thông tin nhận hàng");
+    }
   };
 
   const handlePayment = async () => {
@@ -220,7 +230,7 @@ const PaymentInfor = () => {
                     ? "border-b-[#d70019] text-[#d70019]"
                     : "border-b-[#929eab] text-[#929eab]"
                 }`}
-                onClick={() => setTab("payment")}
+                onClick={handleContinue}
               >
                 <span className="font-bold">2. THANH TOÁN</span>
               </div>

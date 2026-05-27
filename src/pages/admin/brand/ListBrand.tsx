@@ -69,7 +69,7 @@ const ListBrand = () => {
     },
     {
       title: "Logo",
-      dataIndex: "logo_url",
+      dataIndex: "logoUrl",
       render: (url: string) =>
         url ? (
           <img
@@ -95,10 +95,10 @@ const ListBrand = () => {
     },
     {
       title: "Active",
-      dataIndex: "is_active",
-      render: (is_active: boolean) => (
-        <Tag color={is_active ? "green" : "red"}>
-          {is_active ? "Active" : "Inactive"}
+      dataIndex: "isActive",
+      render: (isActive: boolean) => (
+        <Tag color={isActive ? "green" : "red"}>
+          {isActive ? "Active" : "Inactive"}
         </Tag>
       ),
     },

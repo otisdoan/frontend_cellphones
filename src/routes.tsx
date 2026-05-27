@@ -46,6 +46,19 @@ import SearchResults from "./pages/SearchResults";
 import OrderSuccess from "./pages/OrderSuccess";
 import OrderFailed from "./pages/OrderFailed";
 
+// New admin pages
+import ListCoupon from "./pages/admin/coupons/ListCoupon";
+import CreateCoupon from "./pages/admin/coupons/CreateCoupon";
+import EditCoupon from "./pages/admin/coupons/EditCoupon";
+import ListWarehouse from "./pages/admin/warehouses/ListWarehouse";
+import CreateWarehouse from "./pages/admin/warehouses/CreateWarehouse";
+import EditWarehouse from "./pages/admin/warehouses/EditWarehouse";
+import ListInventory from "./pages/admin/inventories/ListInventory";
+import CreateInventory from "./pages/admin/inventories/CreateInventory";
+import EditInventory from "./pages/admin/inventories/EditInventory";
+import ListProductReview from "./pages/admin/product-reviews/ListProductReview";
+import ListUserAddress from "./pages/admin/user-addresses/ListUserAddress";
+
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -147,6 +160,7 @@ export const routes = createBrowserRouter([
         path: "/admin",
         element: <Dashboard />,
       },
+      // Category
       {
         path: "/admin/category",
         element: <ListCategory />,
@@ -159,6 +173,7 @@ export const routes = createBrowserRouter([
         path: "/admin/category/:id/edit",
         element: <EditCategory />,
       },
+      // Brand
       {
         path: "/admin/brand",
         element: <ListBrand />,
@@ -171,6 +186,7 @@ export const routes = createBrowserRouter([
         path: "/admin/brand/:id/edit",
         element: <EditBrand />,
       },
+      // Products
       {
         path: "/admin/products",
         element: <ListProduct />,
@@ -183,6 +199,7 @@ export const routes = createBrowserRouter([
         path: "/admin/products/:id/edit",
         element: <EditProduct />,
       },
+      // Product Images
       {
         path: "/admin/product-images",
         element: <ListProductImage />,
@@ -195,6 +212,7 @@ export const routes = createBrowserRouter([
         path: "/admin/product-images/:id/edit",
         element: <EditProductImage />,
       },
+      // Product Variant
       {
         path: "/admin/product-variant",
         element: <ListProductVariant />,
@@ -207,6 +225,7 @@ export const routes = createBrowserRouter([
         path: "/admin/product-variant/:id/edit",
         element: <EditProductVariant />,
       },
+      // Product Attribute
       {
         path: "/admin/product-attribute",
         element: <ListProductAttribute />,
@@ -219,6 +238,7 @@ export const routes = createBrowserRouter([
         path: "/admin/product-attribute/:id/edit",
         element: <EditProductAttribute />,
       },
+      // Users
       {
         path: "/admin/users",
         element: <ListUser />,
@@ -231,9 +251,59 @@ export const routes = createBrowserRouter([
         path: "/admin/users/:id/edit",
         element: <EditUser />,
       },
+      // Orders
       {
         path: "/admin/orders",
         element: <ListOrder />,
+      },
+      // Coupons
+      {
+        path: "/admin/coupons",
+        element: <ListCoupon />,
+      },
+      {
+        path: "/admin/coupons/create",
+        element: <CreateCoupon />,
+      },
+      {
+        path: "/admin/coupons/:id/edit",
+        element: <EditCoupon />,
+      },
+      // Warehouses
+      {
+        path: "/admin/warehouses",
+        element: <ListWarehouse />,
+      },
+      {
+        path: "/admin/warehouses/create",
+        element: <CreateWarehouse />,
+      },
+      {
+        path: "/admin/warehouses/:id/edit",
+        element: <EditWarehouse />,
+      },
+      // Inventories
+      {
+        path: "/admin/inventories",
+        element: <ListInventory />,
+      },
+      {
+        path: "/admin/inventories/create",
+        element: <CreateInventory />,
+      },
+      {
+        path: "/admin/inventories/:id/edit",
+        element: <EditInventory />,
+      },
+      // Product Reviews
+      {
+        path: "/admin/product-reviews",
+        element: <ListProductReview />,
+      },
+      // User Addresses
+      {
+        path: "/admin/user-addresses",
+        element: <ListUserAddress />,
       },
     ],
   },

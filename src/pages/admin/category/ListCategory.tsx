@@ -67,7 +67,7 @@ const ListCategory = () => {
     },
     {
       title: "Image",
-      dataIndex: "image_url",
+      dataIndex: "imageUrl",
       render: (url: string) =>
         url ? (
           <img
@@ -101,26 +101,26 @@ const ListCategory = () => {
         ),
     },
     {
-      title: "Parent Category",
-      dataIndex: "parent_name",
-      render: (parent_name) =>
-        parent_name ? (
-          <Tag color="blue">{parent_name}</Tag>
+      title: "Parent Category ID",
+      dataIndex: "parentId",
+      render: (parentId) =>
+        parentId ? (
+          <Tag color="blue">ID: {parentId}</Tag>
         ) : (
           <Tag color="default">None</Tag>
         ),
     },
     {
       title: "Sort Order",
-      dataIndex: "sort_order",
+      dataIndex: "sortOrder",
       render: (order) => <Tag color="purple">{order}</Tag>,
     },
     {
       title: "Active",
-      dataIndex: "is_active",
-      render: (is_active: boolean) => (
-        <Tag color={is_active ? "green" : "red"}>
-          {is_active ? "Active" : "Inactive"}
+      dataIndex: "isActive",
+      render: (isActive: boolean) => (
+        <Tag color={isActive ? "green" : "red"}>
+          {isActive ? "Active" : "Inactive"}
         </Tag>
       ),
     },

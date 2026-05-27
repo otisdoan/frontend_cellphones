@@ -1,8 +1,7 @@
 import { ConfigProvider, Table, type TableProps } from "antd";
+import type { AnyObject } from "antd/es/_util/type";
 
-type TableAdminProps = TableProps;
-
-const TableAdmin = ({ ...props }: TableAdminProps) => {
+const TableAdmin = <RecordType extends AnyObject = AnyObject>({ className, ...props }: TableProps<RecordType>) => {
   return (
     <>
       <ConfigProvider
@@ -18,7 +17,7 @@ const TableAdmin = ({ ...props }: TableAdminProps) => {
           },
         }}
       >
-        <Table {...props} />
+        <Table className={`admin-table ${className || ""}`} {...props} />
       </ConfigProvider>
     </>
   );

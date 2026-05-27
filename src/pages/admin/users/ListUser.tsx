@@ -63,7 +63,7 @@ const ListUser = () => {
     },
     {
       title: "Full Name",
-      dataIndex: "full_name",
+      dataIndex: "fullName",
       render: (name) => (
         <Tooltip title={name}>
           <span className="line-clamp-1 max-w-[150px]">{name}</span>
@@ -72,7 +72,7 @@ const ListUser = () => {
     },
     {
       title: "Avatar",
-      dataIndex: "avatar_url",
+      dataIndex: "avatarUrl",
       render: (url: string | null) =>
         url ? (
           <img
@@ -126,7 +126,7 @@ const ListUser = () => {
     },
     {
       title: "Email Verified",
-      dataIndex: "email_verified",
+      dataIndex: "emailVerified",
       render: (verified: boolean) => (
         <Tag color={verified ? "green" : "red"}>
           {verified ? "Verified" : "Not Verified"}
@@ -135,7 +135,7 @@ const ListUser = () => {
     },
     {
       title: "Phone Verified",
-      dataIndex: "phone_verified",
+      dataIndex: "phoneVerified",
       render: (verified: boolean) => (
         <Tag color={verified ? "green" : "red"}>
           {verified ? "Verified" : "Not Verified"}
@@ -192,6 +192,8 @@ const ListUser = () => {
       const result = await userApi.getAll();
       if (Array.isArray(result.data)) {
         setDataUsers(result.data);
+      } else if (result.data && typeof result.data === "object" && "content" in result.data) {
+        setDataUsers(result.data.content);
       }
     } catch (error) {
       console.log(error);

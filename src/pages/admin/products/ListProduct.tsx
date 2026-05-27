@@ -1,7 +1,7 @@
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
 import { Link, useNavigate } from "react-router-dom";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
-import { Input, Tag, type TableProps, Popconfirm } from "antd";
+import { Input, Tag, type TableProps, Popconfirm, Tooltip } from "antd";
 import { IoIosSearch } from "react-icons/io";
 import DisplaStatistic, {
   type ListInforProps,
@@ -67,6 +67,11 @@ const ListProduct = () => {
     {
       title: "Name",
       dataIndex: "name",
+      render: (name: string) => (
+        <Tooltip title={name}>
+          <span className="line-clamp-1 max-w-[200px]">{name}</span>
+        </Tooltip>
+      ),
     },
     {
       title: "Image",
@@ -78,7 +83,7 @@ const ListProduct = () => {
               (item: string, index: number) =>
                 item && (
                   <div key={index} className="flex w-[3rem] h-[3rem]">
-                    <img src={item} className="object-contain" />
+                     <img src={item} className="object-contain" />
                   </div>
                 )
             )}
@@ -95,6 +100,11 @@ const ListProduct = () => {
     {
       title: "Slug",
       dataIndex: "slug",
+      render: (slug: string) => (
+        <Tooltip title={slug}>
+          <span className="line-clamp-1 max-w-[150px]">{slug}</span>
+        </Tooltip>
+      ),
     },
     {
       title: "Price",
@@ -179,18 +189,50 @@ const ListProduct = () => {
     {
       title: "Short Description",
       dataIndex: "short_description",
+      render: (desc: string) =>
+        desc ? (
+          <Tooltip title={desc}>
+            <span className="line-clamp-1 max-w-[200px]">{desc}</span>
+          </Tooltip>
+        ) : (
+          <Tag color="default">None</Tag>
+        ),
     },
     {
       title: "Full Description",
       dataIndex: "full_description",
+      render: (desc: string) =>
+        desc ? (
+          <Tooltip title={desc}>
+            <span className="line-clamp-1 max-w-[200px]">{desc}</span>
+          </Tooltip>
+        ) : (
+          <Tag color="default">None</Tag>
+        ),
     },
     {
       title: "Meta Title",
       dataIndex: "meta_title",
+      render: (title: string) =>
+        title ? (
+          <Tooltip title={title}>
+            <span className="line-clamp-1 max-w-[150px]">{title}</span>
+          </Tooltip>
+        ) : (
+          <Tag color="default">None</Tag>
+        ),
     },
     {
       title: "Meta Description",
       dataIndex: "meta_description",
+      render: (desc: string) =>
+        desc ? (
+          <Tooltip title={desc}>
+            <span className="line-clamp-1 max-w-[200px]">{desc}</span>
+          </Tooltip>
+        ) : (
+          <Tag color="default">None</Tag>
+        ),
     },
     {
       title: "Created At",

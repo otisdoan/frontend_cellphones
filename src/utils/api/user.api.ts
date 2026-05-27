@@ -1,12 +1,12 @@
 import { API_URL } from "../../constants/API_URL";
-import type { UserProps, UserResponse } from "../../types/api/UserResponse";
+import type { UserProps, UserResponse, PaginatedResponse } from "../../types/api/UserResponse";
 import axiosInstance from "../axios";
 
 export const userApi = {
   getAll: async () => {
-    const response = await axiosInstance.get<UserResponse<UserProps>>(
-      API_URL.USER
-    );
+    const response = await axiosInstance.get<
+      UserResponse<PaginatedResponse<UserProps> | UserProps[]>
+    >(API_URL.USER);
     return response.data;
   },
   getById: async (id?: number) => {

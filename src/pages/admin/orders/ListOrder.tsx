@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Input, Tag, Select, Modal, type TableProps } from "antd";
+import { Input, Tag, Select, Modal, Popconfirm, type TableProps } from "antd";
 import type { BreadcrumbItemType } from "antd/es/breadcrumb/Breadcrumb";
 import BreadcrumbAmin from "../../../components/admin/BreadcrumbAmin";
 import DisplaStatistic, {
@@ -16,38 +16,38 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { MdOutlineRemoveRedEye, MdDeleteOutline } from "react-icons/md";
 
 interface OrderItem {
   id: number;
-  product_id: number;
-  product_name: string;
-  variant_name?: string;
-  image_url?: string;
+  productId: number;
+  productName: string;
+  variantName?: string;
+  imageUrl?: string;
   price: number;
-  sale_price?: number;
+  salePrice?: number;
   quantity: number;
   total: number;
 }
 
 interface Order {
   id: number;
-  order_number: string;
-  user_id: number;
-  user_name?: string;
-  user_email?: string;
-  total_amount: number;
+  orderNumber: string;
+  userId: number;
+  guestEmail?: string;
+  guestPhone?: string;
+  totalAmount: number;
   subtotal: number;
-  shipping_fee?: number;
-  discount_amount?: number;
-  status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
-  payment_status: "pending" | "paid" | "failed" | "refunded";
-  payment_method?: string;
-  shipping_address?: string;
-  shipping_phone?: string;
+  shippingFee?: number;
+  discountAmount?: number;
+  status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled" | "PENDING" | "CONFIRMED" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+  paymentStatus: "pending" | "paid" | "failed" | "refunded" | "PENDING" | "PAID" | "FAILED" | "REFUNDED";
+  paymentMethod?: string;
+  shippingAddress?: string;
+  shippingPhone?: string;
   note?: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   items?: OrderItem[];
 }
 
@@ -114,53 +114,64 @@ const ListOrder = () => {
     setIsModalVisible(true);
   };
 
-  const getStatusColor = (status: Order["status"]) => {
-    const colorMap: Record<Order["status"], string> = {
+  const handleDelete = async (orderId: number) => {
+    try {
+      await orderApi.delete(orderId);
+      showSuccess("Xóa đơn hàng thành công");
+      fetchOrders();
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      showError("Không thể xóa đơn hàng");
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    const colorMap: Record<string, string> = {
       pending: "orange",
       confirmed: "blue",
       shipped: "purple",
       delivered: "green",
       cancelled: "red",
     };
-    return colorMap[status] || "default";
+    return colorMap[status?.toLowerCase()] || "default";
   };
 
-  const getStatusText = (status: Order["status"]) => {
-    const textMap: Record<Order["status"], string> = {
+  const getStatusText = (status: string) => {
+    const textMap: Record<string, string> = {
       pending: "Chờ xác nhận",
       confirmed: "Đã xác nhận",
       shipped: "Đang giao",
       delivered: "Hoàn thành",
       cancelled: "Đã hủy",
     };
-    return textMap[status] || status;
+    return textMap[status?.toLowerCase()] || status;
   };
 
-  const getPaymentStatusColor = (status: Order["payment_status"]) => {
-    const colorMap: Record<Order["payment_status"], string> = {
+  const getPaymentStatusColor = (status: string) => {
+    const colorMap: Record<string, string> = {
       pending: "orange",
       paid: "green",
       failed: "red",
       refunded: "purple",
     };
-    return colorMap[status] || "default";
+    return colorMap[status?.toLowerCase()] || "default";
   };
 
-  const getPaymentStatusText = (status: Order["payment_status"]) => {
-    const textMap: Record<Order["payment_status"], string> = {
+  const getPaymentStatusText = (status: string) => {
+    const textMap: Record<string, string> = {
       pending: "Chờ thanh toán",
       paid: "Đã thanh toán",
       failed: "Thất bại",
       refunded: "Đã hoàn tiền",
     };
-    return textMap[status] || status;
+    return textMap[status?.toLowerCase()] || status;
   };
 
   // Calculate statistics
   const totalOrders = orders.length;
-  const pendingOrders = orders.filter((o) => o.status === "pending").length;
-  const completedOrders = orders.filter((o) => o.status === "delivered").length;
-  const cancelledOrders = orders.filter((o) => o.status === "cancelled").length;
+  const pendingOrders = orders.filter((o) => o.status?.toLowerCase() === "pending" || o.status === "PENDING").length;
+  const completedOrders = orders.filter((o) => o.status?.toLowerCase() === "delivered" || o.status === "DELIVERED").length;
+  const cancelledOrders = orders.filter((o) => o.status?.toLowerCase() === "cancelled" || o.status === "CANCELLED").length;
   //   const totalRevenue = orders
   //     .filter((o) => o.payment_status === "paid")
   //     .reduce((sum, o) => sum + Number(o.total_amount), 0);
@@ -188,13 +199,13 @@ const ListOrder = () => {
     },
   ];
 
-  const filteredOrders = orders.filter((order) => {
+  const filteredOrders = orders.filter((order: Order) => {
     const matchSearch =
-      order.order_number.toLowerCase().includes(searchText.toLowerCase()) ||
-      order.user_email?.toLowerCase().includes(searchText.toLowerCase()) ||
-      order.user_name?.toLowerCase().includes(searchText.toLowerCase());
+      (order.orderNumber || "").toLowerCase().includes(searchText.toLowerCase()) ||
+      (order.guestEmail || "").toLowerCase().includes(searchText.toLowerCase()) ||
+      (order.guestPhone || "").toLowerCase().includes(searchText.toLowerCase());
 
-    const matchStatus = statusFilter === "all" || order.status === statusFilter;
+    const matchStatus = statusFilter === "all" || order.status?.toLowerCase() === statusFilter.toLowerCase();
 
     return matchSearch && matchStatus;
   });
@@ -202,10 +213,9 @@ const ListOrder = () => {
   const columns: TableProps<Order>["columns"] = [
     {
       title: "Mã đơn hàng",
-      dataIndex: "order_number",
-      key: "order_number",
+      dataIndex: "orderNumber",
+      key: "orderNumber",
       width: 150,
-      fixed: "left",
       render: (text: string) => (
         <span className="font-semibold text-blue-600">{text}</span>
       ),
@@ -214,19 +224,19 @@ const ListOrder = () => {
       title: "Khách hàng",
       key: "customer",
       width: 200,
-      render: (_, record) => (
+      render: (_, record: Order) => (
         <div>
-          <div className="font-medium">{record.user_name || "N/A"}</div>
+          <div className="font-medium">{record.guestEmail || `User ID: ${record.userId}`}</div>
           <div className="text-xs text-gray-500">
-            {record.user_email || "N/A"}
+            {record.guestPhone || "N/A"}
           </div>
         </div>
       ),
     },
     {
       title: "Tổng tiền",
-      dataIndex: "total_amount",
-      key: "total_amount",
+      dataIndex: "totalAmount",
+      key: "totalAmount",
       width: 150,
       render: (amount: number) => (
         <span className="font-semibold text-red-600">
@@ -240,26 +250,27 @@ const ListOrder = () => {
       key: "status",
       width: 150,
       render: (status: Order["status"]) => (
-        <Tag color={getStatusColor(status)}>{getStatusText(status)}</Tag>
+        <Tag color={getStatusColor(status?.toLowerCase() as Order["status"])}>{getStatusText(status?.toLowerCase() as Order["status"])}</Tag>
       ),
     },
     {
       title: "Thanh toán",
-      dataIndex: "payment_status",
-      key: "payment_status",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
       width: 150,
-      render: (status: Order["payment_status"]) => (
-        <Tag color={getPaymentStatusColor(status)}>
-          {getPaymentStatusText(status)}
+      render: (status: Order["paymentStatus"]) => (
+        <Tag color={getPaymentStatusColor(status?.toLowerCase() as Order["paymentStatus"])}>
+          {getPaymentStatusText(status?.toLowerCase() as Order["paymentStatus"])}
         </Tag>
       ),
     },
     {
       title: "Ngày tạo",
-      dataIndex: "created_at",
-      key: "created_at",
+      dataIndex: "createdAt",
+      key: "createdAt",
       width: 180,
       render: (date: string) => {
+        if (!date) return "N/A";
         const d = new Date(date);
         return d.toLocaleDateString("vi-VN", {
           year: "numeric",
@@ -274,10 +285,10 @@ const ListOrder = () => {
       title: "Cập nhật trạng thái",
       key: "action_status",
       width: 200,
-      render: (_, record) => (
+      render: (_, record: Order) => (
         <Select
-          value={record.status}
-          onChange={(value) => handleUpdateStatus(record.id, value)}
+          value={record.status?.toLowerCase()}
+          onChange={(value) => handleUpdateStatus(record.id, value.toUpperCase() as Order["status"])}
           style={{ width: "100%" }}
           size="small"
         >
@@ -293,7 +304,6 @@ const ListOrder = () => {
       title: "Thao tác",
       key: "actions",
       width: 100,
-      fixed: "right",
       render: (_, record) => (
         <div className="flex gap-x-2">
           <button
@@ -303,6 +313,21 @@ const ListOrder = () => {
           >
             <MdOutlineRemoveRedEye size={20} />
           </button>
+          <Popconfirm
+            title="Xóa đơn hàng"
+            description="Bạn có chắc muốn xóa đơn hàng này?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Xóa"
+            cancelText="Hủy"
+            placement="leftTop"
+          >
+            <button
+              className="text-red-600 hover:text-red-800"
+              title="Xóa"
+            >
+              <MdDeleteOutline size={20} />
+            </button>
+          </Popconfirm>
         </div>
       ),
     },
@@ -355,13 +380,14 @@ const ListOrder = () => {
             dataSource={filteredOrders}
             loading={loading}
             rowKey="id"
-            scroll={{ x: 1400 }}
+            scroll={{ x: "max-content" }}
+            pagination={{ pageSize: 10, position: ["bottomRight"] }}
           />
         </div>
 
         {/* Detail Modal */}
         <Modal
-          title={`Chi tiết đơn hàng: ${selectedOrder?.order_number}`}
+          title={`Chi tiết đơn hàng: ${selectedOrder?.orderNumber}`}
           open={isModalVisible}
           onCancel={() => setIsModalVisible(false)}
           footer={null}
@@ -374,27 +400,27 @@ const ListOrder = () => {
                 <h3 className="font-semibold mb-2">Thông tin khách hàng</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
-                    <span className="text-gray-600">Tên:</span>{" "}
-                    <span className="font-medium">
-                      {selectedOrder.user_name || "N/A"}
-                    </span>
-                  </div>
-                  <div>
                     <span className="text-gray-600">Email:</span>{" "}
                     <span className="font-medium">
-                      {selectedOrder.user_email || "N/A"}
-                    </span>
-                  </div>
-                  <div className="col-span-2">
-                    <span className="text-gray-600">Địa chỉ giao hàng:</span>{" "}
-                    <span className="font-medium">
-                      {selectedOrder.shipping_address || "N/A"}
+                      {selectedOrder.guestEmail || "N/A"}
                     </span>
                   </div>
                   <div>
                     <span className="text-gray-600">SĐT:</span>{" "}
                     <span className="font-medium">
-                      {selectedOrder.shipping_phone || "N/A"}
+                      {selectedOrder.guestPhone || "N/A"}
+                    </span>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="text-gray-600">Địa chỉ giao hàng:</span>{" "}
+                    <span className="font-medium">
+                      {selectedOrder.shippingAddress || "N/A"}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">SĐT Giao Hàng:</span>{" "}
+                    <span className="font-medium">
+                      {selectedOrder.shippingPhone || "N/A"}
                     </span>
                   </div>
                 </div>
@@ -414,24 +440,24 @@ const ListOrder = () => {
                     <span className="text-gray-600">Thanh toán:</span>{" "}
                     <Tag
                       color={getPaymentStatusColor(
-                        selectedOrder.payment_status
+                        selectedOrder.paymentStatus
                       )}
                     >
-                      {getPaymentStatusText(selectedOrder.payment_status)}
+                      {getPaymentStatusText(selectedOrder.paymentStatus)}
                     </Tag>
                   </div>
                   <div>
                     <span className="text-gray-600">Phương thức:</span>{" "}
                     <span className="font-medium">
-                      {selectedOrder.payment_method || "N/A"}
+                      {selectedOrder.paymentMethod || "N/A"}
                     </span>
                   </div>
                   <div>
                     <span className="text-gray-600">Ngày tạo:</span>{" "}
                     <span className="font-medium">
-                      {new Date(selectedOrder.created_at).toLocaleString(
+                      {selectedOrder.createdAt ? new Date(selectedOrder.createdAt).toLocaleString(
                         "vi-VN"
-                      )}
+                      ) : "N/A"}
                     </span>
                   </div>
                 </div>
@@ -454,22 +480,22 @@ const ListOrder = () => {
                     >
                       <img
                         src={
-                          item.image_url || "/images/product-placeholder.webp"
+                          item.imageUrl || "/images/product-placeholder.webp"
                         }
-                        alt={item.product_name}
+                        alt={item.productName}
                         className="w-16 h-16 object-cover rounded"
                       />
                       <div className="flex-1">
-                        <div className="font-medium">{item.product_name}</div>
-                        {item.variant_name && (
+                        <div className="font-medium">{item.productName}</div>
+                        {item.variantName && (
                           <div className="text-sm text-gray-500">
-                            {item.variant_name}
+                            {item.variantName}
                           </div>
                         )}
                         <div className="text-sm">
                           <span className="text-red-600 font-semibold">
                             {Number(
-                              item.sale_price || item.price
+                              item.salePrice || item.price
                             ).toLocaleString("vi-VN")}
                             đ
                           </span>
@@ -492,23 +518,23 @@ const ListOrder = () => {
                       {Number(selectedOrder.subtotal).toLocaleString("vi-VN")}đ
                     </span>
                   </div>
-                  {selectedOrder.shipping_fee && (
+                  {selectedOrder.shippingFee && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">Phí vận chuyển:</span>
                       <span>
-                        {Number(selectedOrder.shipping_fee).toLocaleString(
+                        {Number(selectedOrder.shippingFee).toLocaleString(
                           "vi-VN"
                         )}
                         đ
                       </span>
                     </div>
                   )}
-                  {selectedOrder.discount_amount && (
+                  {selectedOrder.discountAmount && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">Giảm giá:</span>
                       <span className="text-green-600">
                         -
-                        {Number(selectedOrder.discount_amount).toLocaleString(
+                        {Number(selectedOrder.discountAmount).toLocaleString(
                           "vi-VN"
                         )}
                         đ
@@ -518,7 +544,7 @@ const ListOrder = () => {
                   <div className="flex justify-between text-base font-bold border-t pt-2">
                     <span>Tổng cộng:</span>
                     <span className="text-red-600">
-                      {Number(selectedOrder.total_amount).toLocaleString(
+                      {Number(selectedOrder.totalAmount).toLocaleString(
                         "vi-VN"
                       )}
                       đ

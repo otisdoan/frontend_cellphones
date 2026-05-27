@@ -31,4 +31,9 @@ export const API_URL = {
   CART_ITEM: "/cart-items",
   PAYMENT: "/payment",
   NOTIFICATION: "/notifications",
+  COUPON: "/coupons",
+  WAREHOUSE: "/warehouses",
+  INVENTORY: "/inventories",
+  PRODUCT_REVIEW: "/product-reviews",
+  USER_ADDRESS: "/user-addresses",
 };

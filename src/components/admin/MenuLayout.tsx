@@ -1,5 +1,5 @@
 import { Menu, type MenuProps } from "antd";
-import { AiOutlineOrderedList, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineOrderedList, AiOutlineSetting, AiOutlineStar, AiOutlineEnvironment } from "react-icons/ai";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import {
   MdContentPaste,
@@ -70,33 +70,53 @@ const MenuLayout = () => {
     {
       key: "6",
       icon: <MdOutlineWarehouse />,
-      label: <Link to="/admin/products">Warehouse</Link>,
+      label: "Warehouse",
+      children: [
+        {
+          key: "61",
+          label: <Link to="/admin/warehouses">Kho hàng</Link>,
+        },
+        {
+          key: "62",
+          label: <Link to="/admin/inventories">Tồn kho</Link>,
+        },
+      ],
     },
     {
       key: "7",
       icon: <RiCoupon2Line />,
-      label: <Link to="/admin/products">Promotion & Coupon</Link>,
+      label: <Link to="/admin/coupons">Coupon</Link>,
     },
     {
       key: "8",
-      icon: <MdContentPaste />,
-      label: <Link to="/admin/products">Blog</Link>,
+      icon: <AiOutlineStar />,
+      label: <Link to="/admin/product-reviews">Đánh giá</Link>,
+    },
+    {
+      key: "9",
+      icon: <AiOutlineEnvironment />,
+      label: <Link to="/admin/user-addresses">Địa chỉ</Link>,
     },
     {
       type: "divider",
     },
     {
-      key: "9",
+      key: "10",
       icon: <MdOutlineMessage />,
       label: "Message",
     },
     {
-      key: "10",
+      key: "11",
       icon: <MdOutlineNotificationsActive />,
       label: "Notification",
     },
     {
-      key: "11",
+      key: "12",
+      icon: <MdContentPaste />,
+      label: "Blog",
+    },
+    {
+      key: "13",
       icon: <AiOutlineSetting />,
       label: "Setting",
     },

@@ -37,3 +37,13 @@
 .notification-modal .ant-tabs-content-holder::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
+
+/* Premium styling for Admin Tables */
+.admin-table .ant-table-thead > tr > th {
+  white-space: nowrap !important;
+}
+
+.admin-table .ant-table-tbody > tr > td {
+  white-space: nowrap !important;
+}
+

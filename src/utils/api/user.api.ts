@@ -37,10 +37,16 @@ export const userApi = {
     );
     return response.data;
   },
+  updateUser: async (id: number, payload: Partial<UserProps>) => {
+    return userApi.update(id, payload);
+  },
   delete: async (id: number) => {
     const response = await axiosInstance.delete<UserResponse<UserProps>>(
       `${API_URL.USER}/${id}`
     );
     return response.data;
+  },
+  deleteUser: async (id: number) => {
+    return userApi.delete(id);
   },
 };

@@ -33,8 +33,20 @@ export const productAttributeApi = {
     >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`, payload);
     return response.data;
   },
+  updateProductAttribute: async (id: number, payload: ProductAttributeProps) => {
+    return productAttributeApi.update(id, payload);
+  },
   delete: async (id: number) => {
     const response = await axiosInstance.delete<
+      ProductAttributeResponse<ProductAttributeProps>
+    >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`);
+    return response.data;
+  },
+  deleteProductAttribute: async (id: number) => {
+    return productAttributeApi.delete(id);
+  },
+  getByProductId: async (id: number | string | undefined) => {
+    const response = await axiosInstance.get<
       ProductAttributeResponse<ProductAttributeProps>
     >(`${API_URL.PRODUCT_ATTRIBUTE}/${id}`);
     return response.data;

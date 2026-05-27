@@ -23,10 +23,19 @@ export interface NotificationResponse<T> {
 }
 
 export const notificationApi = {
-  getAll: async () => {
+  getAll: async (userId?: number, type?: string) => {
+    const params = type ? { type } : {};
+    const url = userId ? `${API_URL.NOTIFICATION}/user/${userId}` : API_URL.NOTIFICATION;
     const response = await axiosInstance.get<
       NotificationResponse<NotificationProps[]>
-    >(API_URL.NOTIFICATION);
+    >(url, { params });
+    return response.data;
+  },
+
+  getUnreadCount: async (userId: number) => {
+    const response = await axiosInstance.get<
+      NotificationResponse<{ count: number }>
+    >(`${API_URL.NOTIFICATION}/user/${userId}/unread-count`);
     return response.data;
   },
 
@@ -48,6 +57,20 @@ export const notificationApi = {
     const response = await axiosInstance.put<
       NotificationResponse<NotificationProps>
     >(`${API_URL.NOTIFICATION}/${id}`, payload);
+    return response.data;
+  },
+
+  markAsRead: async (id: number) => {
+    const response = await axiosInstance.patch<
+      NotificationResponse<NotificationProps>
+    >(`${API_URL.NOTIFICATION}/${id}/read`);
+    return response.data;
+  },
+
+  markAllAsRead: async (userId: number) => {
+    const response = await axiosInstance.patch<NotificationResponse<void>>(
+      `${API_URL.NOTIFICATION}/user/${userId}/read-all`
+    );
     return response.data;
   },
 

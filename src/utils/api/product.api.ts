@@ -2,6 +2,7 @@ import { API_URL } from "../../constants/API_URL";
 import type {
   ProductProps,
   ProductResponse,
+  ProductSelect,
 } from "../../types/api/ProductResponse";
 import axiosInstance from "../axios";
 
@@ -9,6 +10,12 @@ export const productApi = {
   getAll: async () => {
     const response = await axiosInstance.get<ProductResponse<ProductProps>>(
       API_URL.PRODUCT
+    );
+    return response.data;
+  },
+  getAllName: async () => {
+    const response = await axiosInstance.get<ProductResponse<ProductSelect>>(
+      API_URL.OTHER_PRODUCT.GET_ALL_NAME
     );
     return response.data;
   },
@@ -42,6 +49,12 @@ export const productApi = {
   delete: async (id: number) => {
     const response = await axiosInstance.delete<ProductResponse<ProductProps>>(
       `${API_URL.PRODUCT}/${id}`
+    );
+    return response.data;
+  },
+  getByCategory: async (categoryId: number) => {
+    const response = await axiosInstance.get<ProductResponse<ProductProps>>(
+      `${API_URL.PRODUCT}/category/${categoryId}`
     );
     return response.data;
   },

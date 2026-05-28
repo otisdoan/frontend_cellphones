@@ -38,6 +38,14 @@
   background: #9ca3af;
 }
 
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 /* Premium styling for Admin Tables */
 .admin-table .ant-table-thead > tr > th {
   white-space: nowrap !important;

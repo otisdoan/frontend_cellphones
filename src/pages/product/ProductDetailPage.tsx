@@ -13,6 +13,7 @@ import OptionProduct from "../../components/products/OptionProduct";
 import GiftProduct from "../../components/products/GiftProduct";
 import AtrributeProduct from "../../components/products/AtrributeProduct";
 import FavoriteProduct from "../../components/products/FavoriteProduct";
+import ProductReviews from "../../components/products/ProductReviews";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -109,6 +110,9 @@ const ProductDetailPage = () => {
           {product?.id && <OptionProduct group_name={product.group_name} />}
           {product?.id && <GiftProduct product_id={product?.id} />}
         </div>
+      </div>
+      <div className="mt-6 px-3 md:px-0">
+        <ProductReviews productName={product?.name} />
       </div>
       <div className="mt-4 px-3 md:px-0 hidden md:block">
         <FavoriteProduct />

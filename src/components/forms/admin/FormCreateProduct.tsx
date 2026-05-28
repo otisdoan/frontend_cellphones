@@ -9,6 +9,7 @@ import { productApi } from "../../../utils/api/product.api";
 import { useEffect, useState } from "react";
 import { categoryApi } from "../../../utils/api/category.api";
 import type {
+  CategoryProps,
   CategoryResponse,
   CategoryTree,
 } from "../../../types/api/CategoryResponse";
@@ -77,19 +78,49 @@ const FormCreateProduct = ({ id }: { id?: number }) => {
 
   const getAllCategories = async () => {
     try {
-      const result = await categoryApi.getAllNameCategories();
-      setAllCategories(result.data);
+      const result = await categoryApi.getAll();
+      const categoriesData = result.data;
+      if (Array.isArray(categoriesData)) {
+        // Map CategoryProps to TreeData structure expected by TreeSelect
+        const mapCategoryToTree = (categories: CategoryProps[]): any[] => {
+          const rootCategories = categories.filter(
+            (c) => !c.parent_id
+          );
+          const buildTree = (nodes: CategoryProps[]): any[] => {
+            return nodes.map((node) => {
+              const children = categories.filter(
+                (c) => c.parent_id === node.id
+              );
+              return {
+                title: node.name,
+                value: node.id,
+                children: children.length > 0 ? buildTree(children) : undefined,
+              };
+            });
+          };
+          return buildTree(rootCategories);
+        };
+        setAllCategories(mapCategoryToTree(categoriesData));
+      }
     } catch (error) {
-      showError(error as string);
+      console.error("Error loading categories:", error);
     }
   };
 
   const getAllNameBrand = async () => {
     try {
-      const result = await brandApi.getAllNameBrand();
-      setAllBrand(result.data);
+      const result = await brandApi.getAll();
+      const brandData = result.data;
+      if (Array.isArray(brandData)) {
+        // Map BrandProps to Select options format: { label, value }
+        const brandOptions = brandData.map((b: any) => ({
+          label: b.name,
+          value: b.id,
+        }));
+        setAllBrand(brandOptions);
+      }
     } catch (error) {
-      showError(error as string);
+      console.error("Error loading brands:", error);
     }
   };
 
